@@ -1,0 +1,105 @@
+/* ===== Notitas: tablero de stickers ===== */
+.notes { gap: 8px; }
+
+.notesboard {
+  columns: 2;
+  column-gap: 12px;
+  margin-top: 4px;
+}
+
+.note {
+  break-inside: avoid;
+  margin-bottom: 14px;
+  position: relative;
+  border-radius: 14px;
+  padding: 24px 13px 13px;
+  box-shadow: 0 6px 14px -6px rgba(120, 40, 80, 0.28);
+  transition: transform 0.15s ease;
+}
+.note:active { transform: scale(0.98) !important; }
+
+/* colores pastel */
+.note--pink { background: #ffd9ea; }
+.note--lav { background: #e7ddff; }
+.note--mint { background: #d3f3e4; }
+.note--peach { background: #ffe2cf; }
+.note--yellow { background: #fff2c2; }
+
+/* washi tape */
+.note__tape {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 62px;
+  height: 19px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px dashed rgba(255, 255, 255, 0.85);
+  border-radius: 3px;
+}
+
+.note__pin {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 15px;
+  line-height: 1;
+  z-index: 1;
+}
+
+.note__content { display: block; width: 100%; text-align: left; cursor: pointer; }
+.note__title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #5a3b4d;
+  margin-bottom: 6px;
+  padding-right: 16px;
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+}
+.note__text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b4a5c;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+.note__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.note__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #6b4a5c;
+}
+.note__list li.done span { text-decoration: line-through; opacity: 0.55; }
+.note__check { font-size: 14px; line-height: 1.2; flex-shrink: 0; }
+
+/* estado vacío */
+.notes-empty {
+  text-align: center;
+  padding: 20px 16px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.notes-empty__ic { font-size: 52px; line-height: 1; }
+.notes-empty h3 { font-size: 17px; margin: 8px 0 2px; }
+
+/* selector de color en el editor */
+.note-swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+}
+.note-swatch--on { outline: 3px solid var(--primary); outline-offset: 1px; }
+.note-swatch--pink { background: #ffd9ea; }
+.note-swatch--lav { background: #e7ddff; }
+.note-swatch--mint { background: #d3f3e4; }
+.note-swatch--peach { background: #ffe2cf; }
+.note-swatch--yellow { background: #fff2c2; }

@@ -1,0 +1,155 @@
+/* ===========================================================
+   Nia App — Sistema de diseño
+   Lila / morado pastel + glassmorphism · claro y oscuro
+   =========================================================== */
+
+/* ---------- Reset ligero ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--app-bg);
+  background-attachment: fixed;
+  overscroll-behavior-y: none;
+}
+input, button, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* ---------- Tokens: tema CLARO (default) ---------- */
+:root {
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Rounded",
+          "Hiragino Maru Gothic ProN", "Quicksand", system-ui, sans-serif;
+
+  /* Fondo de la app (degradado lila suave) */
+  --app-bg: radial-gradient(135% 120% at 50% -10%,
+              #f2e9ff 0%, #e6d9ff 38%, #eee3ff 70%, #e4ecff 100%);
+
+  /* Superficies de cristal */
+  --surface:        rgba(255, 255, 255, 0.62);
+  --surface-strong: rgba(255, 255, 255, 0.86);
+  --surface-soft:   rgba(255, 255, 255, 0.40);
+  --border:         rgba(255, 255, 255, 0.75);
+  --border-soft:    rgba(150, 120, 230, 0.18);
+  --blur: 18px;
+
+  /* Texto */
+  --text:      #4d4361;
+  --text-soft: #8b8199;
+  --text-faint:#b6adc6;
+
+  /* Marca */
+  --primary:        #9b7bff;
+  --primary-strong: #7c5cf5;
+  --primary-soft:   #e3dbff;
+  --primary-tint:   rgba(155, 123, 255, 0.12);
+
+  /* Semánticos */
+  --income:  #34c08a;
+  --income-soft: rgba(52, 192, 138, 0.14);
+  --expense: #ff6f86;
+  --expense-soft: rgba(255, 111, 134, 0.14);
+  --transfer: #4aa3ff;
+  --transfer-soft: rgba(74, 163, 255, 0.14);
+  --gold: #ffb43d;
+  --gold-soft: rgba(255, 180, 61, 0.16);
+
+  /* Sombras */
+  --shadow-sm: 0 6px 16px -10px rgba(108, 70, 200, 0.42);
+  --shadow-md: 0 14px 30px -16px rgba(108, 70, 200, 0.42);
+  --shadow-lg: 0 24px 50px -24px rgba(108, 70, 200, 0.46);
+  --shadow-pop: 0 18px 40px -16px rgba(124, 92, 245, 0.52);
+
+  /* Radios */
+  --r-xs: 12px;
+  --r-sm: 16px;
+  --r-md: 22px;
+  --r-lg: 28px;
+  --r-xl: 34px;
+  --r-pill: 999px;
+
+  /* Espaciado base */
+  --gap: 14px;
+
+  /* Layout */
+  --maxw: 460px;
+  --nav-h: 76px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  --ease-pop: cubic-bezier(0.22, 1.4, 0.4, 1);
+}
+
+/* ---------- Tokens: tema OSCURO (lila nocturna) ---------- */
+:root[data-theme="dark"] {
+  --app-bg: radial-gradient(135% 120% at 50% -10%,
+              #2b2440 0%, #201b33 45%, #181428 100%);
+
+  --surface:        rgba(225, 215, 255, 0.08);
+  --surface-strong: rgba(225, 215, 255, 0.14);
+  --surface-soft:   rgba(225, 215, 255, 0.05);
+  --border:         rgba(210, 200, 255, 0.16);
+  --border-soft:    rgba(150, 120, 230, 0.20);
+  --blur: 20px;
+
+  --text:      #efe9ff;
+  --text-soft: #c3b8de;
+  --text-faint:#948ab0;
+
+  --primary:        #b39bff;
+  --primary-strong: #9b7bff;
+  --primary-soft:   rgba(179, 155, 255, 0.22);
+  --primary-tint:   rgba(179, 155, 255, 0.16);
+
+  --income:  #5fd6a6;
+  --income-soft: rgba(95, 214, 166, 0.18);
+  --expense: #ff869a;
+  --expense-soft: rgba(255, 134, 154, 0.18);
+  --transfer: #6ab4ff;
+  --transfer-soft: rgba(106, 180, 255, 0.18);
+  --gold: #ffc862;
+  --gold-soft: rgba(255, 200, 98, 0.18);
+
+  --shadow-sm: 0 6px 16px -10px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 14px 30px -16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 24px 50px -24px rgba(0, 0, 0, 0.65);
+  --shadow-pop: 0 18px 40px -16px rgba(155, 123, 255, 0.45);
+}
+
+/* ---------- Tipografía utilitaria ---------- */
+.t-display { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+.t-title   { font-size: 19px; font-weight: 800; letter-spacing: -0.2px; }
+.t-label   { font-size: 13px; font-weight: 700; color: var(--text-soft); }
+.t-soft    { color: var(--text-soft); }
+.t-faint   { color: var(--text-faint); }
+
+/* ---------- Cristal reutilizable ---------- */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  backdrop-filter: blur(var(--blur)) saturate(1.3);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.3);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Dinero ---------- */
+.money { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+.money .dec { font-size: 0.62em; opacity: 0.65; font-weight: 700; }
+
+/* ---------- Scroll oculto pero funcional ---------- */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Nota: a propósito NO desactivamos las animaciones con prefers-reduced-motion.
+   El gatito y la vida de la app son su esencia; en iOS "Reducir movimiento"
+   las apagaba todas (el gato no se movía). Si en el futuro se quiere respetar,
+   hacerlo de forma selectiva (transiciones de página), nunca al gato. */

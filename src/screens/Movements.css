@@ -1,0 +1,73 @@
+/* Dos barras desplegables (filtros de Movimientos) */
+.fsel-row {
+  display: flex;
+  gap: 10px;
+}
+.fsel {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.fsel__bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 14px;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--text);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.fsel__bar--active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  border-color: transparent;
+  color: #fff;
+}
+.fsel__bar--open { border-color: var(--primary); }
+.fsel__val {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fsel__caret { font-size: 11px; opacity: 0.8; transition: transform 0.2s ease; }
+.fsel__bar--open .fsel__caret { transform: rotate(180deg); }
+
+.fsel__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+  padding: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+  animation: fsel-in 0.16s var(--ease-pop);
+}
+@keyframes fsel-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+.fsel__opt {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: left;
+  color: var(--text);
+}
+.fsel__opt--on { background: var(--primary-tint); color: var(--primary-strong); }
+.fsel__opt:active { background: var(--surface-soft); }
+.fsel__check { margin-left: auto; color: var(--primary-strong); font-weight: 900; }

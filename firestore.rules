@@ -1,0 +1,22 @@
+rules_version = '2';
+
+// Última actualización: 2026-07-04
+// Último cambio: reglas iniciales de Nia App — cada usuaria solo accede a SU
+// propia data bajo users/{uid} y todas sus subcolecciones; todo lo demás negado.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Cada usuaria es dueña de su documento y de TODO lo que cuelga de él
+    // (accounts, categories, movements).
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /{document=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Cualquier otra ruta: denegada por defecto.
+  }
+}

@@ -1,0 +1,145 @@
+/* Caja de transferencia pendiente (confirmar llegada) */
+.pending-box {
+  background: linear-gradient(100deg, #fff3c9, #ffe8b0);
+  border: 1px solid #f2c94c;
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  margin-top: 4px;
+}
+.pending-box__title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #7a4a00;
+  margin: 0 0 4px;
+}
+
+/* Selector de tipo */
+.typegrid { display: flex; flex-direction: column; gap: 12px; padding-bottom: 6px; }
+.typebtn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: var(--r-md);
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.12s ease;
+}
+.typebtn:active { transform: scale(0.97); }
+.typebtn__emoji {
+  font-size: 22px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+}
+.typebtn--income { background: linear-gradient(135deg, #4cd29a, var(--income)); }
+.typebtn--expense { background: linear-gradient(135deg, #ff8a9e, var(--expense)); }
+.typebtn--transfer { background: linear-gradient(135deg, #b39bff, var(--transfer)); }
+.adjustlink {
+  margin: 2px auto 0;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+/* Formulario */
+.addform { display: flex; flex-direction: column; gap: 16px; }
+.addform__back {
+  align-self: flex-start;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--text-soft);
+  padding: 4px 2px;
+}
+.addform__hint { font-size: 12px; color: var(--text-faint); padding-left: 2px; }
+
+/* Monto — un solo número grande */
+.amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 14px 0 10px;
+  color: var(--text);
+}
+.amount__cur { font-size: 30px; font-weight: 800; opacity: 0.85; }
+.amount__big {
+  width: auto;
+  max-width: 78%;
+  min-width: 1ch;
+  field-sizing: content; /* crece con el texto donde se soporta */
+  text-align: center;
+  background: transparent;
+  border: 0;
+  outline: none;
+  padding: 0;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+  caret-color: var(--primary);
+}
+.amount__big::placeholder { color: var(--text-faint); opacity: 0.6; }
+.amount--income { color: var(--income); }
+.amount--expense { color: var(--expense); }
+.amount--transfer { color: var(--transfer); }
+
+/* Chips scroll horizontal */
+.chips-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 4px;
+  -webkit-overflow-scrolling: touch;
+}
+.chips-scroll .chip { flex: 0 0 auto; }
+
+/* Categoría seleccionada */
+.cat-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1.5px solid var(--primary);
+  font-weight: 700;
+  font-size: 15px;
+  width: 100%;
+}
+.cat-selected__change { margin-left: auto; font-size: 12px; color: var(--primary-strong); font-weight: 800; }
+.cat-dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
+
+/* Picker categoría */
+.catpicker { display: flex; flex-direction: column; gap: 8px; }
+.catpicker__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 190px;
+  overflow-y: auto;
+}
+.catpicker__opt {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  border-radius: var(--r-xs);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  font-size: 14.5px;
+  font-weight: 600;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+.catpicker__opt:active { background: var(--primary-tint); }
+.catpicker__create { color: var(--primary-strong); font-weight: 800; }
+
+/* Done */
+.done { text-align: center; padding: 10px 0 18px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.done h3 { font-size: 20px; font-weight: 800; }

@@ -1,0 +1,337 @@
+/* ===== Mi Ciclo — rincón íntimo, paleta lila ===== */
+.ciclo .card { margin-bottom: 12px; }
+
+/* Héroe: anillo + fase */
+.ciclo-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 18px;
+}
+.ciclo-ringcat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.ciclo-daylabel {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 12px;
+}
+.ciclo-phasemsg {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-soft);
+  font-style: italic;
+  margin-top: 4px;
+  max-width: 280px;
+}
+.ciclo-active {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #d14b7a;
+  background: rgba(255, 143, 184, 0.18);
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+}
+
+/* Predicciones */
+.ciclo-preds { display: flex; gap: 10px; margin-bottom: 12px; }
+.ciclo-pred {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 13px 14px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.ciclo-pred--fert { background: linear-gradient(135deg, rgba(184, 146, 236, 0.16), rgba(155, 123, 255, 0.08)); }
+.ciclo-pred__ic { font-size: 20px; }
+.ciclo-pred__lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-faint); margin-top: 4px; }
+.ciclo-pred__val { font-size: 17px; font-weight: 800; color: var(--text); margin-top: 2px; }
+.ciclo-pred__sub { font-size: 11.5px; color: var(--text-soft); margin-top: 1px; }
+
+/* Regularidad */
+.ciclo-regpill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: var(--r-pill);
+}
+.ciclo-reg--ok .ciclo-regpill { background: var(--income-soft); color: var(--income); }
+.ciclo-reg--medio .ciclo-regpill { background: var(--gold-soft); color: #c98a12; }
+.ciclo-reg--ojo .ciclo-regpill { background: var(--expense-soft); color: var(--expense); }
+
+/* Calendario */
+.ciclo-calhead b { font-size: 15px; }
+.ciclo-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+}
+.ciclo-dow { text-align: center; font-size: 11px; font-weight: 800; color: var(--text-faint); padding-bottom: 2px; }
+.ciclo-cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  border-radius: 50%;
+  font-weight: 700;
+  color: var(--text-soft);
+  border: 1.5px solid transparent;
+  transition: transform 0.1s ease;
+}
+.ciclo-cell:active { transform: scale(0.9); }
+.ciclo-cell--pred { color: #d14b7a; border-color: rgba(255, 143, 184, 0.55); border-style: dashed; }
+.ciclo-cell--fert { background: rgba(184, 146, 236, 0.20); color: #7c5cf5; font-weight: 800; }
+.ciclo-cell--ov { background: #b892ec; color: #fff; font-weight: 800; }
+.ciclo-cell--bled { background: #ff8fb8; color: #fff; font-weight: 800; }
+.ciclo-cell--today { border-color: var(--primary-strong); border-style: solid; }
+.ciclo-dot {
+  position: absolute;
+  bottom: 5px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+}
+.ciclo-cell--bled .ciclo-dot, .ciclo-cell--ov .ciclo-dot { background: #fff; opacity: 0.9; }
+.ciclo-cell__n { font-size: 11.5px; line-height: 1; opacity: 0.85; }
+.ciclo-emoji { font-size: 15px; line-height: 1; }
+/* cuando hay emoji, el número se hace secundario para dar el balance */
+.ciclo-cell:has(.ciclo-emoji) .ciclo-cell__n { font-size: 10px; font-weight: 700; }
+
+/* Leyenda */
+.ciclo-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--text-soft);
+}
+.ciclo-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.lg { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.lg--bled { background: #ff8fb8; }
+.lg--ov { background: #b892ec; }
+.lg--fert { background: rgba(184, 146, 236, 0.35); }
+.lg--pred { border: 1.5px dashed rgba(255, 143, 184, 0.7); }
+.ciclo-disclaimer { font-size: 10.5px; color: var(--text-faint); text-align: center; margin-top: 10px; }
+.ciclo-privacy { font-size: 11.5px; color: var(--text-faint); text-align: center; margin: 6px 0 4px; }
+
+/* Switch de fertilidad */
+.cyc-switch {
+  width: 46px; height: 27px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+.cyc-switch--on { background: var(--primary); }
+.cyc-switch__dot {
+  position: absolute;
+  top: 2.5px; left: 3px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease-pop);
+}
+.cyc-switch--on .cyc-switch__dot { transform: translateX(18px); }
+
+/* ===== Hoja de día ===== */
+.cyc-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(40, 24, 45, 0.42);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: cyc-fade 0.2s ease;
+}
+@keyframes cyc-fade { from { opacity: 0; } }
+.cyc-sheet {
+  width: 100%;
+  max-width: var(--maxw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--surface-strong);
+  backdrop-filter: blur(var(--blur)) saturate(1.4);
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  border: 1px solid var(--border);
+  padding: 10px 18px calc(18px + var(--safe-bottom));
+  box-shadow: var(--shadow-lg);
+  animation: cyc-up 0.28s var(--ease-pop);
+}
+@keyframes cyc-up { from { transform: translateY(30px); opacity: 0.6; } }
+.cyc-sheet__grip { width: 42px; height: 5px; border-radius: 999px; background: var(--border-soft); margin: 4px auto 12px; }
+.cyc-sheet__title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 14px; }
+
+.cyc-bled {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.cyc-bled--on { background: rgba(255, 143, 184, 0.16); border-color: rgba(255, 143, 184, 0.4); }
+.cyc-bled__toggle {
+  font-size: 13px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+  color: #fff;
+}
+.cyc-bled:not(.cyc-bled--on) .cyc-bled__toggle { background: var(--surface-strong); color: var(--primary-strong); border: 1px solid var(--border); }
+
+.cyc-group { margin-top: 16px; }
+.cyc-label { font-size: 13px; font-weight: 800; color: var(--text-soft); margin-bottom: 8px; }
+.cyc-opt { font-weight: 600; color: var(--text-faint); font-size: 12px; }
+
+/* Control segmentado (flujo, dolor) */
+.cyc-seg {
+  display: flex;
+  gap: 5px;
+  padding: 4px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.cyc-seg__opt {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: calc(var(--r-sm) - 4px);
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text-soft);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.cyc-seg__opt.is-on {
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Emoji libre del teclado */
+.cyc-emojiwrap { display: flex; align-items: center; gap: 14px; }
+.cyc-emojiinput {
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 30px;
+  line-height: 1;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  caret-color: transparent;
+}
+.cyc-emojiinput::placeholder { opacity: 0.3; }
+.cyc-emojihint { font-size: 12.5px; color: var(--text-soft); line-height: 1.4; }
+.cyc-emojiclear {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--primary-strong);
+}
+
+/* Desplegable de síntomas */
+.cyc-drop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 15px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.cyc-drop__n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+}
+.cyc-drop__chev { color: var(--text-faint); font-size: 16px; transition: transform 0.2s ease; }
+.cyc-drop__chev.is-open { transform: rotate(180deg); }
+.cyc-symsel { font-size: 12px; color: var(--text-soft); margin-top: 6px; padding-left: 4px; }
+.cyc-symlist {
+  margin-top: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--surface);
+}
+.cyc-symrow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  font-size: 14px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-soft);
+}
+.cyc-symrow:last-child { border-bottom: 0; }
+.cyc-symrow:active { background: var(--primary-tint); }
+.cyc-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+}
+.cyc-check.is-on { background: var(--primary); border-color: transparent; }
+
+.cyc-note {
+  width: 100%;
+  min-height: 60px;
+  resize: vertical;
+  padding: 12px 14px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 14px;
+}
+.cyc-done { margin-top: 20px; }

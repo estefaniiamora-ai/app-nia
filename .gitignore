@@ -1,0 +1,45 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# build
+dist
+dist-ssr
+*.local
+
+# artefactos de TypeScript (los emite `tsc -b`)
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# editor / os
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# env / secrets (Firebase config local, etc.)
+.env
+.env.local
+.env.*.local
+
+# herramientas locales (Claude, etc.)
+.claude
+.firebase
+
+# definición (documentos de planeación, no van al build)
+# (se dejan en el repo, solo nota: no afectan a Vite)
+
+# Migración (claves de servicio y deps — NUNCA subir)
+_migracion/

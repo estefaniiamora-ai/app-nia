@@ -1,0 +1,45 @@
+.catstage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.catstage__bg {
+  position: absolute;
+  inset: 6%;
+  border-radius: 30px;
+  overflow: hidden;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+.catstage__cat { position: relative; z-index: 1; }
+
+/* Fondos */
+.catstage__bg--none { background: transparent; }
+.catstage__bg--sky {
+  background: linear-gradient(180deg, #cdeafe 0%, #eaf6ff 100%);
+}
+.catstage__bg--hearts {
+  background: linear-gradient(180deg, #ffd9ec 0%, #ffe9f5 100%);
+}
+.catstage__bg--mint {
+  background: linear-gradient(180deg, #c9f0db 0%, #e7faf0 100%);
+}
+.catstage__bg--night {
+  background: linear-gradient(180deg, #3a2a52 0%, #5a3f70 100%);
+}
+
+/* Decoración flotante */
+.catstage__decor {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0.85;
+  animation: stage-float 4s ease-in-out infinite;
+}
+.catstage__decor.d0 { top: 12%; left: 12%; animation-delay: 0s; }
+.catstage__decor.d1 { top: 20%; right: 14%; font-size: 15px; animation-delay: 0.8s; }
+.catstage__decor.d2 { bottom: 16%; right: 20%; font-size: 13px; animation-delay: 1.6s; }
+@keyframes stage-float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}

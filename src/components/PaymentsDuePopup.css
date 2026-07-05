@@ -1,0 +1,64 @@
+/* Popup de pagos pendientes (atrasados / hoy / mañana) */
+
+.paydue__intro {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-soft);
+  margin: -4px 0 12px;
+}
+
+.paydue__row {
+  padding-right: 10px;
+}
+
+/* el sub puede envolver para que quepan pill + monto + cuenta */
+.paydue__row .row__sub {
+  white-space: normal;
+  overflow: visible;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+  line-height: 1.5;
+}
+
+.paydue__pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+.paydue__pill--overdue { background: #ffd9d9; color: #b3261e; }
+.paydue__pill--today { background: #ffe0ad; color: #8a5300; }
+.paydue__pill--soon { background: #fff0c9; color: #8a6800; }
+
+.paydue__pay {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #1f7a4d;
+  background: #d6f3e4;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.paydue__pay:active { transform: scale(0.94); }
+.paydue__pay:hover { filter: brightness(0.97); }
+
+.paydue__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.paydue__actions .btn { flex: 1; }
+
+/* estado "todo al día" */
+.paydue__done {
+  text-align: center;
+  padding: 8px 4px 4px;
+}
+.paydue__done-ic { font-size: 44px; display: block; margin-bottom: 6px; }
+.paydue__done-title { font-size: 18px; font-weight: 800; margin: 0; }
+.paydue__done-sub { font-size: 13.5px; color: var(--text-soft); margin: 4px 0 18px; }

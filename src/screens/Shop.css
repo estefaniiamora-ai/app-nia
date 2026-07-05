@@ -1,0 +1,147 @@
+.shop-preview {
+  display: flex;
+  justify-content: center;
+  padding: 6px 0 2px;
+}
+
+/* Nombre del gato editable */
+.cat-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: -4px 0 6px;
+}
+.cat-name__input {
+  text-align: center;
+  font-size: 21px;
+  font-weight: 800;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed var(--border);
+  padding: 2px 6px;
+  max-width: 210px;
+  border-radius: 0;
+}
+.cat-name__input:focus {
+  outline: none;
+  border-bottom-color: var(--primary);
+}
+.cat-name__pencil { font-size: 13px; opacity: 0.55; }
+
+/* Pilditas de racha/metas */
+.cat-stats {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cat-stat {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 5px 12px;
+  box-shadow: var(--shadow-sm);
+}
+.cat-stat b { color: var(--primary-strong); }
+
+/* Teaser de mini-juegos */
+.minigames-teaser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  margin-top: 12px;
+  border-radius: var(--r-md);
+  background: linear-gradient(100deg, #efe6ff, #ffe6f3);
+  border: 1px dashed #d3b8ee;
+  box-shadow: var(--shadow-sm);
+}
+.minigames-teaser__ic { font-size: 24px; }
+.minigames-teaser b { font-size: 14.5px; display: block; color: #6b3f8f; }
+.minigames-teaser__sub { font-size: 12px; color: var(--text-soft); }
+.soon-pill {
+  font-size: 11px;
+  font-weight: 800;
+  color: #6b3f8f;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: var(--r-pill);
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.shopgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.shopitem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 14px 6px 11px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+.shopitem:active { transform: scale(0.95); }
+.shopitem__emoji { font-size: 32px; line-height: 1.1; }
+.shopitem__name { font-size: 12.5px; font-weight: 700; }
+.shopitem__status { font-size: 11.5px; font-weight: 800; margin-top: 3px; }
+
+.status--price { color: #d98a14; }
+.status--have { color: var(--primary-strong); }
+.status--on { color: var(--income); }
+.status--locked { color: var(--text-faint); }
+
+.shopitem--on { outline: 2.5px solid var(--income); box-shadow: 0 8px 20px -10px rgba(52, 192, 138, 0.5); }
+.shopitem--locked { opacity: 0.75; }
+
+.mundial-banner {
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #7a4a00;
+  background: linear-gradient(100deg, #fff3c9, #ffe08a);
+  border: 1px solid #f2c94c;
+  border-radius: var(--r-md);
+  padding: 9px 12px;
+  margin: 2px 0 -2px;
+  box-shadow: var(--shadow-sm);
+}
+.mundial-banner b { font-weight: 800; }
+
+.glam-banner {
+  text-align: center;
+  font-size: 12.5px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #8a1c4e;
+  background: linear-gradient(100deg, #ffe0ef, #ffc9e4);
+  border: 1px solid #f2a5c9;
+  border-radius: var(--r-md);
+  padding: 9px 12px;
+  margin: 2px 0 -2px;
+  box-shadow: var(--shadow-sm);
+}
+.glam-banner b { font-weight: 800; }
+
+.shop-foot {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+/* Bloque de ítem bloqueado en la vista previa */
+.preview-locked { text-align: center; padding: 2px 6px 6px; }
+.preview-locked__big { font-size: 38px; margin-bottom: 4px; }
+.preview-locked p { font-size: 14px; line-height: 1.45; margin-top: 4px; }

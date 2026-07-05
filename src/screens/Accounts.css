@@ -1,0 +1,135 @@
+/* Etiqueta de moneda (USD) junto al nombre de la cuenta */
+.curtag {
+  display: inline-block;
+  margin-left: 7px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #1f7a4d;
+  background: rgba(52, 192, 138, 0.16);
+  border-radius: 999px;
+  padding: 1px 7px;
+  vertical-align: middle;
+}
+
+/* Recordatorios de pago */
+.rem { padding-right: 10px; }
+.rem__main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  padding: 0;
+}
+.rem--dim { opacity: 0.6; }
+.rem__pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+  border: 0;
+  flex-shrink: 0;
+}
+.rem__pill--overdue { background: #ffd9d9; color: #b3261e; }
+.rem__pill--today { background: #ffe0ad; color: #8a5300; }
+.rem__pill--soon { background: #fff0c9; color: #8a6800; }
+.rem__pill--later { background: var(--surface-soft); color: var(--text-soft); }
+.rem__pill--done { background: #d6f3e4; color: #1f7a4d; }
+.rem__pill--off { background: var(--surface-soft); color: var(--text-faint); }
+
+.rem-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-soft);
+  padding: 2px;
+}
+.rem-toggle input { width: 18px; height: 18px; accent-color: var(--primary); }
+
+/* Resumen de deudas (personas) */
+.debtsum {
+  display: flex;
+  gap: 10px;
+}
+.debtsum__item {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+.debtsum__item b { display: block; margin-top: 2px; font-size: 15px; }
+.debtsum__item--owed { background: rgba(52, 192, 138, 0.12); }
+.debtsum__item--owed b { color: var(--income); }
+.debtsum__item--debt { background: rgba(214, 51, 132, 0.10); }
+.debtsum__item--debt b { color: var(--expense); }
+
+.archived { margin-top: 6px; }
+.archived summary {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-soft);
+  cursor: pointer;
+  padding: 6px 2px;
+  list-style: none;
+}
+.archived summary::-webkit-details-marker { display: none; }
+
+/* Vista previa de cuenta */
+.acc-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+.acc-preview__icon {
+  width: 50px; height: 50px;
+  border-radius: 16px;
+  display: grid; place-items: center;
+  font-size: 24px;
+}
+.acc-preview__name { font-weight: 800; font-size: 17px; }
+
+.emoji-input {
+  width: 62px;
+  text-align: center;
+  font-size: 24px;
+  flex: 0 0 62px; /* flex-basis gana al width:100% global, no se estira */
+  padding: 8px;
+}
+.emoji-chip {
+  flex: 0 0 auto;
+  width: 42px; height: 42px;
+  font-size: 20px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.emoji-chip--on { border-color: var(--primary); background: var(--primary-tint); }
+
+.swatches { display: flex; flex-wrap: wrap; gap: 9px; }
+.swatch {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  transition: transform 0.12s ease;
+}
+.swatch:active { transform: scale(0.9); }
+.swatch--on { transform: scale(1.12); box-shadow: 0 0 0 3px var(--primary); }
+.swatch--none {
+  display: grid; place-items: center;
+  color: var(--text-faint);
+  background: var(--surface);
+  font-size: 15px;
+}

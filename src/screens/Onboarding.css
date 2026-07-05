@@ -1,0 +1,29 @@
+.onb {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--safe-top) + 20px) 18px calc(var(--safe-bottom) + 20px);
+}
+.onb__card {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  backdrop-filter: blur(var(--blur)) saturate(1.3);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(1.3);
+  box-shadow: var(--shadow-lg);
+  padding: 26px 22px;
+}
+.onb__card .field { width: 100%; text-align: left; }
+.onb__title { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; }
+.onb__text { font-size: 14px; color: var(--text-soft); line-height: 1.5; }
+.onb__input { text-align: center; font-size: 18px; font-weight: 700; }
+.onb__hint { font-size: 12.5px; color: var(--text-faint); margin-top: 6px; padding-left: 2px; }
+.onb__card .btn--block { width: 100%; }
