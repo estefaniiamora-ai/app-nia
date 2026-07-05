@@ -30,6 +30,12 @@ export default function Onboarding() {
     updateProfile({ catName: catName.trim() || 'Michi', onboarded: true })
   }
 
+  // Saltar: solo nombra al gato y termina, SIN crear cuenta (para no duplicar
+  // en usuarias que ya tienen cuentas).
+  function skipOnboarding() {
+    updateProfile({ catName: catName.trim() || 'Michi', onboarded: true })
+  }
+
   return (
     <div className="onb">
       <div className="onb__card">
@@ -118,7 +124,7 @@ export default function Onboarding() {
             <button className="btn btn--primary btn--block" onClick={finish}>
               ¡Empezar! 💜
             </button>
-            <button className="btn btn--ghost btn--block" onClick={finish}>
+            <button className="btn btn--ghost btn--block" onClick={skipOnboarding}>
               Saltar por ahora
             </button>
           </>
