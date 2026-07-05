@@ -331,16 +331,18 @@ export default function Cat({
             </g>
           )}
 
-          {/* Pin del Sinsajo (Los Juegos del Hambre) */}
+          {/* Pin del Sinsajo (Los Juegos del Hambre) — pájaro con alas y flecha */}
           {equipped.includes('hg_pin') && (
             <g className="cat__acc">
-              <circle cx="120" cy="176" r="15" fill="#e9b73a" stroke="#c89320" strokeWidth="2" />
-              <circle cx="120" cy="176" r="12" fill="none" stroke="#fff3cf" strokeWidth="1" />
-              <path
-                d="M120 168 q7 3 10 -1 q-2 7 -7 7 l1 8 l-4 -3 l-4 3 l1 -8 q-5 0 -7 -7 q3 4 10 1 z"
-                fill="#6b4e12"
-              />
-              <line x1="108" y1="184" x2="132" y2="169" stroke="#6b4e12" strokeWidth="1.8" strokeLinecap="round" />
+              <circle cx="120" cy="176" r="15" fill="#e9b73a" stroke="#b8860b" strokeWidth="2" />
+              <circle cx="120" cy="176" r="12" fill="#f5d67a" />
+              {/* flecha atravesada */}
+              <line x1="106" y1="185" x2="134" y2="167" stroke="#5c400f" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M134 167 l-4.5 0.6 l2.2 3.9 z" fill="#5c400f" />
+              {/* sinsajo: cuerpo, alas hacia arriba y colita */}
+              <path d="M120 170 q4 2 5 -1 q3 5 -2 6 l1.5 8 l-4.5 -3.4 l-4.5 3.4 l1.5 -8 q-5 -1 -2 -6 q1 3 5 1 z" fill="#4a3410" />
+              <path d="M120 171 q-10 -3 -16 -12 q10 2 15 8 z" fill="#4a3410" />
+              <path d="M120 171 q10 -3 16 -12 q-10 2 -15 8 z" fill="#4a3410" />
             </g>
           )}
 
@@ -395,14 +397,17 @@ export default function Cat({
             </g>
           )}
 
-          {/* Copa del Mundo (Mundial) */}
+          {/* Copa del Mundo (Mundial) — globo dorado sobre las figuras */}
           {equipped.includes('mn_trophy') && (
             <g className="cat__acc">
-              <ellipse cx="184" cy="216" rx="12" ry="3.5" fill="#000" opacity="0.12" />
-              <rect x="177" y="207" width="14" height="6" rx="1.5" fill="#d9a520" />
-              <rect x="180" y="200" width="8" height="8" fill="#e9b73a" />
-              <path d="M177 176 q7 22 7 25 q0 -3 7 -25 q5 7 -7 9 q-12 -2 -7 -9 z" fill="#e9b73a" stroke="#c89320" strokeWidth="1" />
-              <path d="M178 177 q6 4 6 4 q0 0 6 -4 z" fill="#f7e08f" />
+              <ellipse cx="186" cy="220" rx="14" ry="3.5" fill="#000" opacity="0.12" />
+              <rect x="178" y="214" width="16" height="5" rx="2" fill="#caa017" />
+              <rect x="181" y="210" width="10" height="5" rx="1" fill="#e0b32a" />
+              <path d="M182 210 Q176 196 184 190 Q182 200 186 206 Z" fill="#f0c53c" stroke="#c89320" strokeWidth="0.8" />
+              <path d="M190 210 Q196 196 188 190 Q190 200 186 206 Z" fill="#e9b73a" stroke="#c89320" strokeWidth="0.8" />
+              <circle cx="186" cy="187" r="7" fill="#f0c53c" stroke="#c89320" strokeWidth="1" />
+              <path d="M180 185 q6 3 12 0 M186 180.2 v13.6" stroke="#c89320" strokeWidth="0.7" fill="none" />
+              <circle cx="183.5" cy="184.5" r="1.6" fill="#fff6d8" opacity="0.85" />
             </g>
           )}
 
@@ -582,12 +587,22 @@ export default function Cat({
             </g>
           )}
 
-          {/* gorrito */}
+          {/* gorrito de fiesta — con rayas y volante */}
           {equipped.includes('hat') && (
             <g className="cat__acc">
-              <path d="M120 22 L100 64 L140 64 Z" fill="#ff5fa0" />
-              <path d="M120 22 L110 64 L120 64 Z" fill="#e3327f" opacity="0.5" />
-              <circle cx="120" cy="20" r="6" fill="#ffb43d" />
+              <defs>
+                <clipPath id="partyHat">
+                  <path d="M120 20 L100 64 L140 64 Z" />
+                </clipPath>
+              </defs>
+              <path d="M120 20 L100 64 L140 64 Z" fill="#ff5fa0" />
+              <g clipPath="url(#partyHat)" stroke="#ffe08a" strokeWidth="5">
+                <line x1="94" y1="42" x2="126" y2="14" />
+                <line x1="102" y1="62" x2="140" y2="28" />
+                <line x1="114" y1="68" x2="150" y2="42" />
+              </g>
+              <path d="M99 63 q21 8 42 0 l0 4 q-21 8 -42 0 z" fill="#e3327f" />
+              <circle cx="120" cy="18" r="6" fill="#ffd23e" stroke="#eab21e" strokeWidth="1" />
             </g>
           )}
 
@@ -600,7 +615,7 @@ export default function Cat({
             </g>
           )}
 
-          {/* corona */}
+          {/* corona — con banda, gemas de colores y perlas en las puntas */}
           {equipped.includes('crown') && (
             <g className="cat__acc">
               <path
@@ -608,8 +623,16 @@ export default function Cat({
                 fill="#ffc24b"
                 stroke="#e89a18"
                 strokeWidth="1.5"
+                strokeLinejoin="round"
               />
-              <circle cx="120" cy="50" r="3" fill="#ff5fa0" />
+              <rect x="91" y="58" width="58" height="7" rx="2.5" fill="#f0a92a" stroke="#e89a18" strokeWidth="1" />
+              <circle cx="100" cy="40" r="2.2" fill="#fff3c0" />
+              <circle cx="120" cy="36" r="2.4" fill="#fff3c0" />
+              <circle cx="140" cy="40" r="2.2" fill="#fff3c0" />
+              <circle cx="120" cy="50" r="3.6" fill="#ff5fa0" stroke="#e03d90" strokeWidth="0.8" />
+              <circle cx="106" cy="52" r="2.5" fill="#5ec2e0" />
+              <circle cx="134" cy="52" r="2.5" fill="#7ad39a" />
+              <circle cx="118.6" cy="48.6" r="1" fill="#fff" opacity="0.85" />
             </g>
           )}
 
@@ -628,32 +651,27 @@ export default function Cat({
 
           {/* ===== Accesorios de CABEZA / CARA ===== */}
 
-          {/* Cicatriz de Luffy (One Piece) */}
+          {/* Cicatriz de Luffy (One Piece) — bajo el ojo, con dos puntadas */}
           {equipped.includes('op_scar') && (
-            <g className="cat__acc" stroke="#c0564a" strokeWidth="2.2" strokeLinecap="round">
-              <line x1="90" y1="127" x2="100" y2="133" />
-              <line x1="91" y1="130" x2="95" y2="126" />
-              <line x1="95" y1="133" x2="99" y2="129" />
+            <g className="cat__acc">
+              <path d="M89 129 q9 3 17 0" fill="none" stroke="#c0564a" strokeWidth="2.4" strokeLinecap="round" />
+              <line x1="94" y1="125" x2="93" y2="132" stroke="#c0564a" strokeWidth="2" strokeLinecap="round" />
+              <line x1="101" y1="125" x2="100" y2="132" stroke="#c0564a" strokeWidth="2" strokeLinecap="round" />
             </g>
           )}
 
-          {/* Aretes hanafuda de Tanjiro (Demon Slayer) */}
+          {/* Aretes hanafuda de Tanjiro (Demon Slayer) — sol rojo + pilar */}
           {equipped.includes('ds_earrings') && (
             <g className="cat__acc">
-              <rect x="70" y="133" width="13" height="17" rx="2.5" fill="#fff" stroke="#e2cdd6" strokeWidth="1" />
-              <circle cx="76.5" cy="139" r="3.4" fill="#e23b3b" />
-              <g stroke="#e23b3b" strokeWidth="1.5" strokeLinecap="round">
-                <line x1="73" y1="145" x2="73" y2="148" />
-                <line x1="76.5" y1="145" x2="76.5" y2="148" />
-                <line x1="80" y1="145" x2="80" y2="148" />
-              </g>
-              <rect x="157" y="133" width="13" height="17" rx="2.5" fill="#fff" stroke="#e2cdd6" strokeWidth="1" />
-              <circle cx="163.5" cy="139" r="3.4" fill="#e23b3b" />
-              <g stroke="#e23b3b" strokeWidth="1.5" strokeLinecap="round">
-                <line x1="160" y1="145" x2="160" y2="148" />
-                <line x1="163.5" y1="145" x2="163.5" y2="148" />
-                <line x1="167" y1="145" x2="167" y2="148" />
-              </g>
+              {/* cordón */}
+              <line x1="76" y1="130" x2="76" y2="133" stroke="#caa" strokeWidth="1" />
+              <line x1="164" y1="130" x2="164" y2="133" stroke="#caa" strokeWidth="1" />
+              <rect x="69" y="133" width="14" height="19" rx="2.5" fill="#fff" stroke="#d9c2cb" strokeWidth="1" />
+              <circle cx="76" cy="139" r="4" fill="#e23b3b" />
+              <rect x="74" y="144" width="4" height="6.5" rx="1.2" fill="#e23b3b" />
+              <rect x="157" y="133" width="14" height="19" rx="2.5" fill="#fff" stroke="#d9c2cb" strokeWidth="1" />
+              <circle cx="164" cy="139" r="4" fill="#e23b3b" />
+              <rect x="162" y="144" width="4" height="6.5" rx="1.2" fill="#e23b3b" />
             </g>
           )}
 
@@ -676,13 +694,53 @@ export default function Cat({
             </g>
           )}
 
-          {/* Bandana de Zoro (One Piece) */}
+          {/* Bandana de Zoro (One Piece) — pelo verde, bandana negra y cicatriz en el ojo */}
           {equipped.includes('op_zoro') && (
             <g className="cat__acc">
-              <path d="M66 92 Q120 76 174 92 L174 101 Q120 86 66 101 Z" fill="#2f7d4f" />
-              <path d="M168 96 l16 -6 l-3 12 z" fill="#276b43" />
-              <path d="M176 92 q18 6 19 27 l-8 -2 q-3 -15 -13 -19 z" fill="#2f7d4f" />
-              <path d="M179 99 q15 9 12 27 l-7 -2 q0 -13 -11 -20 z" fill="#276b43" />
+              {/* pelo verde puntiagudo a dos tonos (asoma sobre la bandana) */}
+              <path d="M78 97 L86 66 L97 91 L104 60 L114 89 L120 55 L126 89 L136 60 L143 91 L154 66 L162 97 Z" fill="#3f7a2a" />
+              <path d="M82 96 L88 71 L97 89 L105 66 L114 87 L120 62 L126 87 L135 66 L143 89 L152 71 L158 96 Z" fill="#5aa03c" />
+              <g stroke="#7bbf4f" strokeWidth="1.8" strokeLinecap="round" opacity="0.9">
+                <line x1="105" y1="70" x2="107" y2="82" />
+                <line x1="120" y1="66" x2="120" y2="80" />
+                <line x1="135" y1="70" x2="133" y2="82" />
+              </g>
+              {/* bandana negra con brillo de tela */}
+              <path d="M66 92 Q120 76 174 92 L174 101 Q120 86 66 101 Z" fill="#1c1c1c" />
+              <path d="M70 94 Q120 81 170 94" fill="none" stroke="#4a4a4a" strokeWidth="1.3" opacity="0.7" />
+              <path d="M168 96 l16 -6 l-3 12 z" fill="#000" />
+              <path d="M176 92 q18 6 19 27 l-8 -2 q-3 -15 -13 -19 z" fill="#1c1c1c" />
+              <path d="M179 99 q15 9 12 27 l-7 -2 q0 -13 -11 -20 z" fill="#000" />
+              {/* tres aretes dorados en la oreja izquierda de Zoro */}
+              <g fill="#f2c438" stroke="#c99a12" strokeWidth="0.7">
+                <circle cx="158" cy="95" r="2.8" />
+                <circle cx="158" cy="102" r="2.8" />
+                <circle cx="158" cy="109" r="2.8" />
+              </g>
+              <g fill="#fff" opacity="0.75">
+                <circle cx="156.8" cy="93.9" r="0.9" />
+                <circle cx="156.8" cy="100.9" r="0.9" />
+                <circle cx="156.8" cy="107.9" r="0.9" />
+              </g>
+              {/* ojo izquierdo cerrado con cicatriz (Zoro post-timeskip) */}
+              <ellipse cx="142" cy="112" rx="12" ry="13" fill={c.body} />
+              <ellipse cx="156" cy="124" rx="13" ry="8" fill="#ff85ac" opacity="0.5" />
+              <path d="M131 112 q11 7 22 0" fill="none" stroke="#4a3b46" strokeWidth="3.2" strokeLinecap="round" />
+              <line x1="147" y1="94" x2="139" y2="131" stroke="#a8443a" strokeWidth="2.8" strokeLinecap="round" />
+              <g stroke="#a8443a" strokeWidth="1.9" strokeLinecap="round">
+                <line x1="145" y1="101" x2="151" y2="99.5" />
+                <line x1="141" y1="122" x2="147" y2="121" />
+              </g>
+              {/* katana en la boca (Santoryu) */}
+              <path d="M124 129.5 L173 129 L179 131.5 L173 133.5 L124 134 Z" fill="#e4ebf0" stroke="#b9c2c8" strokeWidth="0.7" />
+              <line x1="127" y1="132" x2="171" y2="131" stroke="#fff" strokeWidth="0.8" opacity="0.7" />
+              <rect x="115" y="127" width="5" height="10" rx="1.5" fill="#c99a12" stroke="#a67f0e" strokeWidth="0.5" />
+              <rect x="98" y="130" width="17" height="4.6" rx="1.5" fill="#2f7d4f" />
+              <g stroke="#1f5c39" strokeWidth="0.8">
+                <line x1="102" y1="130.2" x2="101" y2="134.4" />
+                <line x1="106" y1="130.2" x2="105" y2="134.4" />
+                <line x1="110" y1="130.2" x2="109" y2="134.4" />
+              </g>
             </g>
           )}
 
@@ -722,14 +780,22 @@ export default function Cat({
             </g>
           )}
 
-          {/* Sombrero seleccionador (Harry Potter) */}
+          {/* Sombrero seleccionador (Harry Potter) — con su cara que habla */}
           {equipped.includes('hp_hat') && (
             <g className="cat__acc">
               <ellipse cx="120" cy="58" rx="52" ry="12" fill="#7c5a3a" stroke="#5f4429" strokeWidth="2" />
-              <path d="M96 58 Q104 20 120 16 Q126 30 140 26 Q151 40 150 58 Q120 50 96 58 Z" fill="#8a6742" stroke="#5f4429" strokeWidth="2" />
-              <path d="M139 27 Q152 15 139 8 Q135 17 127 18 Z" fill="#7c5a3a" stroke="#5f4429" strokeWidth="1.6" />
-              <path d="M108 40 q10 -6 18 0" fill="none" stroke="#5f4429" strokeWidth="2" strokeLinecap="round" />
-              <path d="M104 50 q14 -5 26 -1" fill="none" stroke="#5f4429" strokeWidth="1.6" strokeLinecap="round" />
+              <path d="M96 58 Q102 22 118 16 Q122 30 136 24 Q150 34 150 58 Q120 50 96 58 Z" fill="#8a6742" stroke="#5f4429" strokeWidth="2" strokeLinejoin="round" />
+              <path d="M135 25 Q150 14 138 6 Q135 16 126 17 Z" fill="#7c5a3a" stroke="#5f4429" strokeWidth="1.6" />
+              {/* remiendo/arruga arriba */}
+              <path d="M112 34 q6 -3 11 0" fill="none" stroke="#5f4429" strokeWidth="1.3" strokeLinecap="round" />
+              {/* cejas/ojos arrugados */}
+              <path d="M104 44 q7 -5 13 -1" fill="none" stroke="#4d3620" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M124 42 q7 -5 14 0" fill="none" stroke="#4d3620" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M108 47 q4 3 8 1" fill="none" stroke="#5f4429" strokeWidth="1.4" strokeLinecap="round" />
+              <path d="M126 46 q4 3 9 1" fill="none" stroke="#5f4429" strokeWidth="1.4" strokeLinecap="round" />
+              {/* boca grande (pliegue que habla) */}
+              <path d="M100 53 Q120 47 142 53 Q120 61 100 53 Z" fill="#4d3620" />
+              <path d="M104 53 Q120 50 138 53" fill="none" stroke="#8a6742" strokeWidth="0.8" />
             </g>
           )}
 
@@ -759,17 +825,14 @@ export default function Cat({
             </g>
           )}
 
-          {/* Máscara del Capitán América (Marvel) — deja ver la carita */}
+          {/* Cofia del Capitán América (Marvel) — cubre la frente, deja la carita */}
           {equipped.includes('mv_cap') && (
             <g className="cat__acc">
-              <path
-                fillRule="evenodd"
-                d="M120 56 a56 56 0 1 0 0.1 0 Z M120 82 a34 38 0 1 0 0.1 0 Z"
-                fill="#2b5fa5"
-              />
-              <path d="M74 98 q-12 -2 -16 6 q10 -2 16 3 z" fill="#fff" />
-              <path d="M166 98 q12 -2 16 6 q-10 -2 -16 3 z" fill="#fff" />
-              <text x="120" y="76" fontSize="17" fontWeight="900" fill="#fff" textAnchor="middle">A</text>
+              <path d="M64 108 Q66 58 120 56 Q174 58 176 108 Q150 92 120 92 Q90 92 64 108 Z" fill="#2b5fa5" stroke="#1e4880" strokeWidth="1.5" />
+              <path d="M64 108 Q90 94 120 94 Q150 94 176 108 L176 101 Q150 88 120 88 Q90 88 64 101 Z" fill="#24528f" opacity="0.55" />
+              <path d="M64 100 q-14 -3 -19 6 q11 -1 18 4 z" fill="#fff" stroke="#d8dee6" strokeWidth="0.6" />
+              <path d="M176 100 q14 -3 19 6 q-11 -1 -18 4 z" fill="#fff" stroke="#d8dee6" strokeWidth="0.6" />
+              <text x="120" y="84" fontSize="20" fontWeight="900" fill="#fff" textAnchor="middle" fontFamily="Arial, sans-serif">A</text>
             </g>
           )}
 
@@ -807,18 +870,22 @@ export default function Cat({
 
           {/* ===== Premios GLAM de carita ===== */}
 
-          {/* Maquillaje coqueto: labios + pestañas (Glam) */}
+          {/* Maquillaje coqueto: pestañas + rubor + labios centrados (Glam) */}
           {equipped.includes('gl_makeup') && (
             <g className="cat__acc">
               <g stroke="#3a2b36" strokeWidth="2" strokeLinecap="round">
                 <path d="M86 106 l-6 -4" />
                 <path d="M90 103 l-4 -5" />
+                <path d="M110 104 l-2 -6" />
                 <path d="M154 106 l6 -4" />
                 <path d="M150 103 l4 -5" />
+                <path d="M130 104 l2 -6" />
               </g>
-              <path d="M107 130 Q113 127 120 129 Q127 127 133 130 Q128 141 120 142 Q112 141 107 130 Z" fill="#d61f52" />
-              <path d="M111 131 Q120 134 129 131" fill="none" stroke="#8e1038" strokeWidth="1.3" />
-              <ellipse cx="115" cy="133" rx="2.2" ry="1.3" fill="#fff" opacity="0.55" />
+              <ellipse cx="84" cy="127" rx="9" ry="5" fill="#ff5f9e" opacity="0.32" />
+              <ellipse cx="156" cy="127" rx="9" ry="5" fill="#ff5f9e" opacity="0.32" />
+              <path d="M108 132 Q114 128 120 131 Q126 128 132 132 Q126 141 120 142 Q114 141 108 132 Z" fill="#d61f52" />
+              <path d="M112 133 Q120 136 128 133" fill="none" stroke="#8e1038" strokeWidth="1.2" />
+              <ellipse cx="116" cy="134.5" rx="2" ry="1.1" fill="#fff" opacity="0.5" />
             </g>
           )}
 
