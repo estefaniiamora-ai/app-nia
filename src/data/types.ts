@@ -97,6 +97,9 @@ export interface Gamification {
   equipped: string[]             // accesorios puestos (varios a la vez)
   skin: string                   // id del skin del gato
   background: string             // id del fondo
+  /** recompensas de ocasión ya reclamadas (p. ej. 'haaland'). Una vez aquí,
+   *  el ítem queda desbloqueado para siempre y su banner no vuelve a salir. */
+  claims?: string[]
   coins?: number                 // (obsoleto) se mantiene por compatibilidad
   owned?: string[]               // (obsoleto)
   unlocked?: string[]            // (obsoleto)

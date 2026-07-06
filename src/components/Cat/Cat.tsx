@@ -331,6 +331,77 @@ export default function Cat({
             </g>
           )}
 
+          {/* Camiseta de Noruega — HAALAND #9 (Mundial) — homenaje detallado */}
+          {equipped.includes('mn_noruega') && (
+            <g className="cat__acc">
+              <defs>
+                {/* tejido rojo con pinstripe tonal sutil (se ve "pulido") */}
+                <pattern id="norWeave" width="8" height="8" patternUnits="userSpaceOnUse">
+                  <rect width="8" height="8" fill="#d5122c" />
+                  <rect x="0" width="1.4" height="8" fill="#b70f26" opacity="0.5" />
+                  <rect x="4" width="1" height="8" fill="#ee3350" opacity="0.35" />
+                </pattern>
+                <clipPath id="norTor">
+                  <path d="M78 152 Q120 146 162 152 L168 196 Q120 216 72 196 Z" />
+                </clipPath>
+                <clipPath id="norSlL">
+                  <ellipse cx="72" cy="170" rx="13" ry="16" />
+                </clipPath>
+                <clipPath id="norSlR">
+                  <ellipse cx="168" cy="170" rx="13" ry="16" />
+                </clipPath>
+              </defs>
+
+              {/* mangas rojas con puño azul + filo blanco */}
+              <ellipse cx="72" cy="170" rx="13" ry="16" fill="#d5122c" stroke="#a50e22" strokeWidth="1" />
+              <g clipPath="url(#norSlL)">
+                <rect x="58" y="181" width="28" height="9" fill="#00205b" />
+                <rect x="58" y="181" width="28" height="2.4" fill="#fff" />
+              </g>
+              <ellipse cx="168" cy="170" rx="13" ry="16" fill="#d5122c" stroke="#a50e22" strokeWidth="1" />
+              <g clipPath="url(#norSlR)">
+                <rect x="154" y="181" width="28" height="9" fill="#00205b" />
+                <rect x="154" y="181" width="28" height="2.4" fill="#fff" />
+              </g>
+
+              {/* brazalete de CAPITÁN en la manga derecha (Haaland capitán) */}
+              <g clipPath="url(#norSlR)">
+                <rect x="154" y="160" width="28" height="7" fill="#f2c438" />
+                <rect x="154" y="160" width="28" height="1.4" fill="#fff9df" />
+              </g>
+              <text x="168" y="166" fontSize="6" fontWeight="900" fill="#00205b" textAnchor="middle" fontFamily="Arial, sans-serif">C</text>
+
+              {/* torso rojo con tejido */}
+              <path d="M78 152 Q120 146 162 152 L168 196 Q120 216 72 196 Z" fill="url(#norWeave)" stroke="#a50e22" strokeWidth="1.5" />
+
+              {/* dobladillo inferior: filo azul con línea blanca */}
+              <g clipPath="url(#norTor)">
+                <path d="M72 198 Q120 218 168 198 L168 191 Q120 209 72 191 Z" fill="#00205b" />
+                <path d="M72 193 Q120 211 168 193 L168 191 Q120 209 72 191 Z" fill="#fff" opacity="0.9" />
+              </g>
+
+              {/* cuello redondo azul con vivo blanco */}
+              <path d="M100 149 Q120 165 140 149 Q139 156 134 160 Q120 170 106 160 Q101 156 100 149 Z" fill="#00205b" />
+              <path d="M103 150 Q120 163 137 150" fill="none" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+
+              {/* escudo: bandera de Noruega (cruz escandinava azul con filo blanco) */}
+              <rect x="85" y="169" width="17" height="12" rx="1.6" fill="#d5122c" stroke="#9a1f1f" strokeWidth="0.8" />
+              <rect x="85" y="173.6" width="17" height="3.2" fill="#fff" />
+              <rect x="90.4" y="169" width="3.4" height="12" fill="#fff" />
+              <rect x="85" y="174.4" width="17" height="1.6" fill="#00205b" />
+              <rect x="91.2" y="169" width="1.8" height="12" fill="#00205b" />
+
+              {/* swoosh sutil en el pecho derecho */}
+              <path d="M148 165 q9 -2 15 -6 q-4 7 -13 9 q-2 0.4 -3 -1 q0 -1.4 1 -2 z" fill="#fff" opacity="0.95" />
+
+              {/* nombre HAALAND arqueado sobre el número */}
+              <text x="126" y="176" fontSize="5.6" fontWeight="800" fill="#fff" letterSpacing="0.6" textAnchor="middle" fontFamily="Arial, sans-serif">HAALAND</text>
+
+              {/* número 9 grande, blanco con contorno azul */}
+              <text x="126" y="199" fontSize="24" fontWeight="900" fill="#fff" stroke="#00205b" strokeWidth="1" textAnchor="middle" fontFamily="Arial, sans-serif" paintOrder="stroke">9</text>
+            </g>
+          )}
+
           {/* Pin del Sinsajo (Los Juegos del Hambre) — pájaro con alas y flecha */}
           {equipped.includes('hg_pin') && (
             <g className="cat__acc">

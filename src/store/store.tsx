@@ -115,6 +115,10 @@ interface AppContextValue {
   // gamificación (por racha)
   claimDaily: () => ClaimResult
   saveGamification: (g: Gamification) => void
+  /** Reclamar una recompensa de ocasión (p. ej. la camiseta de Haaland):
+   *  la marca como reclamada para siempre y, si se pasa `look`, deja el gato
+   *  con ese outfit exacto (equipped/skin/background), quitando todo lo demás. */
+  claimReward: (claimKey: string, look?: { equipped?: string[]; skin?: string; background?: string }) => void
   toggleEquip: (id: string) => void
   selectSkin: (id: string) => void
   selectBackground: (id: string) => void
@@ -589,6 +593,27 @@ export function AppProvider({
     [provider],
   )
 
+  const claimReward = useCallback(
+    (claimKey: string, look?: { equipped?: string[]; skin?: string; background?: string }) => {
+      setSnap((s) => {
+        const g = s.gamification
+        const claims = (g.claims ?? []).includes(claimKey)
+          ? g.claims ?? []
+          : [...(g.claims ?? []), claimKey]
+        const next: Gamification = {
+          ...g,
+          claims,
+          equipped: look?.equipped ?? g.equipped,
+          skin: look?.skin ?? g.skin,
+          background: look?.background ?? g.background,
+        }
+        provider.saveGamification(next)
+        return { ...s, gamification: next }
+      })
+    },
+    [provider],
+  )
+
   // ¿Se puede usar este ítem? = desbloqueado por la racha (o gratis por defecto).
   const isUsable = useCallback(
     (id: string): boolean => {
@@ -675,6 +700,7 @@ export function AppProvider({
       deleteMovement,
       claimDaily,
       saveGamification,
+      claimReward,
       toggleEquip,
       selectSkin,
       selectBackground,
@@ -710,6 +736,7 @@ export function AppProvider({
       deleteMovement,
       claimDaily,
       saveGamification,
+      claimReward,
       toggleEquip,
       selectSkin,
       selectBackground,

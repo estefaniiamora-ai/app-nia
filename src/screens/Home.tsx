@@ -18,6 +18,7 @@ import { cycleStatus, checkInOptions, checkInTitle, phaseCat, type CheckInOption
 import CycleDaySheet from '../components/CycleDaySheet'
 import PeekCat from '../components/PeekCat'
 import PaymentsDuePopup from '../components/PaymentsDuePopup'
+import HaalandBanner from '../components/HaalandBanner'
 import './Home.css'
 
 /** Una vez por sesión (se reinicia al recargar la app): que el popup de
@@ -38,7 +39,7 @@ const AWAIT_PHRASES = [
 ]
 
 export default function Home() {
-  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, claimDaily, markBled, updateProfile } = useApp()
+  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, claimDaily, claimReward, markBled, updateProfile } = useApp()
   const { openAdd, addOpen } = useSheets()
   const navigate = useNavigate()
   const [mood, setMood] = useState<CatMood>('idle')
@@ -46,6 +47,10 @@ export default function Home() {
   const [showDuePopup, setShowDuePopup] = useState(false)
   const [cycleSheet, setCycleSheet] = useState<string | null>(null)
   const [streakChooser, setStreakChooser] = useState(false)
+  // Banner de la camiseta de Haaland: se ve en cada entrada hasta reclamarla.
+  // "Saltar" solo lo cierra por esta sesión (al recargar vuelve a asomarse).
+  const haalandClaimed = gamification.claims?.includes('haaland') ?? false
+  const [haalandSkip, setHaalandSkip] = useState(false)
 
   const totals = useMemo(() => totalsByCurrency(accounts, movements), [accounts, movements])
   const hasUSD = useMemo(
@@ -283,6 +288,21 @@ export default function Home() {
       )}
 
       {cycleSheet && <CycleDaySheet date={cycleSheet} onClose={() => setCycleSheet(null)} />}
+
+      {/* Estreno de la camiseta de Haaland (hasta que la reclamen) */}
+      {!haalandClaimed && !haalandSkip && (
+        <HaalandBanner
+          catName={profile.catName}
+          onSkip={() => setHaalandSkip(true)}
+          onClaim={() => {
+            claimReward('haaland', { equipped: ['mn_noruega'], skin: 'pink', background: 'none' })
+            setHaalandSkip(true)
+            setMood('celebrate')
+            flashToast('¡La camiseta de Haaland es tuya! ⚽ Búscala en la Tienda 🎀')
+            window.setTimeout(() => setMood(phaseMood), 1800)
+          }}
+        />
+      )}
 
       <PaymentsDuePopup open={showDuePopup} onClose={() => setShowDuePopup(false)} />
     </main>

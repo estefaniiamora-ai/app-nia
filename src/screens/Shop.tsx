@@ -40,12 +40,14 @@ export default function Shop() {
 
   const items = useMemo(
     () =>
-      SHOP_ITEMS.filter((i) =>
-        tab === 'mundial'
+      SHOP_ITEMS.filter((i) => {
+        // Recompensas de ocasión: no se ven en la tienda hasta reclamarlas.
+        if (i.claimKey && !isUnlocked(i, gamification, month, undefined, goalsMet)) return false
+        return tab === 'mundial'
           ? i.event === 'mundial'
-          : i.kind === tab && !i.event && i.unlockGoal == null,
-      ),
-    [tab],
+          : i.kind === tab && !i.event && i.unlockGoal == null
+      }),
+    [tab, gamification, month, goalsMet],
   )
 
   function unlocked(item: ShopItem) {

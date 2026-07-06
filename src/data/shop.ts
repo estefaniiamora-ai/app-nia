@@ -23,6 +23,10 @@ export interface ShopItem {
   unlockDay?: number
   /** premio GLAM: se desbloquea al cumplir N metas semanales (pestaña Glam 💋) */
   unlockGoal?: number
+  /** recompensa de ocasión: se desbloquea SOLO al reclamarla en su banner
+   *  (no por racha, calendario ni metas). Queda oculta en la tienda hasta
+   *  que se reclama; luego, tuya para siempre. */
+  claimKey?: string
 }
 
 /* ============================================================
@@ -83,6 +87,8 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: 'mn_brasil', name: 'Camiseta Brasil', emoji: '🇧🇷', unlockStreak: 0, kind: 'accessory', event: 'mundial', unlockDay: 4 },
   { id: 'mn_boots', name: 'Guayos', emoji: '👟', unlockStreak: 0, kind: 'accessory', event: 'mundial', unlockDay: 5 },
   { id: 'mn_trophy', name: 'Copa del Mundo', emoji: '🏆', unlockStreak: 0, kind: 'accessory', event: 'mundial', unlockDay: 6 },
+  // Camiseta de Haaland — recompensa de ocasión (se reclama en su banner de estreno)
+  { id: 'mn_noruega', name: 'Camiseta Noruega', emoji: '👕', unlockStreak: 0, kind: 'accessory', event: 'mundial', claimKey: 'haaland' },
 
   // ---- Skins del gato ----
   { id: 'pink', name: 'Lila', emoji: '🐱', unlockStreak: 0, kind: 'skin' },
@@ -133,6 +139,10 @@ export function isUnlocked(
   today: string = localDayKey(),
   goalsMet = 0,
 ): boolean {
+  // Recompensas de ocasión: SOLO cuentan como desbloqueadas si ya se reclamaron.
+  if (item.claimKey != null) {
+    return (g.claims ?? []).includes(item.claimKey)
+  }
   if (item.unlockGoal != null) {
     return goalsMet >= item.unlockGoal
   }
