@@ -35,7 +35,11 @@ yarn-error.log*
 .env.*.local
 
 # herramientas locales (Claude, etc.)
-.claude
+# se versionan la skill /iniciar y el lanzador; lo demás (sesiones, ajustes locales) no
+.claude/*
+!.claude/skills/
+!.claude/launch.json
+.claude/settings.local.json
 .firebase
 
 # definición (documentos de planeación, no van al build)
