@@ -27,7 +27,7 @@
 .fsel__bar--active {
   background: linear-gradient(135deg, var(--primary), var(--primary-strong));
   border-color: transparent;
-  color: #fff;
+  color: var(--on-primary);
 }
 .fsel__bar--open { border-color: var(--primary); }
 .fsel__val {

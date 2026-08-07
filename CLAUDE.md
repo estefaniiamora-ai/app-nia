@@ -7,7 +7,7 @@
 ## Qué es
 
 PWA móvil (React 18 + TypeScript + Vite 5) para llevar finanzas personales, con seguimiento del ciclo
-menstrual y un gatico virtual con racha, skins y tienda. Interfaz en español, tema lila.
+menstrual y un conejito virtual con racha, skins y tienda. Interfaz en español, tema amarillo pastel.
 
 - **Datos / auth:** Firebase (Firestore + Auth con Google). Proyecto `app-nia-1f70a`.
 - **Hosting:** Vercel — cada push a `main` despliega solo.

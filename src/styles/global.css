@@ -1,6 +1,6 @@
 /* ===========================================================
    Nia App — Sistema de diseño
-   Lila / morado pastel + glassmorphism · claro y oscuro
+   Amarillo pastel + glassmorphism · claro y oscuro
    =========================================================== */
 
 /* ---------- Reset ligero ---------- */
@@ -29,28 +29,30 @@ img, svg { display: block; max-width: 100%; }
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Rounded",
           "Hiragino Maru Gothic ProN", "Quicksand", system-ui, sans-serif;
 
-  /* Fondo de la app (degradado lila suave) */
+  /* Fondo de la app (degradado amarillo pastel suave) */
   --app-bg: radial-gradient(135% 120% at 50% -10%,
-              #f2e9ff 0%, #e6d9ff 38%, #eee3ff 70%, #e4ecff 100%);
+              #fffdf1 0%, #fdf1c6 38%, #fef8dd 70%, #fdefdb 100%);
 
   /* Superficies de cristal */
   --surface:        rgba(255, 255, 255, 0.62);
   --surface-strong: rgba(255, 255, 255, 0.86);
   --surface-soft:   rgba(255, 255, 255, 0.40);
   --border:         rgba(255, 255, 255, 0.75);
-  --border-soft:    rgba(150, 120, 230, 0.18);
+  --border-soft:    rgba(212, 165, 44, 0.22);
   --blur: 18px;
 
   /* Texto */
-  --text:      #4d4361;
-  --text-soft: #8b8199;
-  --text-faint:#b6adc6;
+  --text:      #574a2e;
+  --text-soft: #8e8060;
+  --text-faint:#bcae8d;
 
   /* Marca */
-  --primary:        #9b7bff;
-  --primary-strong: #7c5cf5;
-  --primary-soft:   #e3dbff;
-  --primary-tint:   rgba(155, 123, 255, 0.12);
+  --primary:        #f8d873;
+  --primary-strong: #edc244;
+  --primary-soft:   #fdefb6;
+  --primary-tint:   rgba(237, 194, 68, 0.18);
+  /* color del texto que va ENCIMA del amarillo (el blanco no se leería) */
+  --on-primary:     #4a3808;
 
   /* Semánticos */
   --income:  #34c08a;
@@ -63,10 +65,10 @@ img, svg { display: block; max-width: 100%; }
   --gold-soft: rgba(255, 180, 61, 0.16);
 
   /* Sombras */
-  --shadow-sm: 0 6px 16px -10px rgba(108, 70, 200, 0.42);
-  --shadow-md: 0 14px 30px -16px rgba(108, 70, 200, 0.42);
-  --shadow-lg: 0 24px 50px -24px rgba(108, 70, 200, 0.46);
-  --shadow-pop: 0 18px 40px -16px rgba(124, 92, 245, 0.52);
+  --shadow-sm: 0 6px 16px -10px rgba(158, 116, 20, 0.45);
+  --shadow-md: 0 14px 30px -16px rgba(158, 116, 20, 0.45);
+  --shadow-lg: 0 24px 50px -24px rgba(158, 116, 20, 0.48);
+  --shadow-pop: 0 18px 40px -16px rgba(196, 148, 24, 0.55);
 
   /* Radios */
   --r-xs: 12px;
@@ -88,26 +90,27 @@ img, svg { display: block; max-width: 100%; }
   --ease-pop: cubic-bezier(0.22, 1.4, 0.4, 1);
 }
 
-/* ---------- Tokens: tema OSCURO (lila nocturna) ---------- */
+/* ---------- Tokens: tema OSCURO (miel nocturna) ---------- */
 :root[data-theme="dark"] {
   --app-bg: radial-gradient(135% 120% at 50% -10%,
-              #2b2440 0%, #201b33 45%, #181428 100%);
+              #3a3223 0%, #2b2517 45%, #201b11 100%);
 
-  --surface:        rgba(225, 215, 255, 0.08);
-  --surface-strong: rgba(225, 215, 255, 0.14);
-  --surface-soft:   rgba(225, 215, 255, 0.05);
-  --border:         rgba(210, 200, 255, 0.16);
-  --border-soft:    rgba(150, 120, 230, 0.20);
+  --surface:        rgba(255, 244, 214, 0.08);
+  --surface-strong: rgba(255, 244, 214, 0.14);
+  --surface-soft:   rgba(255, 244, 214, 0.05);
+  --border:         rgba(255, 240, 205, 0.16);
+  --border-soft:    rgba(230, 182, 60, 0.22);
   --blur: 20px;
 
-  --text:      #efe9ff;
-  --text-soft: #c3b8de;
-  --text-faint:#948ab0;
+  --text:      #fdf5e2;
+  --text-soft: #d8c9a5;
+  --text-faint:#a29579;
 
-  --primary:        #b39bff;
-  --primary-strong: #9b7bff;
-  --primary-soft:   rgba(179, 155, 255, 0.22);
-  --primary-tint:   rgba(179, 155, 255, 0.16);
+  --primary:        #f6d264;
+  --primary-strong: #eebd35;
+  --primary-soft:   rgba(246, 210, 100, 0.22);
+  --primary-tint:   rgba(246, 210, 100, 0.16);
+  --on-primary:     #3a2c06;
 
   --income:  #5fd6a6;
   --income-soft: rgba(95, 214, 166, 0.18);
@@ -121,7 +124,7 @@ img, svg { display: block; max-width: 100%; }
   --shadow-sm: 0 6px 16px -10px rgba(0, 0, 0, 0.6);
   --shadow-md: 0 14px 30px -16px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 24px 50px -24px rgba(0, 0, 0, 0.65);
-  --shadow-pop: 0 18px 40px -16px rgba(155, 123, 255, 0.45);
+  --shadow-pop: 0 18px 40px -16px rgba(238, 189, 53, 0.42);
 }
 
 /* ---------- Tipografía utilitaria ---------- */

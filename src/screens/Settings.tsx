@@ -17,7 +17,7 @@ export default function Settings() {
     <main className="screen">
       <div className="screen-head">
         <div>
-          <h1>Más 💜</h1>
+          <h1>Más 💛</h1>
           <p className="screen-sub">Todo tu mundo conejil en un lugar</p>
         </div>
       </div>

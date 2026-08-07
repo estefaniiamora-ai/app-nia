@@ -13,9 +13,9 @@ export interface SkinColors {
 }
 
 export const SKINS: Record<string, SkinColors> = {
-  // 'pink' es la skin por defecto de Nia — recoloreada a LILA para diferenciarse
+  // 'pink' es la skin por defecto de Nia — recoloreada a AMARILLO PASTEL
   // (se conserva el id 'pink' para no romper datos ya guardados).
-  pink:  { body: '#d9c2ff', shade: '#c4a9f5', ear: '#b892ec', earIn: '#9a6fd6', belly: '#f4ecff' },
+  pink:  { body: '#ffe28a', shade: '#f5cb59', ear: '#eebd41', earIn: '#d19c1c', belly: '#fff7dc' },
   cream: { body: '#ffe9c9', shade: '#ffd9a6', ear: '#ffc987', earIn: '#ffb066', belly: '#fff8ec' },
   gray:  { body: '#d8d8e8', shade: '#c2c2d6', ear: '#b6b6cc', earIn: '#9a9ab2', belly: '#f3f3fb' },
   black: { body: '#6e6680', shade: '#5b5468', ear: '#4d4659', earIn: '#3c3647', belly: '#ada6bd' },
@@ -566,8 +566,8 @@ export default function Cat({
               <ellipse cx="98" cy="112" rx="10" ry="13" fill="#4a3b46" />
               <ellipse cx="142" cy="112" rx="10" ry="13" fill="#4a3b46" />
               {/* iris lila */}
-              <ellipse cx="98" cy="115" rx="7" ry="9" fill="#8a63c8" opacity="0.6" />
-              <ellipse cx="142" cy="115" rx="7" ry="9" fill="#8a63c8" opacity="0.6" />
+              <ellipse cx="98" cy="115" rx="7" ry="9" fill="#a5783a" opacity="0.6" />
+              <ellipse cx="142" cy="115" rx="7" ry="9" fill="#a5783a" opacity="0.6" />
               {/* doble brillo */}
               <circle cx="101.5" cy="107" r="3.4" fill="#fff" />
               <circle cx="145.5" cy="107" r="3.4" fill="#fff" />

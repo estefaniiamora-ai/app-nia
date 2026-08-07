@@ -34,7 +34,7 @@ const AWAIT_PHRASES = [
   'no me olvides 💗',
   'un toquecito y ya 🐾',
   '¿cómo vas hoy? 🌙',
-  'aquí te espero… 💜',
+  'aquí te espero… 💛',
   '¿ya? ¿ya? 🔥',
 ]
 
@@ -109,11 +109,11 @@ export default function Home() {
     const r = claimDaily()
     setMood('celebrate')
     if (r.already) {
-      flashToast(opt.bled ? 'Anotado, cuídate 🌙' : 'Anotado 💜')
+      flashToast(opt.bled ? 'Anotado, cuídate 🌙' : 'Anotado 💛')
     } else if (r.unlocked.length) {
       flashToast(`🔥 ¡Racha de ${r.streak}! Desbloqueaste: ${r.unlocked.join(', ')} 🎉`)
     } else {
-      flashToast(`🔥 ¡Racha de ${r.streak} ${r.streak === 1 ? 'día' : 'días'}! 💜`)
+      flashToast(`🔥 ¡Racha de ${r.streak} ${r.streak === 1 ? 'día' : 'días'}! 💛`)
     }
     window.setTimeout(() => setMood(phaseMood), 1800)
   }
@@ -123,7 +123,7 @@ export default function Home() {
       {/* Saludo + monedas */}
       <header className="home__top">
         <div>
-          <p className="home__hi">¡Hola, {profile.userName}! 💜</p>
+          <p className="home__hi">¡Hola, {profile.userName}! 💛</p>
           <p className="screen-sub">Tus cuentas, bonitas y al día</p>
         </div>
         <button className="streakpill tap" title="Tienda y racha" onClick={() => navigate('/tienda')}>
@@ -267,7 +267,7 @@ export default function Home() {
             <PeekCat />
             <div className="streakpop__card">
               <b className="streakpop__title">{checkInTitle(cycle, today)}</b>
-              <span className="streakpop__sub">Un toque suma tu racha · solo tú lo ves 💜</span>
+              <span className="streakpop__sub">Un toque suma tu racha · solo tú lo ves 💛</span>
               <div className="streakpop__opts">
                 {checkInOptions(cycleStat, today, cycle).map((o) => (
                   <button

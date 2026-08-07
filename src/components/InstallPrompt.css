@@ -65,7 +65,7 @@
   place-items: center;
   font-weight: 800;
   font-size: 14px;
-  color: #fff;
+  color: var(--on-primary);
   background: linear-gradient(145deg, var(--primary), var(--primary-strong));
 }
 .ip-ic { font-weight: 700; color: var(--primary-strong); }

@@ -116,7 +116,7 @@
 .dailycard__cta {
   font-weight: 800;
   font-size: 14px;
-  color: #fff;
+  color: var(--on-primary);
   padding: 9px 15px;
   border-radius: var(--r-pill);
   background: linear-gradient(135deg, var(--primary), var(--primary-strong));
@@ -158,14 +158,14 @@
 }
 
 /* variante Notitas (lavanda → menta) */
-.notestile { background: linear-gradient(100deg, #e9e0ff, #d6f3e6); border-color: #cdbff0; }
-.notestile b { color: #5a4a8f; }
-.notestile .tokentile__cta { color: #8f79c9; }
+.notestile { background: linear-gradient(100deg, #fdf0bd, #d9f2e2); border-color: #ecd89a; }
+.notestile b { color: #6b5410; }
+.notestile .tokentile__cta { color: #a6871f; }
 
 /* variante Mi Ciclo (lavanda suave, tono luna) */
-.cycletile { background: linear-gradient(100deg, #efe6ff, #f7ecff); border-color: #ddccf5; }
-.cycletile b { color: #5a4a8f; }
-.cycletile .tokentile__cta { color: #9a7fd0; }
+.cycletile { background: linear-gradient(100deg, #fdf1c6, #fff8e2); border-color: #f0dda2; }
+.cycletile b { color: #6b5410; }
+.cycletile .tokentile__cta { color: #ad9026; }
 
 /* Check-in diario del ciclo (reemplaza "entra y suma"): íntimo y suave */
 .checkincard {
@@ -173,7 +173,7 @@
   text-align: left;
   padding: 14px 16px;
   border-radius: var(--r-md);
-  background: linear-gradient(125deg, rgba(184, 146, 236, 0.18), rgba(155, 123, 255, 0.10));
+  background: linear-gradient(125deg, rgba(240, 200, 70, 0.22), rgba(224, 173, 32, 0.12));
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
@@ -197,7 +197,7 @@
 .chk:active { transform: scale(0.97); }
 .chk--moon {
   background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-  color: #fff;
+  color: var(--on-primary);
   border-color: transparent;
 }
 .chk--done { background: var(--income-soft); color: var(--income); border-color: transparent; }

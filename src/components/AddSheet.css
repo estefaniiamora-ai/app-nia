@@ -37,7 +37,7 @@
 }
 .typebtn--income { background: linear-gradient(135deg, #4cd29a, var(--income)); }
 .typebtn--expense { background: linear-gradient(135deg, #ff8a9e, var(--expense)); }
-.typebtn--transfer { background: linear-gradient(135deg, #b39bff, var(--transfer)); }
+.typebtn--transfer { background: linear-gradient(135deg, #8ec6ff, var(--transfer)); }
 .adjustlink {
   margin: 2px auto 0;
   padding: 10px;
