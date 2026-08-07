@@ -28,9 +28,9 @@
   box-shadow: var(--shadow-sm);
   font-weight: 700;
 }
-.streakpill b { color: var(--primary-strong); }
+.streakpill b { color: var(--primary-ink); }
 
-.home__link { color: var(--primary-strong); font-weight: 800; font-size: 14px; }
+.home__link { color: var(--primary-ink); font-weight: 800; font-size: 14px; }
 
 /* Tarjeta de saldo */
 .balancecard {
@@ -158,12 +158,12 @@
 }
 
 /* variante Notitas (lavanda → menta) */
-.notestile { background: linear-gradient(100deg, #fdf0bd, #d9f2e2); border-color: #ecd89a; }
+.notestile { background: linear-gradient(100deg, #fff1d5, #e2f5ea); border-color: #f3e2bf; }
 .notestile b { color: #6b5410; }
 .notestile .tokentile__cta { color: #a6871f; }
 
 /* variante Mi Ciclo (lavanda suave, tono luna) */
-.cycletile { background: linear-gradient(100deg, #fdf1c6, #fff8e2); border-color: #f0dda2; }
+.cycletile { background: linear-gradient(100deg, #fff2da, #fffbf0); border-color: #f6e5c6; }
 .cycletile b { color: #6b5410; }
 .cycletile .tokentile__cta { color: #ad9026; }
 
@@ -173,7 +173,7 @@
   text-align: left;
   padding: 14px 16px;
   border-radius: var(--r-md);
-  background: linear-gradient(125deg, rgba(240, 200, 70, 0.22), rgba(224, 173, 32, 0.12));
+  background: linear-gradient(125deg, rgba(249, 201, 138, 0.28), rgba(224, 178, 96, 0.14));
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }

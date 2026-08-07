@@ -50,7 +50,7 @@
   color: var(--text-soft);
   padding: 2px;
 }
-.rem-toggle input { width: 18px; height: 18px; accent-color: var(--primary); }
+.rem-toggle input { width: 18px; height: 18px; accent-color: var(--primary-ink); }
 
 /* Resumen de deudas (personas) */
 .debtsum {
@@ -116,7 +116,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
 }
-.emoji-chip--on { border-color: var(--primary); background: var(--primary-tint); }
+.emoji-chip--on { border-color: var(--primary-ink); background: var(--primary-tint); }
 
 .swatches { display: flex; flex-wrap: wrap; gap: 9px; }
 .swatch {
@@ -126,7 +126,7 @@
   transition: transform 0.12s ease;
 }
 .swatch:active { transform: scale(0.9); }
-.swatch--on { transform: scale(1.12); box-shadow: 0 0 0 3px var(--primary); }
+.swatch--on { transform: scale(1.12); box-shadow: 0 0 0 3px var(--primary-ink); }
 .swatch--none {
   display: grid; place-items: center;
   color: var(--text-faint);

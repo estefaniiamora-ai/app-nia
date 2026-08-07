@@ -15,7 +15,7 @@ export interface SkinColors {
 export const SKINS: Record<string, SkinColors> = {
   // 'pink' es la skin por defecto de Nia — recoloreada a AMARILLO PASTEL
   // (se conserva el id 'pink' para no romper datos ya guardados).
-  pink:  { body: '#ffe28a', shade: '#f5cb59', ear: '#eebd41', earIn: '#d19c1c', belly: '#fff7dc' },
+  pink:  { body: '#ffeec2', shade: '#f8dc9c', ear: '#f3d089', earIn: '#dcae52', belly: '#fffaea' },
   cream: { body: '#ffe9c9', shade: '#ffd9a6', ear: '#ffc987', earIn: '#ffb066', belly: '#fff8ec' },
   gray:  { body: '#d8d8e8', shade: '#c2c2d6', ear: '#b6b6cc', earIn: '#9a9ab2', belly: '#f3f3fb' },
   black: { body: '#6e6680', shade: '#5b5468', ear: '#4d4659', earIn: '#3c3647', belly: '#ada6bd' },

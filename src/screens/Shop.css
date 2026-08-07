@@ -26,7 +26,7 @@
 }
 .cat-name__input:focus {
   outline: none;
-  border-bottom-color: var(--primary);
+  border-bottom-color: var(--primary-ink);
 }
 .cat-name__pencil { font-size: 13px; opacity: 0.55; }
 
@@ -47,7 +47,7 @@
   padding: 5px 12px;
   box-shadow: var(--shadow-sm);
 }
-.cat-stat b { color: var(--primary-strong); }
+.cat-stat b { color: var(--primary-ink); }
 
 /* Teaser de mini-juegos */
 .minigames-teaser {
@@ -57,7 +57,7 @@
   padding: 13px 16px;
   margin-top: 12px;
   border-radius: var(--r-md);
-  background: linear-gradient(100deg, #fdf0bd, #ffe6f3);
+  background: linear-gradient(100deg, #fff2da, #ffe6f3);
   border: 1px dashed #d3b8ee;
   box-shadow: var(--shadow-sm);
 }
@@ -97,7 +97,7 @@
 .shopitem__status { font-size: 11.5px; font-weight: 800; margin-top: 3px; }
 
 .status--price { color: #d98a14; }
-.status--have { color: var(--primary-strong); }
+.status--have { color: var(--primary-ink); }
 .status--on { color: var(--income); }
 .status--locked { color: var(--text-faint); }
 

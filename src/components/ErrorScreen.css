@@ -33,7 +33,7 @@
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 2px;
-  color: var(--primary-strong);
+  color: var(--primary-ink);
   background: var(--primary-tint);
   padding: 5px 14px;
   border-radius: var(--r-pill);

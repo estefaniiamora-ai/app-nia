@@ -97,7 +97,7 @@
   border: 2px solid rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-sm);
 }
-.note-swatch--on { outline: 3px solid var(--primary); outline-offset: 1px; }
+.note-swatch--on { outline: 3px solid var(--primary-ink); outline-offset: 1px; }
 .note-swatch--pink { background: #ffd9ea; }
 .note-swatch--lav { background: #e7ddff; }
 .note-swatch--mint { background: #d3f3e4; }

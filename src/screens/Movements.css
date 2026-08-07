@@ -29,7 +29,7 @@
   border-color: transparent;
   color: var(--on-primary);
 }
-.fsel__bar--open { border-color: var(--primary); }
+.fsel__bar--open { border-color: var(--primary-ink); }
 .fsel__val {
   white-space: nowrap;
   overflow: hidden;
@@ -68,6 +68,6 @@
   text-align: left;
   color: var(--text);
 }
-.fsel__opt--on { background: var(--primary-tint); color: var(--primary-strong); }
+.fsel__opt--on { background: var(--primary-tint); color: var(--primary-ink); }
 .fsel__opt:active { background: var(--surface-soft); }
-.fsel__check { margin-left: auto; color: var(--primary-strong); font-weight: 900; }
+.fsel__check { margin-left: auto; color: var(--primary-ink); font-weight: 900; }
