@@ -37,11 +37,11 @@ interface Reaction {
   ms: number
 }
 const REACTIONS: Reaction[] = [
-  { anim: 'pounce',    expr: 'happy', fx: ['💗', '💕', '✨'], phrase: '¡miau! 🐾', ms: 700 },
+  { anim: 'pounce',    expr: 'happy', fx: ['💗', '💕', '✨'], phrase: '¡hop hop! 🐾', ms: 700 },
   { anim: 'spin',      expr: 'happy', fx: ['✨', '💫', '⭐'], phrase: '¡weee!', ms: 800 },
   { anim: 'wiggle',    expr: 'happy', fx: ['🎵', '✨', '💗'], phrase: '♪ ~', ms: 900 },
   { anim: 'surprised', expr: 'wide',  fx: ['❗'],             phrase: '¿¡!? ', ms: 700 },
-  { anim: 'purr',      expr: 'happy', fx: ['💗', '💗'],       phrase: 'rrronron~ 😻', ms: 1000 },
+  { anim: 'purr',      expr: 'happy', fx: ['💗', '💗'],       phrase: 'mimosito~ 🥰', ms: 1000 },
   { anim: 'think',     expr: 'open',  fx: ['💡'],             phrase: 'mmm… 🤔', ms: 1000 },
   { anim: 'flip',      expr: 'happy', fx: ['⭐', '✨'],       phrase: '¡ta-da! 🤸', ms: 800 },
   { anim: 'hearts',    expr: 'happy', fx: ['💖', '💗', '💕', '💞'], phrase: 'te quiero 💗', ms: 1000 },
@@ -186,7 +186,7 @@ export default function Cat({
   const decor = context ? CONTEXT_DECOR[context] : null
 
   return (
-    <button type="button" className={cls} style={{ width: size }} onClick={handleTap} aria-label="Gatito">
+    <button type="button" className={cls} style={{ width: size }} onClick={handleTap} aria-label="Conejito">
       {shownBubble && <span key={shownBubble} className="cat__bubble">{shownBubble}</span>}
 
       {fx.map((f) => (
@@ -198,17 +198,19 @@ export default function Cat({
       {/* decoración contextual (alcancía, gráfica, etc.) */}
       {decor && <span className="cat__decor">{decor}</span>}
       {/* bolita de estambre (idle) */}
-      {idle === 'yarn' && !reaction && <span className="cat__yarn">🧶</span>}
+      {idle === 'yarn' && !reaction && <span className="cat__yarn">🥕</span>}
       {/* bombillo (reacción pensar) */}
       {reaction?.anim === 'think' && <span className="cat__bulb">💡</span>}
 
       <svg viewBox="0 0 240 240" width={size} xmlns="http://www.w3.org/2000/svg">
         <g className="cat__body">
-          {/* colita esponjosa con puntita clara */}
+          {/* colita de pompón (conejo) */}
           <g className="cat__tail">
-            <path d="M166 184 q52 10 50 -44 q-2 -30 -28 -28 q20 8 18 30 q-3 32 -42 26 z" fill={c.shade} />
-            <ellipse cx="195" cy="140" rx="14" ry="15" fill={c.belly} />
-            <ellipse cx="195" cy="140" rx="14" ry="15" fill={c.shade} opacity="0.22" />
+            <circle cx="189" cy="158" r="20" fill={c.shade} />
+            <circle cx="183" cy="147" r="11" fill={c.belly} opacity="0.85" />
+            <circle cx="199" cy="153" r="10" fill={c.belly} opacity="0.6" />
+            <circle cx="194" cy="169" r="10" fill={c.belly} opacity="0.5" />
+            <circle cx="179" cy="165" r="8" fill={c.belly} opacity="0.4" />
           </g>
           {/* cuerpo */}
           <ellipse cx="120" cy="180" rx="62" ry="48" fill={c.body} />
@@ -534,11 +536,19 @@ export default function Cat({
             </g>
           )}
 
-          {/* orejas redondeadas con corazón adentro */}
-          <path className="cat__earL" d="M70 98 Q64 50 90 52 Q114 58 118 82 Q94 72 70 98 Z" fill={c.ear} />
-          <path d="M170 98 Q176 50 150 52 Q126 58 122 82 Q146 72 170 98 Z" fill={c.ear} />
-          <path d="M90 66 q-6 -7 -11 -1 q-4 6 11 15 q15 -9 11 -15 q-5 -6 -11 1 z" fill={c.earIn} />
-          <path d="M150 66 q-6 -7 -11 -1 q-4 6 11 15 q15 -9 11 -15 q-5 -6 -11 1 z" fill={c.earIn} />
+          {/* orejotas largas de conejo, con el interior más oscurito */}
+          <g transform="rotate(-13 100 92)">
+            <g className="cat__earL">
+              <ellipse cx="100" cy="50" rx="17" ry="46" fill={c.ear} />
+              <ellipse cx="100" cy="54" rx="8.5" ry="36" fill={c.earIn} />
+              <ellipse cx="96" cy="34" rx="3" ry="12" fill={c.belly} opacity="0.3" />
+            </g>
+          </g>
+          <g transform="rotate(13 140 92)">
+            <ellipse cx="140" cy="50" rx="17" ry="46" fill={c.ear} />
+            <ellipse cx="140" cy="54" rx="8.5" ry="36" fill={c.earIn} />
+            <ellipse cx="144" cy="34" rx="3" ry="12" fill={c.belly} opacity="0.3" />
+          </g>
 
           {/* cabeza */}
           <circle cx="120" cy="112" r="56" fill={c.body} />
@@ -618,6 +628,14 @@ export default function Cat({
               strokeWidth="2.6"
               strokeLinecap="round"
             />
+          )}
+
+          {/* dientecitos de conejo */}
+          {expression !== 'teary' && (
+            <g>
+              <rect x="113.8" y="137" width="5.6" height="9.5" rx="1.9" fill="#fffaf7" stroke="#e0cdd6" strokeWidth="0.8" />
+              <rect x="120.6" y="137" width="5.6" height="9.5" rx="1.9" fill="#fffaf7" stroke="#e0cdd6" strokeWidth="0.8" />
+            </g>
           )}
 
           {/* bigotes */}

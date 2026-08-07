@@ -64,7 +64,7 @@ export default function Notes() {
         <div className="notes-empty">
           <div className="notes-empty__ic">🎀</div>
           <h3>¿Qué anotamos hoy?</h3>
-          <p className="screen-sub">Ideas, listas, pendientes… tu michi las cuida 🐱</p>
+          <p className="screen-sub">Ideas, listas, pendientes… tu conejito las cuida 🐰</p>
           <button className="btn btn--primary" style={{ marginTop: 12 }} onClick={() => setCreating(true)}>
             Crear mi primera notita
           </button>

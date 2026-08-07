@@ -51,7 +51,7 @@ export function seedCategories(): Category[] {
 export function defaultProfile(): Profile {
   return {
     userName: 'Nia',
-    catName: 'Michi',
+    catName: 'Conejito',
     theme: 'light',
     catPresence: 'full',
     hideBalance: false,

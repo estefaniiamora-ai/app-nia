@@ -82,7 +82,7 @@ export default function Accounts() {
 
       {normalActive.length === 0 ? (
         <div className="card empty">
-          <h3>Aún no tienes cuentas 🐱</h3>
+          <h3>Aún no tienes cuentas 🐰</h3>
           <p>Crea tu primera cuenta: Nequi, Efectivo, Bancolombia… la que uses.</p>
           <button className="btn btn--primary btn--block" style={{ marginTop: 14 }} onClick={() => setCreateKind('normal')}>
             Crear cuenta

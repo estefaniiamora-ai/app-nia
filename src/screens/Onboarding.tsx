@@ -27,13 +27,13 @@ export default function Onboarding() {
     if (cents > 0) {
       addMovement({ type: 'adjust', amount: cents, accountId: acc.id, direction: 'in', note: 'Saldo inicial' })
     }
-    updateProfile({ catName: catName.trim() || 'Michi', onboarded: true })
+    updateProfile({ catName: catName.trim() || 'Conejito', onboarded: true })
   }
 
   // Saltar: solo nombra al gato y termina, SIN crear cuenta (para no duplicar
   // en usuarias que ya tienen cuentas).
   function skipOnboarding() {
-    updateProfile({ catName: catName.trim() || 'Michi', onboarded: true })
+    updateProfile({ catName: catName.trim() || 'Conejito', onboarded: true })
   }
 
   return (
@@ -44,13 +44,13 @@ export default function Onboarding() {
             <Cat size={150} mood="celebrate" alive={false} speech="¡Holaaa! 💜" />
             <h1 className="onb__title">¡Bienvenida a Nia! 💗</h1>
             <p className="onb__text">
-              Soy tu gatito y te voy a acompañar a llevar tus cuentas, bonitas y al día.
+              Soy tu conejito y te voy a acompañar a llevar tus cuentas, bonitas y al día.
               <br />
               ¿Cómo me quieres llamar?
             </p>
             <input
               className="input onb__input"
-              placeholder="Michi"
+              placeholder="Conejito"
               value={catName}
               onChange={(e) => setCatName(e.target.value)}
               maxLength={16}

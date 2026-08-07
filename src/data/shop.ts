@@ -91,10 +91,10 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: 'mn_noruega', name: 'Camiseta Noruega', emoji: '👕', unlockStreak: 0, kind: 'accessory', event: 'mundial', claimKey: 'haaland' },
 
   // ---- Skins del gato ----
-  { id: 'pink', name: 'Lila', emoji: '🐱', unlockStreak: 0, kind: 'skin' },
-  { id: 'cream', name: 'Cremita', emoji: '🐈', unlockStreak: 12, kind: 'skin' },
-  { id: 'gray', name: 'Gris', emoji: '🐈‍⬛', unlockStreak: 20, kind: 'skin' },
-  { id: 'black', name: 'Negrito', emoji: '🐈‍⬛', unlockStreak: 30, kind: 'skin' },
+  { id: 'pink', name: 'Lila', emoji: '🐰', unlockStreak: 0, kind: 'skin' },
+  { id: 'cream', name: 'Cremita', emoji: '🐇', unlockStreak: 12, kind: 'skin' },
+  { id: 'gray', name: 'Gris', emoji: '🐇', unlockStreak: 20, kind: 'skin' },
+  { id: 'black', name: 'Negrito', emoji: '🖤', unlockStreak: 30, kind: 'skin' },
 
   // ---- Fondos ----
   { id: 'none', name: 'Sin fondo', emoji: '⬜', unlockStreak: 0, kind: 'background' },

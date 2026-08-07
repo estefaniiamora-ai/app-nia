@@ -6,7 +6,7 @@ export default function Settings() {
   const navigate = useNavigate()
 
   const rows: { icon: string; title: string; sub: string; to: string; pill?: boolean }[] = [
-    { icon: '🐱', title: 'Mi Gatito', sub: 'Vístelo, ponle nombre y más 🎀', to: '/tienda', pill: true },
+    { icon: '🐰', title: 'Mi Conejito', sub: 'Vístelo, ponle nombre y más 🎀', to: '/tienda', pill: true },
     { icon: '🎀', title: 'Notitas', sub: 'Tus ideas, listas y recados 💭', to: '/notas' },
     { icon: '🌙', title: 'Mi Ciclo', sub: 'Tu calendario íntimo y privado 🌙', to: '/ciclo' },
     { icon: '📊', title: 'Estadísticas', sub: 'En qué entra y sale tu plata', to: '/estadisticas' },
@@ -18,7 +18,7 @@ export default function Settings() {
       <div className="screen-head">
         <div>
           <h1>Más 💜</h1>
-          <p className="screen-sub">Todo tu michi-mundo en un lugar</p>
+          <p className="screen-sub">Todo tu mundo conejil en un lugar</p>
         </div>
       </div>
 

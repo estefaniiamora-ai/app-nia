@@ -22,7 +22,7 @@ type TabKey = ItemKind | 'mundial'
 const TABS: { kind: TabKey; label: string; emoji: string }[] = [
   { kind: 'accessory', label: 'Accesorios', emoji: '🎀' },
   { kind: 'mundial', label: 'Mundial', emoji: '⚽' },
-  { kind: 'skin', label: 'Skins', emoji: '🐱' },
+  { kind: 'skin', label: 'Skins', emoji: '🐰' },
   { kind: 'background', label: 'Fondos', emoji: '🖼️' },
 ]
 
@@ -77,7 +77,7 @@ export default function Shop() {
           ‹
         </button>
         <div style={{ flex: 1 }}>
-          <h1>Mi Gatito 🐱</h1>
+          <h1>Mi Conejito 🐰</h1>
           <p className="screen-sub">Vístelo, ponle nombre y más 🎀</p>
         </div>
         <span className="streakpill" title="Racha máxima">
@@ -98,9 +98,9 @@ export default function Shop() {
           className="cat-name__input"
           value={profile.catName}
           onChange={(e) => updateProfile({ catName: e.target.value })}
-          placeholder="Michi"
+          placeholder="Conejito"
           maxLength={20}
-          aria-label="Nombre del gato"
+          aria-label="Nombre del conejito"
         />
         <span className="cat-name__pencil">✏️</span>
       </div>
@@ -151,14 +151,14 @@ export default function Shop() {
       <p className="shop-foot">
         {tab === 'mundial'
           ? 'Entra cada día del Mundial y ve completando la colección. ¡Lo que desbloqueas queda tuyo para siempre! ⚽'
-          : 'Cada día que entras sube tu racha 🔥 y desbloqueas cosas nuevas para tu michi. ¡Y quedan tuyas para siempre!'}
+          : 'Cada día que entras sube tu racha 🔥 y desbloqueas cosas nuevas para tu conejito. ¡Y quedan tuyas para siempre!'}
       </p>
 
       {/* Teaser: mini-juegos (próximamente) */}
       <div className="minigames-teaser">
         <span className="minigames-teaser__ic">🎮</span>
         <span className="grow">
-          <b>Mini-juegos con tu michi</b>
+          <b>Mini-juegos con tu conejito</b>
           <span className="minigames-teaser__sub">Jugar, darle premios y más 🐾</span>
         </span>
         <span className="soon-pill">Pronto ✨</span>
@@ -240,7 +240,7 @@ function PreviewSheet({
 
           {unlocked ? (
             <>
-              <p className="screen-sub">Así se le ve a tu michi 🐱</p>
+              <p className="screen-sub">Así se le ve a tu conejito 🐰</p>
               <button
                 className={`btn ${isActive ? 'btn--ghost' : 'btn--primary'} btn--block`}
                 onClick={() => {

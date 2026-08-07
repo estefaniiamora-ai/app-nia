@@ -14,7 +14,7 @@ export default function HaalandBanner({
   onClaim: () => void
   onSkip: () => void
 }) {
-  const nombre = (catName || '').trim() || 'tu michi'
+  const nombre = (catName || '').trim() || 'tu conejito'
 
   return (
     <div className="haaland" role="dialog" aria-modal="true" aria-label="Nueva camiseta de Haaland">
