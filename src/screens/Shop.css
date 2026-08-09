@@ -57,12 +57,12 @@
   padding: 13px 16px;
   margin-top: 12px;
   border-radius: var(--r-md);
-  background: linear-gradient(100deg, #fff2da, #ffe6f3);
+  background: linear-gradient(100deg, #ffe7f1, #f3e6ff);
   border: 1px dashed #d3b8ee;
   box-shadow: var(--shadow-sm);
 }
 .minigames-teaser__ic { font-size: 24px; }
-.minigames-teaser b { font-size: 14.5px; display: block; color: #6b5410; }
+.minigames-teaser b { font-size: 14.5px; display: block; color: #8a3b5e; }
 .minigames-teaser__sub { font-size: 12px; color: var(--text-soft); }
 .soon-pill {
   font-size: 11px;

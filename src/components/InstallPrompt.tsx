@@ -59,7 +59,7 @@ export default function InstallPrompt() {
     <div className="ip-overlay" role="dialog" aria-modal="true" onClick={dismiss}>
       <div className="ip-card" onClick={(e) => e.stopPropagation()}>
         <img src="/LOGO.png" alt="Nia" className="ip-logo" />
-        <h3 className="ip-title">Instala Nia 💛</h3>
+        <h3 className="ip-title">Instala Nia 💗</h3>
 
         {showAndroid && (
           <>

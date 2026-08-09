@@ -5,7 +5,7 @@ const ITEMS = [
   { to: '/', icon: '🏠', label: 'Inicio' },
   { to: '/movimientos', icon: '📜', label: 'Movimientos' },
   { to: '/cuentas', icon: '💳', label: 'Cuentas' },
-  { to: '/ajustes', icon: '💛', label: 'Más' },
+  { to: '/ajustes', icon: '💗', label: 'Más' },
 ]
 
 export default function BottomNav() {

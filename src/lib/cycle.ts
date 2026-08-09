@@ -106,7 +106,7 @@ const PHASE_MSGS: Record<PhaseType, string[]> = {
   menstrual: ['Hoy toca mimarte 🤍', 'Descansa y toma agüita 💧', 'Tu cuerpo se renueva, ve con calma 🌙'],
   folicular: ['Tu energía va despertando 🌱', 'Buen momento para empezar cosas ✨', 'Te sientes con brío 🌿'],
   ovulacion: ['Estás radiante hoy ✨', 'Te sientes magnética 💫', 'Brillas desde adentro 🌟'],
-  lutea:     ['Vamos con calma 🌷', 'Prioriza lo tranquilo 🍵', 'Cuídate con ternura 💛'],
+  lutea:     ['Vamos con calma 🌷', 'Prioriza lo tranquilo 🍵', 'Cuídate con ternura 💗'],
 }
 const PHASE_META: Record<PhaseType, Omit<Phase, 'message'>> = {
   menstrual: { type: 'menstrual', label: 'Menstrual', emoji: '🌙', color: '#ff8fb8', soft: 'rgba(255,143,184,0.16)' },
@@ -184,7 +184,7 @@ export function regularity(avgCycle: number): { label: string; tone: 'ok' | 'med
     return { label: 'Regular', tone: 'ok', desc: `Tus ciclos rondan los ${avgCycle} días. Muy estable 🌿` }
   if (avgCycle >= 21 && avgCycle <= 35)
     return { label: 'Variable', tone: 'medio', desc: `Tus ciclos son de ~${avgCycle} días, dentro de lo normal.` }
-  return { label: 'Irregular', tone: 'ojo', desc: `Tus ciclos varían bastante (~${avgCycle} días). Si te incomoda, coméntalo con tu doctora 💛` }
+  return { label: 'Irregular', tone: 'ojo', desc: `Tus ciclos varían bastante (~${avgCycle} días). Si te incomoda, coméntalo con tu doctora 💗` }
 }
 
 /* ---------- el gato según la fase (integración con Nia) ---------- */

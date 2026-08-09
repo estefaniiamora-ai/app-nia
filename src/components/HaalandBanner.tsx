@@ -59,7 +59,7 @@ export default function HaalandBanner({
             Saltar por ahora
           </button>
         </div>
-        <p className="haaland__foot">Si saltas, la camiseta te seguirá esperando la próxima vez 💛</p>
+        <p className="haaland__foot">Si saltas, la camiseta te seguirá esperando la próxima vez 💗</p>
       </div>
     </div>
   )

@@ -1,0 +1,160 @@
+/* ===========================================================
+   Nia en COMPUTADOR
+   La app nació para el celular. Aquí se adapta a pantallas
+   grandes: menú lateral, contenido más ancho, ventanas
+   centradas y efectos al pasar el mouse.
+   El celular NO se toca (todo va dentro de media queries).
+   =========================================================== */
+
+/* ---------- Puntero de mouse: efectos al pasar por encima ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .btn,
+  .chip,
+  .iconbtn,
+  .navitem,
+  .fab,
+  .row,
+  .tap {
+    cursor: pointer;
+  }
+
+  .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn--primary:hover { box-shadow: var(--shadow-pop); }
+  .chip:hover { border-color: var(--primary-strong); }
+  .iconbtn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .row:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .navitem:hover { color: var(--primary-ink); }
+  .fab:hover { transform: scale(1.06); }
+
+  /* la barrita de scroll, discreta y rosadita */
+  * { scrollbar-width: thin; scrollbar-color: var(--primary-strong) transparent; }
+  *::-webkit-scrollbar { width: 10px; height: 10px; }
+  *::-webkit-scrollbar-thumb {
+    background: var(--primary-strong);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  *::-webkit-scrollbar-track { background: transparent; }
+}
+
+/* ---------- Pantalla mediana (tablet / ventana pequeña) ---------- */
+@media (min-width: 700px) {
+  :root { --maxw: 620px; }
+}
+
+/* ---------- Computador: menú al lado izquierdo ---------- */
+@media (min-width: 1000px) {
+  :root {
+    --maxw: 860px;
+    --rail: 236px;
+    --nav-h: 8px; /* ya no hay barra abajo que tapar */
+  }
+
+  /* el contenido se corre a la derecha para dejarle sitio al menú */
+  .app { padding-left: var(--rail); }
+  .screen { padding-top: 34px; padding-bottom: 60px; }
+  .screen-head h1 { font-size: 30px; }
+
+  /* ----- el menú de abajo se vuelve una columna a la izquierda ----- */
+  .bottomnav {
+    top: 0;
+    bottom: 0;
+    right: auto;
+    width: var(--rail);
+    padding: 22px 14px;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .bottomnav__bar {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 14px 10px;
+    border-radius: var(--r-lg);
+  }
+  /* título "Nia" arriba del menú */
+  .bottomnav__bar::before {
+    content: 'Nia 💗';
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    color: var(--primary-ink);
+    padding: 6px 14px 14px;
+  }
+  .navitem {
+    color: var(--text-soft);
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    height: auto;
+    padding: 12px 14px;
+    border-radius: var(--r-sm);
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .navitem__icon { font-size: 21px; }
+  .navitem__label { font-size: 14.5px; }
+  .navitem--active { background: var(--primary-tint); }
+  .navitem--active .navitem__icon { transform: none; }
+  .navitem:active { transform: scale(0.98); }
+  .fab-slot { display: none; }
+
+  /* ----- el botón + se va a la esquina de abajo a la derecha ----- */
+  .fab {
+    left: auto;
+    right: 40px;
+    bottom: 40px;
+    margin-left: 0;
+    width: 68px;
+    height: 68px;
+    font-size: 32px;
+  }
+
+  /* ----- las hojas se vuelven ventanitas centradas ----- */
+  .sheet-backdrop { align-items: center; padding: 24px 0; }
+  .sheet-stack { max-width: 560px; }
+  .sheet {
+    max-width: 560px;
+    max-height: 84dvh;
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--r-xl);
+    padding-bottom: 24px;
+    box-shadow: 0 30px 70px -24px rgba(196, 82, 130, 0.5);
+  }
+  /* en computador se cierra con la X / clic afuera, no deslizando */
+  .sheet__grip-zone { cursor: default; }
+
+  /* ----- el conejito pasea sobre el ancho del contenido, no de la ventana ----- */
+  .screencat {
+    right: 130px; /* para no chocar con el botón + */
+    bottom: 18px;
+  }
+  .screencat__walk--on { animation-name: cat-walk-desk; }
+  @keyframes cat-walk-desk {
+    0%, 5%   { transform: translateX(0); }
+    28%      { transform: translateX(-620px); }
+    34%      { transform: translateX(-620px); }
+    56%      { transform: translateX(-300px); }
+    60%      { transform: translateX(-300px); }
+    70%      { transform: translateX(-450px); }
+    74%      { transform: translateX(-450px); }
+    88%      { transform: translateX(0); }
+    90%      { transform: translateX(140px); }
+    96%      { transform: translateX(140px); }
+    100%     { transform: translateX(0); }
+  }
+
+  /* ----- listas y tarjetas aprovechan el ancho ----- */
+  .list--2col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
+}
+
+/* ---------- Pantallas muy anchas: que no se estire de más ---------- */
+@media (min-width: 1500px) {
+  .app { padding-left: 0; }
+  .bottomnav { left: calc(50vw - 700px); }
+}

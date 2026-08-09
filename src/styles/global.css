@@ -1,6 +1,6 @@
 /* ===========================================================
    Nia App — Sistema de diseño
-   Amarillo pastel + glassmorphism · claro y oscuro
+   Rosa pastel + glassmorphism · claro y oscuro
    =========================================================== */
 
 /* ---------- Reset ligero ---------- */
@@ -29,32 +29,32 @@ img, svg { display: block; max-width: 100%; }
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro Rounded",
           "Hiragino Maru Gothic ProN", "Quicksand", system-ui, sans-serif;
 
-  /* Fondo de la app (degradado amarillo pastel suave) */
+  /* Fondo de la app (degradado rosa pastel suave) */
   --app-bg: radial-gradient(135% 120% at 50% -10%,
-              #fffdf8 0%, #fff2da 38%, #fffaec 70%, #fff3e7 100%);
+              #fffbfc 0%, #ffe7f0 38%, #fff2f7 70%, #ffeaf3 100%);
 
   /* Superficies de cristal */
   --surface:        rgba(255, 255, 255, 0.62);
   --surface-strong: rgba(255, 255, 255, 0.86);
   --surface-soft:   rgba(255, 255, 255, 0.40);
   --border:         rgba(255, 255, 255, 0.75);
-  --border-soft:    rgba(224, 178, 96, 0.24);
+  --border-soft:    rgba(230, 133, 174, 0.24);
   --blur: 18px;
 
   /* Texto */
-  --text:      #5c4b33;
-  --text-soft: #948468;
-  --text-faint:#c1b394;
+  --text:      #5e3d4c;
+  --text-soft: #96798a;
+  --text-faint:#b795a6;
 
   /* Marca */
-  --primary:        #ffe4bd;
-  --primary-strong: #f9c98a;
-  --primary-soft:   #fff3e0;
-  --primary-tint:   rgba(249, 201, 138, 0.24);
-  /* texto que va ENCIMA del crema (el blanco no se leería) */
-  --on-primary:     #6b4a12;
+  --primary:        #ffd3e3;
+  --primary-strong: #ffabcb;
+  --primary-soft:   #ffe8f1;
+  --primary-tint:   rgba(255, 171, 203, 0.24);
+  /* texto que va ENCIMA del rosa (el blanco no se leería) */
+  --on-primary:     #7d2148;
   /* tono fuerte para TEXTO y detalles sobre fondos claros */
-  --primary-ink:    #b57d1c;
+  --primary-ink:    #d64c86;
 
   /* Semánticos */
   --income:  #34c08a;
@@ -67,10 +67,10 @@ img, svg { display: block; max-width: 100%; }
   --gold-soft: rgba(255, 180, 61, 0.16);
 
   /* Sombras */
-  --shadow-sm: 0 6px 16px -10px rgba(176, 134, 52, 0.42);
-  --shadow-md: 0 14px 30px -16px rgba(176, 134, 52, 0.42);
-  --shadow-lg: 0 24px 50px -24px rgba(176, 134, 52, 0.45);
-  --shadow-pop: 0 18px 40px -16px rgba(212, 168, 84, 0.5);
+  --shadow-sm: 0 6px 16px -10px rgba(196, 82, 130, 0.42);
+  --shadow-md: 0 14px 30px -16px rgba(196, 82, 130, 0.42);
+  --shadow-lg: 0 24px 50px -24px rgba(196, 82, 130, 0.45);
+  --shadow-pop: 0 18px 40px -16px rgba(224, 116, 164, 0.5);
 
   /* Radios */
   --r-xs: 12px;
@@ -92,28 +92,28 @@ img, svg { display: block; max-width: 100%; }
   --ease-pop: cubic-bezier(0.22, 1.4, 0.4, 1);
 }
 
-/* ---------- Tokens: tema OSCURO (miel nocturna) ---------- */
+/* ---------- Tokens: tema OSCURO (rosa nocturna) ---------- */
 :root[data-theme="dark"] {
   --app-bg: radial-gradient(135% 120% at 50% -10%,
-              #3a3223 0%, #2b2517 45%, #201b11 100%);
+              #3d2733 0%, #2e1d26 45%, #22161d 100%);
 
-  --surface:        rgba(255, 244, 214, 0.08);
-  --surface-strong: rgba(255, 244, 214, 0.14);
-  --surface-soft:   rgba(255, 244, 214, 0.05);
-  --border:         rgba(255, 240, 205, 0.16);
-  --border-soft:    rgba(230, 182, 60, 0.22);
+  --surface:        rgba(255, 224, 238, 0.08);
+  --surface-strong: rgba(255, 224, 238, 0.14);
+  --surface-soft:   rgba(255, 224, 238, 0.05);
+  --border:         rgba(255, 220, 236, 0.16);
+  --border-soft:    rgba(235, 130, 178, 0.22);
   --blur: 20px;
 
-  --text:      #fdf5e2;
-  --text-soft: #d8c9a5;
-  --text-faint:#a29579;
+  --text:      #fdeef5;
+  --text-soft: #dcbecd;
+  --text-faint:#ab8a9a;
 
-  --primary:        #ffe6c4;
-  --primary-strong: #f8cf94;
-  --primary-soft:   rgba(255, 230, 196, 0.22);
-  --primary-tint:   rgba(255, 230, 196, 0.16);
-  --on-primary:     #5c3f0c;
-  --primary-ink:    #f5cf90;
+  --primary:        #ffd8e7;
+  --primary-strong: #ffb0d0;
+  --primary-soft:   rgba(255, 176, 208, 0.22);
+  --primary-tint:   rgba(255, 176, 208, 0.16);
+  --on-primary:     #6e1d3f;
+  --primary-ink:    #ff9dc4;
 
   --income:  #5fd6a6;
   --income-soft: rgba(95, 214, 166, 0.18);
@@ -127,7 +127,7 @@ img, svg { display: block; max-width: 100%; }
   --shadow-sm: 0 6px 16px -10px rgba(0, 0, 0, 0.6);
   --shadow-md: 0 14px 30px -16px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 24px 50px -24px rgba(0, 0, 0, 0.65);
-  --shadow-pop: 0 18px 40px -16px rgba(248, 207, 148, 0.35);
+  --shadow-pop: 0 18px 40px -16px rgba(255, 176, 208, 0.35);
 }
 
 /* ---------- Tipografía utilitaria ---------- */

@@ -16,9 +16,9 @@ export default function Login() {
   return (
     <div className="login">
       <div className="login__card">
-        <Cat size={150} mood="happy" alive speech="¡Holaaa! 🌼" />
+        <Cat size={150} mood="happy" alive speech="¡Holaaa! 🌸" />
         <h1 className="login__title">Nia</h1>
-        <p className="login__sub">Tus cuentas, bonitas y al día 💛</p>
+        <p className="login__sub">Tus cuentas, bonitas y al día 💗</p>
 
         <button className="gbtn" onClick={handle} disabled={busy}>
           <GoogleIcon />

@@ -41,7 +41,7 @@ export default function Onboarding() {
       <div className="onb__card">
         {step === 0 && (
           <>
-            <Cat size={150} mood="celebrate" alive={false} speech="¡Holaaa! 💛" />
+            <Cat size={150} mood="celebrate" alive={false} speech="¡Holaaa! 💗" />
             <h1 className="onb__title">¡Bienvenida a Nia! 💗</h1>
             <p className="onb__text">
               Soy tu conejito y te voy a acompañar a llevar tus cuentas, bonitas y al día.
@@ -122,7 +122,7 @@ export default function Onboarding() {
             </div>
 
             <button className="btn btn--primary btn--block" onClick={finish}>
-              ¡Empezar! 💛
+              ¡Empezar! 💗
             </button>
             <button className="btn btn--ghost btn--block" onClick={skipOnboarding}>
               Saltar por ahora

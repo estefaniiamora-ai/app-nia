@@ -96,7 +96,7 @@ export default function CycleDaySheet({ date, onClose }: { date: string; onClose
               aria-label="Elige un emoji para el día"
             />
             <span className="cyc-emojihint">
-              Toca y elige el emoji que describa tu día 💛
+              Toca y elige el emoji que describa tu día 💗
               {log.mood && (
                 <button className="cyc-emojiclear" onClick={() => logCycleDay(date, { mood: undefined })}>
                   Quitar
@@ -158,7 +158,7 @@ export default function CycleDaySheet({ date, onClose }: { date: string; onClose
         </div>
 
         <button className="btn btn--block cyc-done" onClick={onClose}>
-          Listo 💛
+          Listo 💗
         </button>
       </div>
     </div>

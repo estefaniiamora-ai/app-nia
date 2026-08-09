@@ -191,7 +191,7 @@ export default function Ciclo() {
           <span><i className="lg lg--pred" /> Estimado</span>
         </div>
         {cycle.showFertility && (
-          <p className="ciclo-disclaimer">La fertilidad es una estimación; tu cuerpo puede variar 💛</p>
+          <p className="ciclo-disclaimer">La fertilidad es una estimación; tu cuerpo puede variar 💗</p>
         )}
       </section>
 

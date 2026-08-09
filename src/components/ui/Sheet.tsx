@@ -44,6 +44,16 @@ export default function Sheet({ open, onClose, title, children, peek }: SheetPro
     }
   }, [open])
 
+  // En computador: la tecla Esc cierra la hoja.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCloseRef.current()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   // Detectar el teclado con visualViewport y levantar la hoja por encima de él
   useEffect(() => {
     if (!open) return
