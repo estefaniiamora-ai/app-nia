@@ -30,6 +30,8 @@ export interface Profile {
   /** Metas diarias de comida (faltan = sin meta puesta todavía). */
   kcalGoal?: number         // calorías al día
   proteinGoal?: number      // gramos de proteína al día
+  carbGoal?: number         // gramos de carbohidratos al día
+  fatGoal?: number          // gramos de grasas al día
 }
 
 export interface Account {

@@ -148,3 +148,18 @@
   border-color: var(--border);
 }
 :root[data-theme="dark"] .nut-preview__kcal b { color: var(--primary-ink); }
+
+/* Aviso de si las metas de nutrientes cuadran con las calorías */
+.nut-cuadre {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--text-soft);
+  padding: 10px 13px;
+  border-radius: var(--r-sm);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+.nut-cuadre--ojo {
+  background: var(--gold-soft);
+  border-color: transparent;
+}

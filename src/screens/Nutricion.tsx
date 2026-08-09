@@ -44,9 +44,10 @@ export default function Nutricion() {
 
   const metaKcal = profile.kcalGoal ?? META_KCAL
   const metaProt = profile.proteinGoal ?? META_PROT
-  // Carbos y grasas: reparto orientativo (45% y 30% de las calorías del día).
-  const metaCarb = Math.round((metaKcal * 0.45) / 4)
-  const metaGrasa = Math.round((metaKcal * 0.3) / 9)
+  // Si ella no ha puesto meta de carbos/grasas, se usa un reparto orientativo
+  // (45% y 30% de las calorías del día).
+  const metaCarb = profile.carbGoal ?? Math.round((metaKcal * 0.45) / 4)
+  const metaGrasa = profile.fatGoal ?? Math.round((metaKcal * 0.3) / 9)
 
   const delDia = useMemo(
     () => foodLogs.filter((f) => f.date === dia).sort((a, b) => a.createdAt - b.createdAt),
@@ -205,8 +206,10 @@ export default function Nutricion() {
         <MetasForm
           kcal={metaKcal}
           prot={metaProt}
-          onSave={(k, p) => {
-            updateProfile({ kcalGoal: k, proteinGoal: p })
+          carb={metaCarb}
+          grasa={metaGrasa}
+          onSave={(k, p, c, g) => {
+            updateProfile({ kcalGoal: k, proteinGoal: p, carbGoal: c, fatGoal: g })
             setMetasAbiertas(false)
           }}
         />
@@ -598,34 +601,79 @@ function EditarComida({
 function MetasForm({
   kcal,
   prot,
+  carb,
+  grasa,
   onSave,
 }: {
   kcal: number
   prot: number
-  onSave: (kcal: number, prot: number) => void
+  carb: number
+  grasa: number
+  onSave: (kcal: number, prot: number, carb: number, grasa: number) => void
 }) {
   const [k, setK] = useState(String(kcal))
   const [p, setP] = useState(String(prot))
+  const [c, setC] = useState(String(carb))
+  const [g, setG] = useState(String(grasa))
+
+  const n = (v: string) => Math.max(0, Math.round(Number(v.replace(',', '.')) || 0))
+
+  // Los macros también son calorías: proteína y carbos 4 por gramo, grasas 9.
+  // Así ella ve si sus metas cuadran con las calorías que puso.
+  const kcalMacros = n(p) * 4 + n(c) * 4 + n(g) * 9
+  const dif = kcalMacros - n(k)
+  const cuadra = Math.abs(dif) <= 60
+
+  /** Vuelve al reparto clásico a partir de las calorías (45% carbos, 30% grasas). */
+  function repartoSugerido() {
+    const cal = n(k) || META_KCAL
+    setC(String(Math.round((cal * 0.45) / 4)))
+    setG(String(Math.round((cal * 0.3) / 9)))
+  }
 
   return (
     <div className="stack">
       <p className="screen-sub" style={{ paddingLeft: 2 }}>
-        Ponle la meta que te sirva. Si no sabes cuál, déjala así y la ajustas después 💗
+        Ponle las metas que te sirvan. Si no sabes cuáles, déjalas así y las ajustas después 💗
       </p>
-      <div className="nut-grid2">
-        <div className="field">
-          <label>Calorías al día</label>
-          <input className="input" type="number" inputMode="numeric" value={k} onChange={(e) => setK(e.target.value)} />
-        </div>
+
+      <div className="field">
+        <label>Calorías al día</label>
+        <input className="input" type="number" inputMode="numeric" value={k} onChange={(e) => setK(e.target.value)} />
+      </div>
+
+      <div className="nut-grid3">
         <div className="field">
           <label>Proteína (g)</label>
           <input className="input" type="number" inputMode="numeric" value={p} onChange={(e) => setP(e.target.value)} />
         </div>
+        <div className="field">
+          <label>Carbos (g)</label>
+          <input className="input" type="number" inputMode="numeric" value={c} onChange={(e) => setC(e.target.value)} />
+        </div>
+        <div className="field">
+          <label>Grasas (g)</label>
+          <input className="input" type="number" inputMode="numeric" value={g} onChange={(e) => setG(e.target.value)} />
+        </div>
       </div>
-      <button
-        className="btn btn--primary btn--block"
-        onClick={() => onSave(Math.max(0, Number(k) || 0), Math.max(0, Number(p) || 0))}
-      >
+
+      <div className={`nut-cuadre ${cuadra ? '' : 'nut-cuadre--ojo'}`}>
+        {cuadra ? (
+          <span>✅ Tus nutrientes suman ~{kcalMacros.toLocaleString('es-CO')} kcal: cuadran con tu meta.</span>
+        ) : (
+          <span>
+            👀 Tus nutrientes suman ~{kcalMacros.toLocaleString('es-CO')} kcal,{' '}
+            {dif > 0 ? `${dif.toLocaleString('es-CO')} más` : `${Math.abs(dif).toLocaleString('es-CO')} menos`} que tu
+            meta de calorías. Puedes dejarlo así si quieres.
+          </span>
+        )}
+      </div>
+
+      <button className="btn btn--block" onClick={repartoSugerido}>
+        ✨ Sugiéreme carbos y grasas
+      </button>
+
+      <button className="btn btn--primary btn--block" onClick={() => onSave(n(k), n(p), n(c), n(g))}>
         Guardar metas
       </button>
     </div>
