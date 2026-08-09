@@ -5,6 +5,7 @@ import Sheet from '../components/ui/Sheet'
 import Cat from '../components/Cat/Cat'
 import { localDayKey, daysBetween } from '../lib/date'
 import { FOODS, macrosFor, searchFoods, type Food, type FoodPortion } from '../data/foods'
+import { parseComida, type ItemDetectado } from '../data/parseComida'
 import { MEAL_SLOTS, type FoodLog, type MealSlot } from '../data/types'
 import './Nutricion.css'
 
@@ -207,6 +208,10 @@ export default function Nutricion() {
           addFoodLog({ ...data, date: dia, slot: agregando ?? 'desayuno' })
           setAgregando(null)
         }}
+        onSaveVarios={(lista) => {
+          lista.forEach((data) => addFoodLog({ ...data, date: dia, slot: agregando ?? 'desayuno' }))
+          setAgregando(null)
+        }}
       />
 
       <EditarComida
@@ -267,15 +272,18 @@ function AgregarComida({
   slot,
   onClose,
   onSave,
+  onSaveVarios,
 }: {
   open: boolean
   slot: MealSlot
   onClose: () => void
   onSave: (data: DatosComida) => void
+  onSaveVarios: (lista: DatosComida[]) => void
 }) {
   const [busqueda, setBusqueda] = useState('')
   const [elegido, setElegido] = useState<Food | null>(null)
   const [manual, setManual] = useState(false)
+  const [contando, setContando] = useState(false)
 
   const firma = `${open}|${slot}`
   const [ultimaFirma, setUltimaFirma] = useState(firma)
@@ -284,6 +292,7 @@ function AgregarComida({
     setBusqueda('')
     setElegido(null)
     setManual(false)
+    setContando(false)
   }
 
   const resultados = useMemo(() => searchFoods(busqueda, 60), [busqueda])
@@ -308,14 +317,30 @@ function AgregarComida({
             setManual(false)
           }}
         />
+      ) : contando ? (
+        <Describir
+          onVolver={() => setContando(false)}
+          onSave={(lista) => {
+            onSaveVarios(lista)
+            setContando(false)
+          }}
+        />
       ) : (
         <div className="stack">
+          <button className="nut-contar" onClick={() => setContando(true)}>
+            <span className="nut-contar__ic">💬</span>
+            <span className="grow">
+              <b>Cuéntame qué comiste</b>
+              <span className="nut-contar__sub">Escríbelo con tus palabras y yo lo calculo 💗</span>
+            </span>
+            <span className="nut-food__go">›</span>
+          </button>
+
           <input
             className="input"
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Busca: pollo, arroz, banano…"
-            autoFocus
+            placeholder="…o busca: pollo, arroz, banano"
           />
 
           <div className="nut-lista no-scrollbar">
@@ -344,6 +369,166 @@ function AgregarComida({
         </div>
       )}
     </Sheet>
+  )
+}
+
+/* ===========================================================
+   "Cuéntame qué comiste": ella lo escribe con sus palabras y
+   la app reconoce los alimentos y calcula los nutrientes.
+   =========================================================== */
+
+function Describir({
+  onVolver,
+  onSave,
+}: {
+  onVolver: () => void
+  onSave: (lista: DatosComida[]) => void
+}) {
+  const [texto, setTexto] = useState('')
+  const [items, setItems] = useState<ItemDetectado[] | null>(null)
+  const [noEntendidos, setNoEntendidos] = useState<string[]>([])
+
+  function calcular() {
+    const r = parseComida(texto)
+    setItems(r.items)
+    setNoEntendidos(r.noEntendidos)
+  }
+
+  function cambiarGramos(i: number, valor: string) {
+    const g = Math.max(0, Math.round(Number(valor.replace(',', '.')) || 0))
+    setItems((lista) =>
+      (lista ?? []).map((it, j) =>
+        j === i ? { ...it, grams: g, detalle: `${g} g`, ...macrosFor(it.food, g) } : it,
+      ),
+    )
+  }
+
+  function quitar(i: number) {
+    setItems((lista) => (lista ?? []).filter((_, j) => j !== i))
+  }
+
+  const total = (items ?? []).reduce(
+    (acc, it) => ({
+      kcal: acc.kcal + it.kcal,
+      protein: acc.protein + it.protein,
+      carbs: acc.carbs + it.carbs,
+      fat: acc.fat + it.fat,
+    }),
+    { kcal: 0, protein: 0, carbs: 0, fat: 0 },
+  )
+
+  return (
+    <div className="stack">
+      <button className="nut-volver" onClick={onVolver}>
+        ‹ Volver
+      </button>
+
+      <div className="field">
+        <label>¿Qué comiste?</label>
+        <textarea
+          className="textarea nut-frase"
+          value={texto}
+          onChange={(e) => {
+            setTexto(e.target.value)
+            setItems(null)
+          }}
+          placeholder="Ej: 2 huevos, 1 arepa y un vaso de jugo"
+          maxLength={220}
+        />
+      </div>
+
+      <p className="nut-tip">
+        💡 Escríbelo normal, como se lo contarías a alguien. Puedes decir cantidades
+        (<i>2 huevos</i>), medidas (<i>una taza de arroz</i>) o gramos (<i>150 g de pollo</i>).
+      </p>
+
+      {items === null ? (
+        <button className="btn btn--primary btn--block" disabled={!texto.trim()} onClick={calcular}>
+          Calcular nutrientes ✨
+        </button>
+      ) : (
+        <>
+          {items.length === 0 ? (
+            <p className="nut-tip nut-tip--ojo">
+              No reconocí nada de lo que escribiste 🙈 Prueba con palabras más sencillas
+              (por ejemplo <i>pan</i>, <i>huevo</i>, <i>arroz</i>), o agrégalo tú misma desde la lista.
+            </p>
+          ) : (
+            <>
+              <span className="t-label">Esto fue lo que entendí</span>
+
+              <div className="nut-detectados">
+                {items.map((it, i) => (
+                  <div key={i} className="nut-det">
+                    <span className="nut-det__ic">{it.food.emoji}</span>
+                    <span className="grow">
+                      <b>{it.food.name}</b>
+                      <span className="nut-det__sub">
+                        {it.detalle} · {it.kcal} kcal
+                      </span>
+                    </span>
+                    <input
+                      className="input nut-det__g"
+                      type="number"
+                      inputMode="numeric"
+                      value={it.grams}
+                      onChange={(e) => cambiarGramos(i, e.target.value)}
+                      aria-label={`Gramos de ${it.food.name}`}
+                    />
+                    <button className="nut-det__del" onClick={() => quitar(i)} aria-label="Quitar">
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="nut-preview">
+                <div className="nut-preview__kcal">
+                  <b>{total.kcal}</b>
+                  <span>kcal</span>
+                </div>
+                <div className="nut-preview__macros">
+                  <span>Proteína <b>{total.protein} g</b></span>
+                  <span>Carbos <b>{total.carbs} g</b></span>
+                  <span>Grasas <b>{total.fat} g</b></span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {noEntendidos.length > 0 && (
+            <p className="nut-tip nut-tip--ojo">
+              👀 Esto no lo reconocí: <b>{noEntendidos.join(', ')}</b>. Si te importa, búscalo en la
+              lista o agrégalo tú misma.
+            </p>
+          )}
+
+          <button className="btn btn--block" onClick={() => setItems(null)}>
+            ↻ Calcular otra vez
+          </button>
+
+          <button
+            className="btn btn--primary btn--block"
+            disabled={items.length === 0}
+            onClick={() =>
+              onSave(
+                items.map((it) => ({
+                  name: it.food.name,
+                  grams: it.grams,
+                  kcal: it.kcal,
+                  protein: it.protein,
+                  carbs: it.carbs,
+                  fat: it.fat,
+                  foodId: it.food.id,
+                })),
+              )
+            }
+          >
+            Agregar {items.length === 1 ? 'este alimento' : `estos ${items.length} alimentos`}
+          </button>
+        </>
+      )}
+    </div>
   )
 }
 
