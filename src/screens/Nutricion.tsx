@@ -4,7 +4,7 @@ import { useApp } from '../store/store'
 import Sheet from '../components/ui/Sheet'
 import Cat from '../components/Cat/Cat'
 import { localDayKey, daysBetween } from '../lib/date'
-import { FOODS, macrosFor, searchFoods, type Food } from '../data/foods'
+import { FOODS, macrosFor, searchFoods, type Food, type FoodPortion } from '../data/foods'
 import { MEAL_SLOTS, type FoodLog, type MealSlot } from '../data/types'
 import './Nutricion.css'
 
@@ -41,6 +41,12 @@ export default function Nutricion() {
   const [agregando, setAgregando] = useState<MealSlot | null>(null)
   const [editando, setEditando] = useState<FoodLog | null>(null)
   const [metasAbiertas, setMetasAbiertas] = useState(false)
+  // comidas plegadas (para ocultar lo registrado y ver la pantalla más limpia)
+  const [plegadas, setPlegadas] = useState<MealSlot[]>([])
+
+  function alternarSlot(key: MealSlot) {
+    setPlegadas((p) => (p.includes(key) ? p.filter((k) => k !== key) : [...p, key]))
+  }
 
   const metaKcal = profile.kcalGoal ?? META_KCAL
   const metaProt = profile.proteinGoal ?? META_PROT
@@ -130,40 +136,55 @@ export default function Nutricion() {
       {MEAL_SLOTS.map((slot) => {
         const items = delDia.filter((f) => f.slot === slot.key)
         const kcalSlot = items.reduce((n, f) => n + f.kcal, 0)
+        const abierta = !plegadas.includes(slot.key)
         return (
           <section key={slot.key} className="nut-slot">
             <div className="nut-slot__head">
-              <b>
-                {slot.emoji} {slot.label}
-              </b>
-              <span className="nut-slot__kcal">{kcalSlot > 0 ? `${kcalSlot} kcal` : ''}</span>
+              <button
+                className="nut-slot__toggle"
+                onClick={() => alternarSlot(slot.key)}
+                aria-expanded={abierta}
+                aria-label={`${abierta ? 'Ocultar' : 'Mostrar'} ${slot.label}`}
+              >
+                <span className={`nut-slot__chev ${abierta ? 'is-open' : ''}`}>›</span>
+                <b>
+                  {slot.emoji} {slot.label}
+                </b>
+                <span className="nut-slot__kcal">
+                  {kcalSlot > 0 ? `${kcalSlot} kcal` : ''}
+                  {!abierta && items.length > 0
+                    ? ` · ${items.length} ${items.length === 1 ? 'cosita' : 'cositas'}`
+                    : ''}
+                </span>
+              </button>
               <button className="nut-slot__add" onClick={() => setAgregando(slot.key)} aria-label={`Agregar a ${slot.label}`}>
                 ＋
               </button>
             </div>
 
-            {items.length === 0 ? (
-              <p className="nut-slot__vacio">Nada todavía</p>
-            ) : (
-              <div className="list">
-                {items.map((f) => (
-                  <button
-                    key={f.id}
-                    className="row nut-item"
-                    onClick={() => setEditando(f)}
-                    style={{ width: '100%', textAlign: 'left' }}
-                  >
-                    <span className="row__main">
-                      <span className="row__title">{f.name}</span>
-                      <span className="row__sub">
-                        {f.grams} g · P {f.protein} · C {f.carbs} · G {f.fat}
+            {abierta &&
+              (items.length === 0 ? (
+                <p className="nut-slot__vacio">Nada todavía</p>
+              ) : (
+                <div className="list">
+                  {items.map((f) => (
+                    <button
+                      key={f.id}
+                      className="row nut-item"
+                      onClick={() => setEditando(f)}
+                      style={{ width: '100%', textAlign: 'left' }}
+                    >
+                      <span className="row__main">
+                        <span className="row__title">{f.name}</span>
+                        <span className="row__sub">
+                          {f.grams} g · P {f.protein} · C {f.carbs} · G {f.fat}
+                        </span>
                       </span>
-                    </span>
-                    <span className="row__right nut-item__kcal">{f.kcal}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+                      <span className="row__right nut-item__kcal">{f.kcal}</span>
+                    </button>
+                  ))}
+                </div>
+              ))}
           </section>
         )
       })}
@@ -335,10 +356,28 @@ function Cantidad({
   onVolver: () => void
   onSave: (data: DatosComida) => void
 }) {
-  const inicial = food.portions?.[0]?.grams ?? 100
-  const [gramos, setGramos] = useState(String(inicial))
-  const g = Math.max(0, Number(gramos.replace(',', '.')) || 0)
+  // Porciones que se pueden elegir: las del alimento + "100 g" siempre.
+  const porciones: FoodPortion[] = [...(food.portions ?? []), { label: '100 g', grams: 100 }]
+  const [porcion, setPorcion] = useState<FoodPortion | null>(porciones[0])
+  const [veces, setVeces] = useState(1)
+  const [gramosLibres, setGramosLibres] = useState(String(porciones[0]?.grams ?? 100))
+
+  // Si eligió una porción, los gramos salen de "porción × veces".
+  // Si escribió los gramos a mano, mandan los suyos.
+  const g = porcion ? porcion.grams * veces : Math.max(0, Number(gramosLibres.replace(',', '.')) || 0)
   const m = macrosFor(food, g)
+
+  function elegirPorcion(pz: FoodPortion) {
+    setPorcion(pz)
+    setVeces(1)
+    setGramosLibres(String(pz.grams))
+  }
+
+  function cambiarVeces(n: number) {
+    const v = Math.min(30, Math.max(1, n))
+    setVeces(v)
+    if (porcion) setGramosLibres(String(porcion.grams * v))
+  }
 
   return (
     <div className="stack">
@@ -351,31 +390,45 @@ function Cantidad({
         <b>{food.name}</b>
       </div>
 
-      {food.portions && food.portions.length > 0 && (
-        <div className="nut-porciones no-scrollbar">
-          {food.portions.map((p) => (
-            <button
-              key={p.label}
-              className={`chip ${g === p.grams ? 'chip--active' : ''}`}
-              onClick={() => setGramos(String(p.grams))}
-            >
-              {p.label}
-            </button>
-          ))}
-          <button className={`chip ${g === 100 ? 'chip--active' : ''}`} onClick={() => setGramos('100')}>
-            100 g
+      <div className="nut-porciones no-scrollbar">
+        {porciones.map((pz) => (
+          <button
+            key={pz.label}
+            className={`chip ${porcion?.label === pz.label ? 'chip--active' : ''}`}
+            onClick={() => elegirPorcion(pz)}
+          >
+            {pz.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ¿cuántas veces? (2 huevos, 3 tajadas de pan…) */}
+      {porcion && (
+        <div className="nut-stepper">
+          <button className="nut-stepper__btn" onClick={() => cambiarVeces(veces - 1)} aria-label="Menos">
+            −
+          </button>
+          <span className="nut-stepper__mid">
+            <b>{veces === 1 ? porcion.label : `${veces} × ${porcion.label.replace(/^1 /, '')}`}</b>
+            <span className="nut-stepper__sub">son {Math.round(g)} g</span>
+          </span>
+          <button className="nut-stepper__btn" onClick={() => cambiarVeces(veces + 1)} aria-label="Más">
+            ＋
           </button>
         </div>
       )}
 
       <div className="field">
-        <label>¿Cuántos gramos?</label>
+        <label>O escribe los gramos tú misma</label>
         <input
           className="input"
           type="number"
           inputMode="decimal"
-          value={gramos}
-          onChange={(e) => setGramos(e.target.value)}
+          value={porcion ? String(Math.round(g)) : gramosLibres}
+          onChange={(e) => {
+            setPorcion(null)
+            setGramosLibres(e.target.value)
+          }}
         />
       </div>
 
@@ -537,6 +590,10 @@ function EditarComida({
         fat: Math.round((log.fat / Math.max(1, log.grams)) * g),
       }
   const puedeEscalar = !!food || log.grams > 0
+  // el ＋ y el − suben/bajan una porción típica (1 huevo, 1 tajada…) o 10 g
+  const porcion = food?.portions?.[0]
+  const paso = porcion?.grams ?? 10
+  const pasoTxt = porcion ? `de a ${porcion.label}` : 'de a 10 g'
 
   return (
     <Sheet open={open} onClose={onClose} title={log.name}>
@@ -553,8 +610,32 @@ function EditarComida({
           ))}
         </div>
 
+        {/* subir o bajar la cantidad de a poquitos (una porción o 10 g) */}
+        {puedeEscalar && (
+          <div className="nut-stepper">
+            <button
+              className="nut-stepper__btn"
+              onClick={() => setGramos(String(Math.max(paso, Math.round(g) - paso)))}
+              aria-label="Menos"
+            >
+              −
+            </button>
+            <span className="nut-stepper__mid">
+              <b>{Math.round(g)} g</b>
+              <span className="nut-stepper__sub">{pasoTxt}</span>
+            </span>
+            <button
+              className="nut-stepper__btn"
+              onClick={() => setGramos(String(Math.round(g) + paso))}
+              aria-label="Más"
+            >
+              ＋
+            </button>
+          </div>
+        )}
+
         <div className="field">
-          <label>Gramos</label>
+          <label>O escribe los gramos tú misma</label>
           <input
             className="input"
             type="number"
