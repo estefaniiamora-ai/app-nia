@@ -27,6 +27,9 @@ export interface Profile {
   hideBalance: boolean
   onboarded: boolean
   createdAt: number
+  /** Metas diarias de comida (faltan = sin meta puesta todavía). */
+  kcalGoal?: number         // calorías al día
+  proteinGoal?: number      // gramos de proteína al día
 }
 
 export interface Account {
@@ -201,6 +204,68 @@ export interface DataSnapshot {
   reminders: PaymentReminder[]
   notes: Note[]
   cycle: Cycle
+  workouts: Workout[]
+  foodLogs: FoodLog[]
+}
+
+/* ===========================================================
+   GYM — entrenamientos
+   El peso se guarda en GRAMOS (entero), igual que la plata en
+   centavos: nada de decimales guardados.
+   =========================================================== */
+
+export interface WorkoutSet {
+  reps: number
+  /** peso en gramos (30000 = 30 kg). 0 o ausente = solo peso corporal. */
+  weightG?: number
+}
+
+export interface WorkoutExercise {
+  id: string
+  name: string
+  sets: WorkoutSet[]
+}
+
+export interface Workout {
+  id: ID
+  date: string              // 'YYYY-MM-DD' (día del entreno)
+  name: string              // 'Pierna', 'Pecho y tríceps'…
+  emoji?: string
+  durationMin?: number
+  /** peso corporal de ese día en gramos (opcional). */
+  bodyWeightG?: number
+  note?: string
+  exercises: WorkoutExercise[]
+  createdAt: number
+}
+
+/* ===========================================================
+   COMIDA — registro de nutrientes
+   Un registro = un alimento comido. Las cantidades van en
+   gramos enteros y los macros en gramos enteros (redondeados).
+   =========================================================== */
+
+export type MealSlot = 'desayuno' | 'almuerzo' | 'cena' | 'snack'
+
+export const MEAL_SLOTS: { key: MealSlot; label: string; emoji: string }[] = [
+  { key: 'desayuno', label: 'Desayuno', emoji: '🌅' },
+  { key: 'almuerzo', label: 'Almuerzo', emoji: '☀️' },
+  { key: 'cena', label: 'Cena', emoji: '🌙' },
+  { key: 'snack', label: 'Snacks', emoji: '🍎' },
+]
+
+export interface FoodLog {
+  id: ID
+  date: string              // 'YYYY-MM-DD'
+  slot: MealSlot
+  name: string
+  grams: number             // cantidad comida, en gramos
+  kcal: number              // ya calculado para esa cantidad
+  protein: number           // gramos
+  carbs: number             // gramos
+  fat: number               // gramos
+  foodId?: string           // id del alimento de la tabla (si salió de ahí)
+  createdAt: number
 }
 
 /* ----- Efecto de cada movimiento sobre el saldo de una cuenta ----- */

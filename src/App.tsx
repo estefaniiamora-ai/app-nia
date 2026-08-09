@@ -12,6 +12,8 @@ import Shop from './screens/Shop'
 import Stats from './screens/Stats'
 import Notes from './screens/Notes'
 import Ciclo from './screens/Ciclo'
+import Gym from './screens/Gym'
+import Nutricion from './screens/Nutricion'
 import Configuracion from './screens/Configuracion'
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
@@ -70,7 +72,7 @@ function ThemedApp() {
       }
       root.dataset.theme = theme
       const meta = document.querySelector('meta[name="theme-color"]')
-      if (meta) meta.setAttribute('content', theme === 'dark' ? '#201b33' : '#d9c9ff')
+      if (meta) meta.setAttribute('content', theme === 'dark' ? '#2e1d26' : '#ffe7f0')
     }
     apply()
     if (profile.theme === 'system') {
@@ -98,6 +100,8 @@ function ThemedApp() {
             <Route path="/estadisticas" element={<Stats />} />
             <Route path="/notas" element={<Notes />} />
             <Route path="/ciclo" element={<Ciclo />} />
+            <Route path="/gym" element={<Gym />} />
+            <Route path="/comida" element={<Nutricion />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

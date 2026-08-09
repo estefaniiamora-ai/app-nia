@@ -3,6 +3,7 @@ import type {
   Category,
   Cycle,
   DataSnapshot,
+  FoodLog,
   Gamification,
   ID,
   Movement,
@@ -11,6 +12,7 @@ import type {
   Profile,
   TokenEntry,
   WorkStats,
+  Workout,
 } from './types'
 
 /* ===========================================================
@@ -47,6 +49,12 @@ export interface DataProvider {
 
   upsertNote(note: Note): Promise<void>
   removeNote(id: ID): Promise<void>
+
+  upsertWorkout(workout: Workout): Promise<void>
+  removeWorkout(id: ID): Promise<void>
+
+  upsertFoodLog(log: FoodLog): Promise<void>
+  removeFoodLog(id: ID): Promise<void>
 
   /** Guarda el ciclo completo (objeto compacto dentro del doc del usuario). */
   saveCycle(cycle: Cycle): Promise<void>

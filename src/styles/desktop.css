@@ -103,6 +103,7 @@
   .navitem--active .navitem__icon { transform: none; }
   .navitem:active { transform: scale(0.98); }
   .fab-slot { display: none; }
+  .navitem--pc { display: flex; }
 
   /* ----- el botón + se va a la esquina de abajo a la derecha ----- */
   .fab {

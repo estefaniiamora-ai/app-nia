@@ -4,6 +4,7 @@ import type {
   Category,
   Cycle,
   DataSnapshot,
+  FoodLog,
   Gamification,
   ID,
   Movement,
@@ -12,6 +13,7 @@ import type {
   Profile,
   TokenEntry,
   WorkStats,
+  Workout,
 } from './types'
 import { emptySnapshot } from './seed'
 
@@ -42,6 +44,8 @@ function read(): DataSnapshot {
       reminders: parsed.reminders ?? [],
       notes: parsed.notes ?? [],
       cycle: { ...base.cycle, ...(parsed.cycle ?? {}) },
+      workouts: parsed.workouts ?? [],
+      foodLogs: parsed.foodLogs ?? [],
     }
   } catch {
     return emptySnapshot()
@@ -152,6 +156,30 @@ export class LocalProvider implements DataProvider {
 
   async removeNote(id: ID): Promise<void> {
     this.snap.notes = this.snap.notes.filter((n) => n.id !== id)
+    this.persist()
+  }
+
+  async upsertWorkout(workout: Workout): Promise<void> {
+    const i = this.snap.workouts.findIndex((w) => w.id === workout.id)
+    if (i >= 0) this.snap.workouts[i] = workout
+    else this.snap.workouts.push(workout)
+    this.persist()
+  }
+
+  async removeWorkout(id: ID): Promise<void> {
+    this.snap.workouts = this.snap.workouts.filter((w) => w.id !== id)
+    this.persist()
+  }
+
+  async upsertFoodLog(log: FoodLog): Promise<void> {
+    const i = this.snap.foodLogs.findIndex((f) => f.id === log.id)
+    if (i >= 0) this.snap.foodLogs[i] = log
+    else this.snap.foodLogs.push(log)
+    this.persist()
+  }
+
+  async removeFoodLog(id: ID): Promise<void> {
+    this.snap.foodLogs = this.snap.foodLogs.filter((f) => f.id !== id)
     this.persist()
   }
 

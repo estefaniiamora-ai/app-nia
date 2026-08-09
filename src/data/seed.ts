@@ -98,5 +98,7 @@ export function emptySnapshot(): DataSnapshot {
     reminders: [],
     notes: [],
     cycle: defaultCycle(),
+    workouts: [],
+    foodLogs: [],
   }
 }

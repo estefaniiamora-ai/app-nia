@@ -1,0 +1,150 @@
+/* ----- Mi Comida (nutrientes) ----- */
+
+.nut-dias {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.nut-dias b { font-size: 16px; font-weight: 800; min-width: 130px; text-align: center; }
+
+/* ----- Tarjeta del resumen del día ----- */
+.nut-card {
+  padding: 16px 18px;
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(120% 120% at 50% 0%, var(--primary-tint), transparent 62%),
+    var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+.nut-card__top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.nut-kcal { font-size: 30px; font-weight: 800; letter-spacing: -0.6px; }
+.nut-kcal__meta { font-size: 13.5px; color: var(--text-soft); font-weight: 700; }
+.nut-restan { font-size: 12.5px; font-weight: 700; color: var(--primary-ink); white-space: nowrap; }
+.nut-restan--pasada { color: var(--expense); }
+
+.nut-bar {
+  display: block;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin: 11px 0 14px;
+}
+.nut-bar__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-strong));
+  transition: width 0.35s ease;
+}
+
+.nut-macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.nut-macro { text-align: center; }
+.nut-macro__lbl { display: block; font-size: 11.5px; color: var(--text-soft); font-weight: 700; }
+.nut-macro__val { display: block; font-size: 15px; font-weight: 800; margin-top: 1px; }
+.nut-macro__val--prot { color: #d64c86; }
+.nut-macro__val--carb { color: #c58a1c; }
+.nut-macro__val--grasa { color: #3f9b7a; }
+.nut-macro__meta { font-size: 11.5px; color: var(--text-faint); font-weight: 700; }
+.nut-macro__bar {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  overflow: hidden;
+  margin-top: 5px;
+}
+.nut-macro__fill { display: block; height: 100%; border-radius: 999px; }
+.nut-macro__fill--prot { background: #ff9dc4; }
+.nut-macro__fill--carb { background: #ffce6b; }
+.nut-macro__fill--grasa { background: #9ad9b0; }
+
+/* ----- Comidas del día ----- */
+.nut-slot { display: flex; flex-direction: column; gap: 7px; }
+.nut-slot__head { display: flex; align-items: center; gap: 8px; padding: 0 2px; }
+.nut-slot__head b { font-size: 15px; }
+.nut-slot__kcal { flex: 1; font-size: 12.5px; color: var(--text-soft); }
+.nut-slot__add {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  font-size: 16px; font-weight: 700;
+  color: var(--on-primary);
+  background: var(--primary);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.nut-slot__vacio { font-size: 12.5px; color: var(--text-faint); padding-left: 4px; }
+
+.nut-item__kcal { font-size: 15px; color: var(--primary-ink); }
+
+.nut-empty { text-align: center; display: flex; flex-direction: column; align-items: center; padding: 6px 14px 0; }
+
+/* ----- Buscador de alimentos ----- */
+.nut-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 46dvh;
+  overflow-y: auto;
+}
+.nut-food {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 13px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: transform 0.12s ease;
+}
+.nut-food:active { transform: scale(0.985); }
+.nut-food__ic { font-size: 20px; }
+.nut-food b { display: block; font-size: 14px; }
+.nut-food__sub { display: block; font-size: 11.5px; color: var(--text-soft); }
+.nut-food__go { font-size: 19px; color: var(--text-faint); font-weight: 700; }
+
+.nut-volver {
+  align-self: flex-start;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary-ink);
+}
+
+.nut-elegido { display: flex; align-items: center; gap: 10px; }
+.nut-elegido__ic { font-size: 26px; }
+.nut-elegido b { font-size: 17px; }
+
+.nut-porciones { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.nut-porciones .chip { flex: 0 0 auto; }
+
+.nut-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 16px;
+  border-radius: var(--r-md);
+  background: linear-gradient(100deg, #ffe7f1, #fff6fa);
+  border: 1px solid #f9d6e4;
+}
+.nut-preview__kcal { text-align: center; }
+.nut-preview__kcal b { display: block; font-size: 26px; font-weight: 800; color: #8a3b5e; line-height: 1.05; }
+.nut-preview__kcal span { font-size: 11px; color: var(--text-soft); font-weight: 700; }
+.nut-preview__macros { display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; color: var(--text-soft); }
+.nut-preview__macros b { color: var(--text); }
+
+.nut-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.nut-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.nut-grid3 .input, .nut-grid2 .input { padding: 12px 10px; font-size: 14px; }
+
+.nut-del { color: var(--expense); }
+
+:root[data-theme="dark"] .nut-preview {
+  background: var(--primary-tint);
+  border-color: var(--border);
+}
+:root[data-theme="dark"] .nut-preview__kcal b { color: var(--primary-ink); }

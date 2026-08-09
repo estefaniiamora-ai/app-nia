@@ -45,6 +45,9 @@
 
 .fab-slot { pointer-events: none; }
 
+/* atajos que solo salen en el menú lateral del computador */
+.navitem--pc { display: none; }
+
 /* Botón central + — capa propia, por ENCIMA del gatito (z-45) */
 .fab {
   pointer-events: auto;

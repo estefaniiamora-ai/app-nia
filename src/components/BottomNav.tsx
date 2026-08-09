@@ -8,6 +8,12 @@ const ITEMS = [
   { to: '/ajustes', icon: '💗', label: 'Más' },
 ]
 
+/** Atajos que solo caben en el menú lateral del computador. */
+const ITEMS_PC = [
+  { to: '/gym', icon: '💪', label: 'Mi Gym' },
+  { to: '/comida', icon: '🥗', label: 'Mi Comida' },
+]
+
 export default function BottomNav() {
   const loc = useLocation()
   return (
@@ -19,6 +25,9 @@ export default function BottomNav() {
         <div className="fab-slot" aria-hidden="true" />
         <NavItem item={ITEMS[2]} active={loc.pathname.startsWith('/cuentas')} />
         <NavItem item={ITEMS[3]} active={loc.pathname.startsWith('/ajustes')} />
+        {ITEMS_PC.map((it) => (
+          <NavItem key={it.to} item={it} active={loc.pathname.startsWith(it.to)} soloPC />
+        ))}
       </div>
     </nav>
   )
@@ -41,12 +50,18 @@ export function Fab({ onClick, open = false }: { onClick: () => void; open?: boo
 function NavItem({
   item,
   active,
+  soloPC = false,
 }: {
   item: { to: string; icon: string; label: string }
   active: boolean
+  /** solo se ve en el menú lateral del computador */
+  soloPC?: boolean
 }) {
   return (
-    <NavLink to={item.to} className={`navitem ${active ? 'navitem--active' : ''}`}>
+    <NavLink
+      to={item.to}
+      className={`navitem ${active ? 'navitem--active' : ''} ${soloPC ? 'navitem--pc' : ''}`}
+    >
       <span className="navitem__icon">{item.icon}</span>
       <span className="navitem__label">{item.label}</span>
     </NavLink>

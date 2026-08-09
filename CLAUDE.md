@@ -6,8 +6,10 @@
 
 ## Qué es
 
-PWA móvil (React 18 + TypeScript + Vite 5) para llevar finanzas personales, con seguimiento del ciclo
-menstrual y un conejito virtual con racha, skins y tienda. Interfaz en español, tema rosa pastel.
+PWA (React 18 + TypeScript + Vite 5) para llevar finanzas personales, con seguimiento del ciclo
+menstrual, registro de gym, control de nutrientes y un conejito virtual con racha, skins y tienda.
+Interfaz en español, tema rosa pastel. Nació móvil; `src/styles/desktop.css` la adapta a computador
+(menú lateral, contenido ancho, hojas centradas) solo con media queries.
 
 - **Datos / auth:** Firebase (Firestore + Auth con Google). Proyecto `app-nia-1f70a`.
 - **Hosting:** Vercel — cada push a `main` despliega solo.
@@ -38,7 +40,8 @@ src/
   screens/      pantallas (Home, Movements, Accounts, Ciclo, Shop, Stats, Notes, Settings…)
   components/   UI reutilizable; Cat/ es el gatico y sus skins
   data/         capa de datos: provider.ts (interfaz) + firebaseProvider.ts + localProvider.ts,
-                types.ts (modelos), shop.ts, seed.ts, selectors.ts, reminders.ts, tokens.ts
+                types.ts (modelos), shop.ts, seed.ts, selectors.ts, reminders.ts, tokens.ts,
+                foods.ts (tabla de alimentos por 100 g + cálculo de macros)
   store/        store.tsx — contexto global de la app
   firebase/     config.ts y AuthProvider.tsx
   lib/          utilidades (cycle, date, money, emoji, id)
@@ -46,12 +49,12 @@ src/
 ```
 
 Rutas en `src/App.tsx`: `/`, `/movimientos`, `/cuentas`, `/ajustes`, `/configuracion`, `/tienda`,
-`/estadisticas`, `/notas`, `/ciclo`.
+`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`.
 
 ## Convenciones que hay que respetar
 
 - **Los montos se guardan en centavos (enteros).** Nunca uses decimales para dinero; formatea con
-  `lib/money.ts`.
+  `lib/money.ts`. Misma idea en el gym: los pesos van en **gramos** (`weightG`), no en kilos con coma.
 - **Los datos son de la vida real de Stefania.** No borres ni migres documentos de Firestore sin
   autorización explícita. Los borrados en la app son lógicos (`archived`, `deleted`), no físicos.
 - **Compatibilidad hacia atrás:** varios campos son opcionales porque hay registros viejos sin ellos

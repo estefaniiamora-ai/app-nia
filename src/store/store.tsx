@@ -18,6 +18,7 @@ import type {
   Cycle,
   CycleDayLog,
   DataSnapshot,
+  FoodLog,
   Gamification,
   ID,
   Movement,
@@ -27,6 +28,7 @@ import type {
   Profile,
   TokenEntry,
   WorkStats,
+  Workout,
 } from '../data/types'
 import { accountKind } from '../data/types'
 import { allBalances } from '../data/selectors'
@@ -70,6 +72,8 @@ interface AppContextValue {
   reminders: PaymentReminder[]
   notes: Note[]
   cycle: Cycle
+  workouts: Workout[]
+  foodLogs: FoodLog[]
 
   // perfil / ajustes
   updateProfile: (patch: Partial<Profile>) => void
@@ -106,6 +110,16 @@ interface AppContextValue {
   addNote: (data: Omit<Note, 'id' | 'createdAt' | 'updatedAt'>) => Note
   updateNote: (note: Note) => void
   deleteNote: (id: ID) => void
+
+  // gym
+  addWorkout: (data: Omit<Workout, 'id' | 'createdAt'>) => Workout
+  updateWorkout: (workout: Workout) => void
+  deleteWorkout: (id: ID) => void
+
+  // comida (nutrientes)
+  addFoodLog: (data: Omit<FoodLog, 'id' | 'createdAt'>) => FoodLog
+  updateFoodLog: (log: FoodLog) => void
+  deleteFoodLog: (id: ID) => void
 
   // ciclo menstrual
   markBled: (date: string, bled: boolean) => void
@@ -497,6 +511,72 @@ export function AppProvider({
     [provider],
   )
 
+  /* -------- gym -------- */
+  const addWorkout = useCallback(
+    (data: Omit<Workout, 'id' | 'createdAt'>) => {
+      const workout: Workout = { ...data, id: uid('wk'), createdAt: Date.now() }
+      setSnap((s) => {
+        provider.upsertWorkout(workout)
+        return { ...s, workouts: [...s.workouts, workout] }
+      })
+      return workout
+    },
+    [provider],
+  )
+
+  const updateWorkout = useCallback(
+    (workout: Workout) => {
+      setSnap((s) => {
+        provider.upsertWorkout(workout)
+        return { ...s, workouts: s.workouts.map((w) => (w.id === workout.id ? workout : w)) }
+      })
+    },
+    [provider],
+  )
+
+  const deleteWorkout = useCallback(
+    (id: ID) => {
+      setSnap((s) => {
+        provider.removeWorkout(id)
+        return { ...s, workouts: s.workouts.filter((w) => w.id !== id) }
+      })
+    },
+    [provider],
+  )
+
+  /* -------- comida (nutrientes) -------- */
+  const addFoodLog = useCallback(
+    (data: Omit<FoodLog, 'id' | 'createdAt'>) => {
+      const log: FoodLog = { ...data, id: uid('food'), createdAt: Date.now() }
+      setSnap((s) => {
+        provider.upsertFoodLog(log)
+        return { ...s, foodLogs: [...s.foodLogs, log] }
+      })
+      return log
+    },
+    [provider],
+  )
+
+  const updateFoodLog = useCallback(
+    (log: FoodLog) => {
+      setSnap((s) => {
+        provider.upsertFoodLog(log)
+        return { ...s, foodLogs: s.foodLogs.map((f) => (f.id === log.id ? log : f)) }
+      })
+    },
+    [provider],
+  )
+
+  const deleteFoodLog = useCallback(
+    (id: ID) => {
+      setSnap((s) => {
+        provider.removeFoodLog(id)
+        return { ...s, foodLogs: s.foodLogs.filter((f) => f.id !== id) }
+      })
+    },
+    [provider],
+  )
+
   /* -------- ciclo menstrual -------- */
   const markBled = useCallback(
     (date: string, bled: boolean) => {
@@ -673,6 +753,8 @@ export function AppProvider({
       reminders: snap.reminders,
       notes: snap.notes,
       cycle: snap.cycle,
+      workouts: snap.workouts,
+      foodLogs: snap.foodLogs,
       updateProfile,
       addTokenEntry,
       updateTokenEntry,
@@ -685,6 +767,12 @@ export function AppProvider({
       addNote,
       updateNote,
       deleteNote,
+      addWorkout,
+      updateWorkout,
+      deleteWorkout,
+      addFoodLog,
+      updateFoodLog,
+      deleteFoodLog,
       markBled,
       logCycleDay,
       updateCycle,
@@ -721,6 +809,12 @@ export function AppProvider({
       addNote,
       updateNote,
       deleteNote,
+      addWorkout,
+      updateWorkout,
+      deleteWorkout,
+      addFoodLog,
+      updateFoodLog,
+      deleteFoodLog,
       markBled,
       logCycleDay,
       updateCycle,

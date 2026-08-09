@@ -167,6 +167,16 @@
 .cycletile b { color: #8a3b5e; }
 .cycletile .tokentile__cta { color: #c4628d; }
 
+/* variante Mi Gym (rosa → durazno) */
+.gymtile { background: linear-gradient(100deg, #ffe4ef, #ffeade); border-color: #f8d3e2; }
+.gymtile b { color: #8a3b5e; }
+.gymtile .tokentile__cta { color: #c4628d; }
+
+/* variante Mi Comida (rosa → verdecito) */
+.foodtile { background: linear-gradient(100deg, #ffe9f2, #e6f6ec); border-color: #f8d9e5; }
+.foodtile b { color: #8a3b5e; }
+.foodtile .tokentile__cta { color: #c4628d; }
+
 /* Check-in diario del ciclo (reemplaza "entra y suma"): íntimo y suave */
 .checkincard {
   width: 100%;

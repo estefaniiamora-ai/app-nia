@@ -13,7 +13,7 @@ import { effectiveLook } from '../data/shop'
 import { totalsByCurrency, pendingTransfers, sortedDesc } from '../data/selectors'
 import { accountCurrency, isPersonAccount } from '../data/types'
 import { pendingCount, duePopupReminders } from '../data/reminders'
-import { localDayKey } from '../lib/date'
+import { localDayKey, daysBetween } from '../lib/date'
 import { cycleStatus, checkInOptions, checkInTitle, phaseCat, type CheckInOption } from '../lib/cycle'
 import CycleDaySheet from '../components/CycleDaySheet'
 import PeekCat from '../components/PeekCat'
@@ -39,7 +39,7 @@ const AWAIT_PHRASES = [
 ]
 
 export default function Home() {
-  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, claimDaily, claimReward, markBled, updateProfile } = useApp()
+  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, workouts, foodLogs, claimDaily, claimReward, markBled, updateProfile } = useApp()
   const { openAdd, addOpen } = useSheets()
   const navigate = useNavigate()
   const [mood, setMood] = useState<CatMood>('idle')
@@ -73,6 +73,20 @@ export default function Home() {
   const claimedToday = gamification.lastClaimDate === today
   const cycleStat = useMemo(() => cycleStatus(cycle), [cycle])
   const phaseMood = phaseCat(cycleStat.phase?.type ?? null).mood as CatMood
+
+  // Resumen rápido del gym (entrenos de los últimos 7 días) y de la comida de hoy
+  const entrenosSemana = useMemo(() => {
+    const hoy = localDayKey()
+    return workouts.filter((w) => {
+      const d = daysBetween(w.date, hoy)
+      return d >= 0 && d < 7
+    }).length
+  }, [workouts])
+
+  const kcalHoy = useMemo(() => {
+    const hoy = localDayKey()
+    return foodLogs.filter((f) => f.date === hoy).reduce((n, f) => n + f.kcal, 0)
+  }, [foodLogs])
 
   // El gatito descansa según la fase (mimoso en la regla, radiante en ovulación…)
   useEffect(() => {
@@ -224,6 +238,33 @@ export default function Home() {
         <span className="tokentile__cta">›</span>
       </button>
 
+      {/* Acceso a Mi Gym */}
+      <button className="tokentile gymtile" onClick={() => navigate('/gym')}>
+        <span className="tokentile__ic">💪</span>
+        <span className="grow">
+          <b>Mi Gym</b>
+          <span className="tokentile__sub">
+            {entrenosSemana > 0
+              ? `${entrenosSemana} ${entrenosSemana === 1 ? 'entreno' : 'entrenos'} esta semana 🔥`
+              : 'Registra tu entreno de hoy 🏋️‍♀️'}
+          </span>
+        </span>
+        <span className="tokentile__cta">›</span>
+      </button>
+
+      {/* Acceso a Mi Comida */}
+      <button className="tokentile foodtile" onClick={() => navigate('/comida')}>
+        <span className="tokentile__ic">🥗</span>
+        <span className="grow">
+          <b>Mi Comida</b>
+          <span className="tokentile__sub">
+            {kcalHoy > 0
+              ? `${kcalHoy.toLocaleString('es-CO')} kcal hoy 🍓`
+              : 'Anota lo que comes y sus nutrientes 🍓'}
+          </span>
+        </span>
+        <span className="tokentile__cta">›</span>
+      </button>
 
       {/* Movimientos recientes */}
       <section className="stack">

@@ -1,0 +1,121 @@
+/* ----- Mi Gym ----- */
+
+.gym-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.gym-stat {
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.gym-stat b { display: block; font-size: 21px; font-weight: 800; color: var(--primary-ink); }
+.gym-stat span { font-size: 11.5px; color: var(--text-soft); }
+
+.gym-vol {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-top: -6px;
+}
+.gym-vol b { color: var(--primary-ink); }
+
+.gym-peso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-radius: var(--r-md);
+  background: linear-gradient(100deg, #ffe7f1, #fff6fa);
+  border: 1px solid #f9d6e4;
+  box-shadow: var(--shadow-sm);
+}
+.gym-peso__ic { font-size: 22px; }
+.gym-peso b { display: block; font-size: 14.5px; color: #8a3b5e; }
+.gym-peso__sub { font-size: 12px; color: var(--text-soft); }
+
+.gym-row__kg { font-size: 13.5px; color: var(--primary-ink); }
+
+.gym-empty {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px;
+}
+.gym-empty h3 { font-size: 17px; margin-top: 6px; }
+
+/* ----- Editor ----- */
+.gym-rutinas {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+.gym-rutinas .chip { flex: 0 0 auto; }
+
+.gym-grid3 {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 8px;
+}
+.gym-grid3 .input { padding: 12px 10px; font-size: 14px; }
+
+.gym-ex {
+  padding: 12px;
+  border-radius: var(--r-sm);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+.gym-ex__head { display: flex; align-items: center; gap: 8px; }
+.gym-ex__name { flex: 1; padding: 11px 13px; font-size: 14.5px; font-weight: 700; }
+.gym-ex__del {
+  flex: 0 0 auto;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  font-size: 14px;
+  color: var(--text-faint);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+.gym-ex__hint {
+  font-size: 11.5px;
+  color: var(--primary-ink);
+  margin-top: 7px;
+  padding-left: 3px;
+}
+
+.gym-sets { display: flex; flex-direction: column; gap: 6px; margin-top: 9px; }
+.gym-set { display: flex; align-items: center; gap: 6px; }
+.gym-set__n {
+  flex: 0 0 auto;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 11px; font-weight: 800;
+  color: var(--on-primary);
+  background: var(--primary);
+}
+.gym-set__in { flex: 1; min-width: 0; padding: 9px 10px; font-size: 14px; text-align: center; }
+.gym-set__x { font-size: 13px; color: var(--text-faint); font-weight: 800; }
+.gym-set__del {
+  flex: 0 0 auto;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  font-size: 17px; line-height: 1;
+  color: var(--text-faint);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+.gym-ex__add { margin-top: 9px; width: 100%; }
+
+.gym-del { color: var(--expense); }
+
+/* quita las flechitas de los campos numéricos (se ve más limpio) */
+.gym-set__in::-webkit-outer-spin-button,
+.gym-set__in::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.gym-set__in { -moz-appearance: textfield; appearance: textfield; }
