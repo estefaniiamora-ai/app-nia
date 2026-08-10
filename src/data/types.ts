@@ -208,6 +208,8 @@ export interface DataSnapshot {
   cycle: Cycle
   workouts: Workout[]
   foodLogs: FoodLog[]
+  lessons: EnglishLesson[]
+  englishTasks: EnglishTask[]
 }
 
 /* ===========================================================
@@ -267,6 +269,42 @@ export interface FoodLog {
   carbs: number             // gramos
   fat: number               // gramos
   foodId?: string           // id del alimento de la tabla (si salió de ahí)
+  createdAt: number
+}
+
+/* ===========================================================
+   INGLÉS — clases, tareas y palabras nuevas
+   =========================================================== */
+
+/** Palabra nueva aprendida en una clase. */
+export interface VocabWord {
+  id: string
+  en: string                // 'homework'
+  es: string                // 'tarea'
+  example?: string          // frase de ejemplo (opcional)
+}
+
+/** Una clase de inglés: qué vimos y qué aprendí. */
+export interface EnglishLesson {
+  id: ID
+  date: string              // 'YYYY-MM-DD'
+  title: string             // tema de la clase
+  emoji?: string
+  learned?: string          // "qué aprendí hoy" (texto libre)
+  words: VocabWord[]
+  createdAt: number
+}
+
+/** Tarea de inglés. Puede venir de una clase o ser suelta. */
+export interface EnglishTask {
+  id: ID
+  text: string
+  /** clase de la que salió (opcional) */
+  lessonId?: ID
+  /** fecha de entrega 'YYYY-MM-DD' (opcional) */
+  due?: string
+  done: boolean
+  doneAt?: number
   createdAt: number
 }
 

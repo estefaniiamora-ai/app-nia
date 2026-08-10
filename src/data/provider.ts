@@ -3,6 +3,8 @@ import type {
   Category,
   Cycle,
   DataSnapshot,
+  EnglishLesson,
+  EnglishTask,
   FoodLog,
   Gamification,
   ID,
@@ -55,6 +57,12 @@ export interface DataProvider {
 
   upsertFoodLog(log: FoodLog): Promise<void>
   removeFoodLog(id: ID): Promise<void>
+
+  upsertLesson(lesson: EnglishLesson): Promise<void>
+  removeLesson(id: ID): Promise<void>
+
+  upsertEnglishTask(task: EnglishTask): Promise<void>
+  removeEnglishTask(id: ID): Promise<void>
 
   /** Guarda el ciclo completo (objeto compacto dentro del doc del usuario). */
   saveCycle(cycle: Cycle): Promise<void>

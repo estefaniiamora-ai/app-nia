@@ -18,6 +18,8 @@ import type {
   Cycle,
   CycleDayLog,
   DataSnapshot,
+  EnglishLesson,
+  EnglishTask,
   FoodLog,
   Gamification,
   ID,
@@ -74,6 +76,8 @@ interface AppContextValue {
   cycle: Cycle
   workouts: Workout[]
   foodLogs: FoodLog[]
+  lessons: EnglishLesson[]
+  englishTasks: EnglishTask[]
 
   // perfil / ajustes
   updateProfile: (patch: Partial<Profile>) => void
@@ -120,6 +124,14 @@ interface AppContextValue {
   addFoodLog: (data: Omit<FoodLog, 'id' | 'createdAt'>) => FoodLog
   updateFoodLog: (log: FoodLog) => void
   deleteFoodLog: (id: ID) => void
+
+  // inglés: clases y tareas
+  addLesson: (data: Omit<EnglishLesson, 'id' | 'createdAt'>) => EnglishLesson
+  updateLesson: (lesson: EnglishLesson) => void
+  deleteLesson: (id: ID) => void
+  addEnglishTask: (data: Omit<EnglishTask, 'id' | 'createdAt'>) => EnglishTask
+  updateEnglishTask: (task: EnglishTask) => void
+  deleteEnglishTask: (id: ID) => void
 
   // ciclo menstrual
   markBled: (date: string, bled: boolean) => void
@@ -577,6 +589,80 @@ export function AppProvider({
     [provider],
   )
 
+  /* -------- inglés: clases -------- */
+  const addLesson = useCallback(
+    (data: Omit<EnglishLesson, 'id' | 'createdAt'>) => {
+      const lesson: EnglishLesson = { ...data, id: uid('les'), createdAt: Date.now() }
+      setSnap((s) => {
+        provider.upsertLesson(lesson)
+        return { ...s, lessons: [...s.lessons, lesson] }
+      })
+      return lesson
+    },
+    [provider],
+  )
+
+  const updateLesson = useCallback(
+    (lesson: EnglishLesson) => {
+      setSnap((s) => {
+        provider.upsertLesson(lesson)
+        return { ...s, lessons: s.lessons.map((l) => (l.id === lesson.id ? lesson : l)) }
+      })
+    },
+    [provider],
+  )
+
+  const deleteLesson = useCallback(
+    (id: ID) => {
+      setSnap((s) => {
+        provider.removeLesson(id)
+        // las tareas que salieron de esa clase quedan sueltas, no se borran
+        s.englishTasks
+          .filter((t) => t.lessonId === id)
+          .forEach((t) => provider.upsertEnglishTask({ ...t, lessonId: undefined }))
+        return {
+          ...s,
+          lessons: s.lessons.filter((l) => l.id !== id),
+          englishTasks: s.englishTasks.map((t) => (t.lessonId === id ? { ...t, lessonId: undefined } : t)),
+        }
+      })
+    },
+    [provider],
+  )
+
+  /* -------- inglés: tareas -------- */
+  const addEnglishTask = useCallback(
+    (data: Omit<EnglishTask, 'id' | 'createdAt'>) => {
+      const task: EnglishTask = { ...data, id: uid('etask'), createdAt: Date.now() }
+      setSnap((s) => {
+        provider.upsertEnglishTask(task)
+        return { ...s, englishTasks: [...s.englishTasks, task] }
+      })
+      return task
+    },
+    [provider],
+  )
+
+  const updateEnglishTask = useCallback(
+    (task: EnglishTask) => {
+      setSnap((s) => {
+        provider.upsertEnglishTask(task)
+        return { ...s, englishTasks: s.englishTasks.map((t) => (t.id === task.id ? task : t)) }
+      })
+    },
+    [provider],
+  )
+
+  const deleteEnglishTask = useCallback(
+    (id: ID) => {
+      setSnap((s) => {
+        provider.removeEnglishTask(id)
+        return { ...s, englishTasks: s.englishTasks.filter((t) => t.id !== id) }
+      })
+    },
+    [provider],
+  )
+
   /* -------- ciclo menstrual -------- */
   const markBled = useCallback(
     (date: string, bled: boolean) => {
@@ -755,6 +841,8 @@ export function AppProvider({
       cycle: snap.cycle,
       workouts: snap.workouts,
       foodLogs: snap.foodLogs,
+      lessons: snap.lessons,
+      englishTasks: snap.englishTasks,
       updateProfile,
       addTokenEntry,
       updateTokenEntry,
@@ -773,6 +861,12 @@ export function AppProvider({
       addFoodLog,
       updateFoodLog,
       deleteFoodLog,
+      addLesson,
+      updateLesson,
+      deleteLesson,
+      addEnglishTask,
+      updateEnglishTask,
+      deleteEnglishTask,
       markBled,
       logCycleDay,
       updateCycle,
@@ -815,6 +909,12 @@ export function AppProvider({
       addFoodLog,
       updateFoodLog,
       deleteFoodLog,
+      addLesson,
+      updateLesson,
+      deleteLesson,
+      addEnglishTask,
+      updateEnglishTask,
+      deleteEnglishTask,
       markBled,
       logCycleDay,
       updateCycle,

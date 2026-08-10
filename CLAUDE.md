@@ -7,7 +7,7 @@
 ## Qué es
 
 PWA (React 18 + TypeScript + Vite 5) para llevar finanzas personales, con seguimiento del ciclo
-menstrual, registro de gym, control de nutrientes y un conejito virtual con racha, skins y tienda.
+menstrual, registro de gym, control de nutrientes, clases de inglés y un conejito virtual con racha, skins y tienda.
 Interfaz en español, tema rosa pastel. Nació móvil; `src/styles/desktop.css` la adapta a computador
 (menú lateral, contenido ancho, hojas centradas) solo con media queries.
 
@@ -41,7 +41,8 @@ src/
   components/   UI reutilizable; Cat/ es el gatico y sus skins
   data/         capa de datos: provider.ts (interfaz) + firebaseProvider.ts + localProvider.ts,
                 types.ts (modelos), shop.ts, seed.ts, selectors.ts, reminders.ts, tokens.ts,
-                foods.ts (tabla de alimentos por 100 g + cálculo de macros)
+                foods.ts (tabla de alimentos por 100 g) y parseComida.ts (entiende frases
+                tipo "2 huevos y una arepa" sin internet)
   store/        store.tsx — contexto global de la app
   firebase/     config.ts y AuthProvider.tsx
   lib/          utilidades (cycle, date, money, emoji, id)
@@ -49,7 +50,7 @@ src/
 ```
 
 Rutas en `src/App.tsx`: `/`, `/movimientos`, `/cuentas`, `/ajustes`, `/configuracion`, `/tienda`,
-`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`.
+`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`, `/ingles`.
 
 ## Convenciones que hay que respetar
 

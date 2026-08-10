@@ -14,6 +14,7 @@ import Notes from './screens/Notes'
 import Ciclo from './screens/Ciclo'
 import Gym from './screens/Gym'
 import Nutricion from './screens/Nutricion'
+import Ingles from './screens/Ingles'
 import Configuracion from './screens/Configuracion'
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
@@ -102,6 +103,7 @@ function ThemedApp() {
             <Route path="/ciclo" element={<Ciclo />} />
             <Route path="/gym" element={<Gym />} />
             <Route path="/comida" element={<Nutricion />} />
+            <Route path="/ingles" element={<Ingles />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

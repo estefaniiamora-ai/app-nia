@@ -4,6 +4,8 @@ import type {
   Category,
   Cycle,
   DataSnapshot,
+  EnglishLesson,
+  EnglishTask,
   FoodLog,
   Gamification,
   ID,
@@ -46,6 +48,8 @@ function read(): DataSnapshot {
       cycle: { ...base.cycle, ...(parsed.cycle ?? {}) },
       workouts: parsed.workouts ?? [],
       foodLogs: parsed.foodLogs ?? [],
+      lessons: parsed.lessons ?? [],
+      englishTasks: parsed.englishTasks ?? [],
     }
   } catch {
     return emptySnapshot()
@@ -180,6 +184,30 @@ export class LocalProvider implements DataProvider {
 
   async removeFoodLog(id: ID): Promise<void> {
     this.snap.foodLogs = this.snap.foodLogs.filter((f) => f.id !== id)
+    this.persist()
+  }
+
+  async upsertLesson(lesson: EnglishLesson): Promise<void> {
+    const i = this.snap.lessons.findIndex((l) => l.id === lesson.id)
+    if (i >= 0) this.snap.lessons[i] = lesson
+    else this.snap.lessons.push(lesson)
+    this.persist()
+  }
+
+  async removeLesson(id: ID): Promise<void> {
+    this.snap.lessons = this.snap.lessons.filter((l) => l.id !== id)
+    this.persist()
+  }
+
+  async upsertEnglishTask(task: EnglishTask): Promise<void> {
+    const i = this.snap.englishTasks.findIndex((t) => t.id === task.id)
+    if (i >= 0) this.snap.englishTasks[i] = task
+    else this.snap.englishTasks.push(task)
+    this.persist()
+  }
+
+  async removeEnglishTask(id: ID): Promise<void> {
+    this.snap.englishTasks = this.snap.englishTasks.filter((t) => t.id !== id)
     this.persist()
   }
 

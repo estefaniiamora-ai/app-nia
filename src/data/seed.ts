@@ -100,5 +100,7 @@ export function emptySnapshot(): DataSnapshot {
     cycle: defaultCycle(),
     workouts: [],
     foodLogs: [],
+    lessons: [],
+    englishTasks: [],
   }
 }

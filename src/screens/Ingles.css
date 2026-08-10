@@ -1,0 +1,143 @@
+/* ----- Mi Inglés ----- */
+
+.eng-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.eng-stat {
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.eng-stat b { display: block; font-size: 21px; font-weight: 800; color: var(--primary-ink); }
+.eng-stat span { font-size: 11.5px; color: var(--text-soft); }
+
+.eng-animo {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-top: -6px;
+}
+
+.eng-tabs { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.eng-tabs .chip { flex: 0 0 auto; }
+
+.eng-row__go { font-size: 19px; color: var(--text-faint); }
+
+.eng-empty {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px;
+}
+.eng-empty h3 { font-size: 17px; margin-top: 6px; }
+
+.eng-listo {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-soft);
+  padding: 16px 10px;
+}
+
+/* ----- Tareas ----- */
+.eng-task { gap: 10px; }
+.eng-task__check {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 17px;
+  display: grid;
+  place-items: center;
+}
+.eng-task__body { flex: 1; min-width: 0; background: none; border: 0; padding: 0; }
+.eng-task--done .row__title { text-decoration: line-through; color: var(--text-faint); }
+.eng-task__due { font-weight: 800; }
+.eng-task__due--hoy { color: var(--primary-ink); }
+.eng-task__due--tarde { color: var(--expense); }
+.eng-task__due--normal { color: var(--text-soft); }
+
+/* ----- Palabras ----- */
+.eng-words { display: flex; flex-direction: column; gap: 7px; }
+.eng-word {
+  padding: 11px 14px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.eng-word__top { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+.eng-word__top b { font-size: 15.5px; color: var(--primary-ink); }
+.eng-word__es { font-size: 14px; }
+.eng-word__ej { font-size: 12.5px; color: var(--text-soft); font-style: italic; margin-top: 3px; }
+.eng-word__clase { display: block; font-size: 11px; color: var(--text-faint); margin-top: 4px; }
+
+/* ----- Editor de clase ----- */
+.eng-temas { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.eng-temas .chip { flex: 0 0 auto; }
+
+.eng-grid2 { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; }
+.eng-grid2 .input { padding: 12px 10px; font-size: 14px; }
+
+.eng-learned { min-height: 96px; font-size: 15px; line-height: 1.5; }
+
+.eng-wordedit {
+  padding: 10px;
+  border-radius: var(--r-sm);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.eng-wordedit__row { display: flex; align-items: center; gap: 6px; }
+.eng-wordedit__row .input { flex: 1 1 0; min-width: 0; padding: 10px 9px; font-size: 14px; }
+.eng-wordedit__ar { flex: 0 0 auto; font-size: 14px; color: var(--text-faint); font-weight: 800; }
+.eng-wordedit__ej { padding: 9px 11px; font-size: 13px; }
+.eng-wordedit__del {
+  flex: 0 0 auto;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  font-size: 13px;
+  color: var(--text-faint);
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+}
+
+.eng-taskedit { display: flex; align-items: center; gap: 6px; }
+.eng-taskedit .input { flex: 1 1 auto; min-width: 0; padding: 11px 12px; font-size: 14px; }
+.eng-taskedit .eng-taskedit__due { flex: 0 0 132px; width: 132px; padding: 11px 8px; font-size: 13px; }
+
+.eng-del { color: var(--expense); }
+
+/* ----- Practicar ----- */
+.eng-card {
+  text-align: center;
+  padding: 26px 18px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(100deg, #ffe7f1, #fff6fa);
+  border: 1px solid #f9d6e4;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 150px;
+  justify-content: center;
+}
+.eng-card__en { font-size: 27px; font-weight: 800; color: #8a3b5e; letter-spacing: -0.4px; }
+.eng-card__es { font-size: 19px; font-weight: 700; }
+.eng-card__ej { font-size: 12.5px; color: var(--text-soft); font-style: italic; }
+.eng-card__pista { font-size: 13.5px; color: var(--text-faint); }
+
+.eng-practica__botones { display: flex; gap: 8px; }
+
+:root[data-theme="dark"] .eng-card {
+  background: var(--primary-tint);
+  border-color: var(--border);
+}
+:root[data-theme="dark"] .eng-card__en { color: var(--primary-ink); }

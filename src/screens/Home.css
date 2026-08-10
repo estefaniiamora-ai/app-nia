@@ -177,6 +177,11 @@
 .foodtile b { color: #8a3b5e; }
 .foodtile .tokentile__cta { color: #c4628d; }
 
+/* variante Mi Inglés (rosa → lila suave) */
+.engtile { background: linear-gradient(100deg, #ffe7f1, #efe6ff); border-color: #f6d3e6; }
+.engtile b { color: #8a3b5e; }
+.engtile .tokentile__cta { color: #c4628d; }
+
 /* Check-in diario del ciclo (reemplaza "entra y suma"): íntimo y suave */
 .checkincard {
   width: 100%;
