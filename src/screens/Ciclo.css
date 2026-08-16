@@ -52,7 +52,7 @@
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
-.ciclo-pred--fert { background: linear-gradient(135deg, rgba(184, 146, 236, 0.16), rgba(155, 123, 255, 0.08)); }
+.ciclo-pred--fert { background: linear-gradient(135deg, rgba(255, 184, 77, 0.18), rgba(255, 206, 107, 0.09)); }
 .ciclo-pred__ic { font-size: 20px; }
 .ciclo-pred__lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-faint); margin-top: 4px; }
 .ciclo-pred__val { font-size: 17px; font-weight: 800; color: var(--text); margin-top: 2px; }
@@ -94,8 +94,8 @@
 }
 .ciclo-cell:active { transform: scale(0.9); }
 .ciclo-cell--pred { color: #d14b7a; border-color: rgba(255, 143, 184, 0.55); border-style: dashed; }
-.ciclo-cell--fert { background: rgba(184, 146, 236, 0.20); color: #7c5cf5; font-weight: 800; }
-.ciclo-cell--ov { background: #b892ec; color: #fff; font-weight: 800; }
+.ciclo-cell--fert { background: rgba(255, 184, 77, 0.22); color: #b07a10; font-weight: 800; }
+.ciclo-cell--ov { background: #ffb84d; color: #6b4407; font-weight: 800; }
 .ciclo-cell--bled { background: #ff8fb8; color: #fff; font-weight: 800; }
 .ciclo-cell--today { border-color: var(--primary-ink); border-style: solid; }
 .ciclo-dot {
@@ -124,8 +124,8 @@
 .ciclo-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .lg { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 .lg--bled { background: #ff8fb8; }
-.lg--ov { background: #b892ec; }
-.lg--fert { background: rgba(184, 146, 236, 0.35); }
+.lg--ov { background: #ffb84d; }
+.lg--fert { background: rgba(255, 184, 77, 0.38); }
 .lg--pred { border: 1.5px dashed rgba(255, 143, 184, 0.7); }
 .ciclo-disclaimer { font-size: 10.5px; color: var(--text-faint); text-align: center; margin-top: 10px; }
 .ciclo-privacy { font-size: 11.5px; color: var(--text-faint); text-align: center; margin: 6px 0 4px; }

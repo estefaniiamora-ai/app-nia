@@ -57,7 +57,7 @@
   padding: 13px 16px;
   margin-top: 12px;
   border-radius: var(--r-md);
-  background: linear-gradient(100deg, #ffe7f1, #f3e6ff);
+  background: linear-gradient(100deg, #ffe7f1, #ffeede);
   border: 1px dashed #d3b8ee;
   box-shadow: var(--shadow-sm);
 }

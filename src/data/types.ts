@@ -19,6 +19,16 @@ export type Currency = 'COP' | 'USD'
  *    Al llegar a 0 se archiva sola. Si falta = 'normal' (cuentas viejas). */
 export type AccountKind = 'normal' | 'person'
 
+/** Recordatorios que puede activar (cada uno con su hora 'HH:MM'). */
+export type ReminderKind = 'gym' | 'comida' | 'cuentas' | 'ingles'
+
+export interface NotifPrefs {
+  /** interruptor general */
+  enabled: boolean
+  /** hora de cada recordatorio; si falta, ese está apagado */
+  times: Partial<Record<ReminderKind, string>>
+}
+
 export interface Profile {
   userName: string          // "Nia"
   catName: string           // se elige en el onboarding
@@ -32,6 +42,8 @@ export interface Profile {
   proteinGoal?: number      // gramos de proteína al día
   carbGoal?: number         // gramos de carbohidratos al día
   fatGoal?: number          // gramos de grasas al día
+  /** recordatorios del celular (falta = apagados) */
+  notif?: NotifPrefs
 }
 
 export interface Account {

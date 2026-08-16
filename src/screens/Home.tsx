@@ -39,7 +39,7 @@ const AWAIT_PHRASES = [
 ]
 
 export default function Home() {
-  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, workouts, foodLogs, englishTasks, claimDaily, claimReward, markBled, updateProfile } = useApp()
+  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, workouts, foodLogs, lessons, englishTasks, claimDaily, claimReward, markBled, updateProfile } = useApp()
   const { openAdd, addOpen } = useSheets()
   const navigate = useNavigate()
   const [mood, setMood] = useState<CatMood>('idle')
@@ -90,6 +90,28 @@ export default function Home() {
 
   // Tareas de inglés que faltan por hacer
   const tareasIngles = useMemo(() => englishTasks.filter((t) => !t.done).length, [englishTasks])
+
+  // Lo que le falta anotar hoy (según los recordatorios que ella activó).
+  // Así, aunque no le llegue la notificación, al abrir la app lo ve.
+  const pendientesHoy = useMemo(() => {
+    const prefs = profile.notif
+    if (!prefs?.enabled) return []
+    const hoy = localDayKey()
+    const faltan: { emoji: string; label: string; to: string }[] = []
+    if (prefs.times?.gym && !workouts.some((w) => w.date === hoy))
+      faltan.push({ emoji: '💪', label: 'tu entreno', to: '/gym' })
+    if (prefs.times?.comida && !foodLogs.some((f) => f.date === hoy))
+      faltan.push({ emoji: '🥗', label: 'tu comida', to: '/comida' })
+    if (prefs.times?.cuentas && !movements.some((m) => localDayKey(m.date) === hoy))
+      faltan.push({ emoji: '💸', label: 'tus cuentas', to: '/movimientos' })
+    if (
+      prefs.times?.ingles &&
+      !lessons.some((l) => l.date === hoy) &&
+      !englishTasks.some((t) => t.doneAt && localDayKey(t.doneAt) === hoy)
+    )
+      faltan.push({ emoji: '📚', label: 'tu inglés', to: '/ingles' })
+    return faltan
+  }, [profile.notif, workouts, foodLogs, movements, lessons, englishTasks])
 
   // El gatito descansa según la fase (mimoso en la regla, radiante en ovulación…)
   useEffect(() => {
@@ -240,6 +262,23 @@ export default function Home() {
         </span>
         <span className="tokentile__cta">›</span>
       </button>
+
+      {/* Lo que falta anotar hoy */}
+      {pendientesHoy.length > 0 && (
+        <div className="pendhoy">
+          <div className="pendhoy__top">
+            <span className="pendhoy__ic">🔔</span>
+            <b>Te falta anotar hoy</b>
+          </div>
+          <div className="pendhoy__chips">
+            {pendientesHoy.map((p) => (
+              <button key={p.to} className="chip" onClick={() => navigate(p.to)}>
+                {p.emoji} {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Acceso a Mi Gym */}
       <button className="tokentile gymtile" onClick={() => navigate('/gym')}>

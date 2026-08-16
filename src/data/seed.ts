@@ -4,7 +4,7 @@ import { uid } from '../lib/id'
 /** Paleta pastel para categorías/cuentas. */
 export const PALETTE = [
   '#ff8fb8', '#ffa9c4', '#ff9ec7', '#ffb38a', '#ffce6b',
-  '#9ad9b0', '#7fd1c4', '#8fc7ff', '#b8a6ff', '#d6a6ff',
+  '#9ad9b0', '#7fd1c4', '#8fc7ff', '#ffb84d', '#ff9aa2',
   '#ff9aa2', '#c9e08a',
 ]
 
@@ -12,10 +12,10 @@ export const PALETTE = [
  *  indistinguibles, y se ordenan alfabéticamente. */
 const BASE_CATEGORIES: Array<Omit<Category, 'id' | 'createdAt'>> = [
   { name: 'Antojos', emoji: '🍰', color: '#ff9ec7' },
-  { name: 'Arriendo', emoji: '🏠', color: '#b8a6ff' },
+  { name: 'Arriendo', emoji: '🏠', color: '#8fc7ff' },
   { name: 'Belleza', emoji: '💅', color: '#ff8fb8' },
   { name: 'Comida', emoji: '🍔', color: '#ffb38a' },
-  { name: 'Gustos personales', emoji: '🎁', color: '#d6a6ff' },
+  { name: 'Gustos personales', emoji: '🎁', color: '#ff9ec7' },
   { name: 'Mascotas', emoji: '🐾', color: '#9ad9b0' },
   { name: 'Mercado', emoji: '🛒', color: '#c9e08a' },
   { name: 'Propinas', emoji: '🎀', color: '#ffce6b' },
@@ -24,7 +24,7 @@ const BASE_CATEGORIES: Array<Omit<Category, 'id' | 'createdAt'>> = [
   { name: 'Servicios', emoji: '💡', color: '#8fc7ff' },
   { name: 'Tatuajes', emoji: '🖋️', color: '#ff9aa2' },
   { name: 'Transporte', emoji: '🚕', color: '#ffce6b' },
-  { name: 'Webcam', emoji: '💻', color: '#b8a6ff' },
+  { name: 'Webcam', emoji: '💻', color: '#ffa9c4' },
 ]
 
 function slugId(name: string): string {

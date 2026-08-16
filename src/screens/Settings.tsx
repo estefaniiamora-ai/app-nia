@@ -13,6 +13,7 @@ export default function Settings() {
     { icon: '🎀', title: 'Notitas', sub: 'Tus ideas, listas y recados 💭', to: '/notas' },
     { icon: '🌙', title: 'Mi Ciclo', sub: 'Tu calendario íntimo y privado 🌙', to: '/ciclo' },
     { icon: '📊', title: 'Estadísticas', sub: 'En qué entra y sale tu plata', to: '/estadisticas' },
+    { icon: '🔔', title: 'Recordatorios', sub: 'Que tu conejito te avise 💗', to: '/recordatorios' },
     { icon: '⚙️', title: 'Ajustes', sub: 'Apariencia, cuenta y más', to: '/configuracion' },
   ]
 

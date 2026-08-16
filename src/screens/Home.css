@@ -178,7 +178,7 @@
 .foodtile .tokentile__cta { color: #c4628d; }
 
 /* variante Mi Inglés (rosa → lila suave) */
-.engtile { background: linear-gradient(100deg, #ffe7f1, #efe6ff); border-color: #f6d3e6; }
+.engtile { background: linear-gradient(100deg, #ffe7f1, #ffeede); border-color: #f8d6e4; }
 .engtile b { color: #8a3b5e; }
 .engtile .tokentile__cta { color: #c4628d; }
 
@@ -277,3 +277,23 @@
 @keyframes toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(10px); }
 }
+
+/* Lo que falta anotar hoy (recordatorios) */
+.pendhoy {
+  padding: 13px 15px;
+  border-radius: var(--r-md);
+  background: linear-gradient(100deg, #ffe7f1, #fff6fa);
+  border: 1px solid #f9d6e4;
+  box-shadow: var(--shadow-sm);
+}
+.pendhoy__top { display: flex; align-items: center; gap: 9px; }
+.pendhoy__ic { font-size: 20px; }
+.pendhoy__top b { font-size: 14.5px; color: #8a3b5e; }
+.pendhoy__chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.pendhoy__chips .chip { background: var(--surface-strong); }
+
+:root[data-theme="dark"] .pendhoy {
+  background: var(--primary-tint);
+  border-color: var(--border);
+}
+:root[data-theme="dark"] .pendhoy__top b { color: var(--primary-ink); }

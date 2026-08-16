@@ -13,7 +13,7 @@
      La versión nueva del SW queda lista y entra al cerrar/reabrir la app.
    - Nunca toca peticiones de Firebase/Google: van directo a la red. */
 
-const VERSION = 'v2'
+const VERSION = 'v3'
 const CACHE = `dahia-pwa-${VERSION}`
 const PRECACHE = ['/', '/index.html', '/manifest.json', '/icon-192.png']
 
@@ -72,4 +72,22 @@ self.addEventListener('fetch', (event) => {
 // Permite que la página pida activar la versión nueva sin esperar (opcional).
 self.addEventListener('message', (e) => {
   if (e.data === 'SKIP_WAITING') self.skipWaiting()
+})
+
+/* Al tocar una notificación: abrir la app en la pantalla que corresponda
+   (si ya está abierta, se enfoca en vez de abrir otra ventana). */
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+  const ruta = (event.notification.data && event.notification.data.ruta) || '/'
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((lista) => {
+      for (const c of lista) {
+        if ('focus' in c) {
+          c.navigate(ruta).catch(() => {})
+          return c.focus()
+        }
+      }
+      return self.clients.openWindow(ruta)
+    }),
+  )
 })

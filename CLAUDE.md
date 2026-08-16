@@ -45,12 +45,13 @@ src/
                 tipo "2 huevos y una arepa" sin internet)
   store/        store.tsx — contexto global de la app
   firebase/     config.ts y AuthProvider.tsx
-  lib/          utilidades (cycle, date, money, emoji, id)
+  lib/          utilidades (cycle, date, money, emoji, id) y notificaciones.ts
+                (recordatorios locales; sin servidor, con respaldo dentro de la app)
   styles/       global.css y ui.css (variables de tema)
 ```
 
 Rutas en `src/App.tsx`: `/`, `/movimientos`, `/cuentas`, `/ajustes`, `/configuracion`, `/tienda`,
-`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`, `/ingles`.
+`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`, `/ingles`, `/recordatorios`.
 
 ## Convenciones que hay que respetar
 

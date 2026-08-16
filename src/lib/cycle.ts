@@ -111,8 +111,8 @@ const PHASE_MSGS: Record<PhaseType, string[]> = {
 const PHASE_META: Record<PhaseType, Omit<Phase, 'message'>> = {
   menstrual: { type: 'menstrual', label: 'Menstrual', emoji: '🌙', color: '#ff8fb8', soft: 'rgba(255,143,184,0.16)' },
   folicular: { type: 'folicular', label: 'Folicular', emoji: '🌱', color: '#5fc9a8', soft: 'rgba(95,201,168,0.16)' },
-  ovulacion: { type: 'ovulacion', label: 'Ovulación', emoji: '✨', color: '#b892ec', soft: 'rgba(184,146,236,0.18)' },
-  lutea:     { type: 'lutea', label: 'Lútea', emoji: '🌷', color: '#9b7bff', soft: 'rgba(155,123,255,0.16)' },
+  ovulacion: { type: 'ovulacion', label: 'Ovulación', emoji: '✨', color: '#ffb84d', soft: 'rgba(255,184,77,0.18)' },
+  lutea:     { type: 'lutea', label: 'Lútea', emoji: '🌷', color: '#7fc8e0', soft: 'rgba(127,200,224,0.18)' },
 }
 
 function makePhase(type: PhaseType, today: string): Phase {

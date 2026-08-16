@@ -8,7 +8,7 @@ import './Notes.css'
 
 const COLORS: { key: NoteColor; label: string }[] = [
   { key: 'pink', label: 'Rosa' },
-  { key: 'lav', label: 'Lavanda' },
+  { key: 'lav', label: 'Cielo' },
   { key: 'mint', label: 'Menta' },
   { key: 'peach', label: 'Durazno' },
   { key: 'yellow', label: 'Amarillo' },

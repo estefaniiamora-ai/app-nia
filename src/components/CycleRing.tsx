@@ -17,7 +17,7 @@ export default function CycleRing({
   const C = 2 * Math.PI * R
   const prog =
     status.hasData && status.dayOfCycle ? Math.min(1, status.dayOfCycle / Math.max(1, status.avgCycle)) : 0
-  const color = status.phase?.color ?? '#b892ec'
+  const color = status.phase?.color ?? '#ffa9c4'
 
   // ángulo del knob y de la ovulación (para el puntito ✨)
   const toXY = (frac: number, r = R) => {
@@ -50,7 +50,7 @@ export default function CycleRing({
         )}
         {/* punto de ovulación (fértil) */}
         {ov && status.fertileStart && (
-          <circle cx={ov.x} cy={ov.y} r="3.4" fill="#b892ec" stroke="#fff" strokeWidth="1" />
+          <circle cx={ov.x} cy={ov.y} r="3.4" fill="#ffb84d" stroke="#fff" strokeWidth="1" />
         )}
         {/* knob del día actual */}
         {status.hasData && <circle cx={knob.x} cy={knob.y} r="6" fill={color} stroke="#fff" strokeWidth="2.5" />}

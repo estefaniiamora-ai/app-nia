@@ -15,12 +15,14 @@ import Ciclo from './screens/Ciclo'
 import Gym from './screens/Gym'
 import Nutricion from './screens/Nutricion'
 import Ingles from './screens/Ingles'
+import Recordatorios from './screens/Recordatorios'
 import Configuracion from './screens/Configuracion'
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
 import NotFound from './screens/NotFound'
 import InstallPrompt from './components/InstallPrompt'
 import Cat from './components/Cat/Cat'
+import { avisosMientrasAbierta, programarRecordatorios } from './lib/notificaciones'
 import './styles/ui.css'
 
 export default function App() {
@@ -85,9 +87,23 @@ function ThemedApp() {
 
   if (loading) return <Splash text="Cargando tus cuentas…" />
 
+  return <AppRoutes onboarded={profile.onboarded} />
+}
+
+/** Rutas + recordatorios (se agendan cada vez que se abre la app). */
+function AppRoutes({ onboarded }: { onboarded: boolean }) {
+  const { profile } = useApp()
+
+  // Deja agendados los recordatorios y, mientras la app esté abierta,
+  // pone los avisos de las horas que faltan hoy.
+  useEffect(() => {
+    programarRecordatorios(profile.notif)
+    return avisosMientrasAbierta(profile.notif)
+  }, [profile.notif])
+
   return (
     <>
-      {!profile.onboarded ? (
+      {!onboarded ? (
         <Onboarding />
       ) : (
         <Routes>
@@ -104,6 +120,7 @@ function ThemedApp() {
             <Route path="/gym" element={<Gym />} />
             <Route path="/comida" element={<Nutricion />} />
             <Route path="/ingles" element={<Ingles />} />
+            <Route path="/recordatorios" element={<Recordatorios />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

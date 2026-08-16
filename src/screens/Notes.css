@@ -20,7 +20,7 @@
 
 /* colores pastel */
 .note--pink { background: #ffd9ea; }
-.note--lav { background: #e7ddff; }
+.note--lav { background: #daeeff; }
 .note--mint { background: #d3f3e4; }
 .note--peach { background: #ffe2cf; }
 .note--yellow { background: #fff2c2; }
@@ -99,7 +99,7 @@
 }
 .note-swatch--on { outline: 3px solid var(--primary-ink); outline-offset: 1px; }
 .note-swatch--pink { background: #ffd9ea; }
-.note-swatch--lav { background: #e7ddff; }
+.note-swatch--lav { background: #daeeff; }
 .note-swatch--mint { background: #d3f3e4; }
 .note-swatch--peach { background: #ffe2cf; }
 .note-swatch--yellow { background: #fff2c2; }
