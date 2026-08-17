@@ -330,7 +330,19 @@ export interface EnglishTask {
    =========================================================== */
 
 export type GarmentKind = 'top' | 'bottom' | 'vestido' | 'zapatos' | 'abrigo' | 'accesorio'
-export type GarmentStyle = 'casual' | 'elegante' | 'deportivo' | 'salir'
+export type GarmentStyle =
+  | 'casual'
+  | 'elegante'
+  | 'deportivo'
+  | 'salir'
+  | 'rave'
+  | 'playa'
+  | 'tumblr'
+  | 'aesthetic'
+  | 'coquette'
+  | 'y2k'
+  | 'oficina'
+  | 'comodo'
 export type GarmentWeather = 'calor' | 'templado' | 'frio'
 
 export interface Garment {
@@ -349,10 +361,13 @@ export interface Garment {
   createdAt: number
 }
 
-/** Un outfit puesto en un día concreto de la semana. */
+/** Un outfit. Si tiene `date`, está puesto en ese día de la semana;
+ *  si NO tiene fecha, es un outfit guardado como favorito (con nombre). */
 export interface Outfit {
   id: ID
-  date: string              // 'YYYY-MM-DD'
+  date?: string             // 'YYYY-MM-DD'
+  /** nombre, solo para los guardados como favoritos */
+  name?: string
   garmentIds: ID[]
   note?: string
   createdAt: number

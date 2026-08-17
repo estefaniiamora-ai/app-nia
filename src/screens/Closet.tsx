@@ -41,7 +41,7 @@ function etiquetaSemana(offset: number): string {
   return offset > 0 ? `En ${offset} semanas` : `Hace ${-offset} semanas`
 }
 
-type Pestana = 'semana' | 'ropa'
+type Pestana = 'semana' | 'ropa' | 'favoritos' | 'uso'
 
 export default function Closet() {
   const {
@@ -74,13 +74,44 @@ export default function Closet() {
   const outfitDe = (fecha: string) => outfits.find((o) => o.date === fecha)
   const prendaDe = (id: string) => garments.find((g) => g.id === id)
 
+  /** Outfits guardados con nombre (los que no están puestos en un día). */
+  const favoritos = useMemo(
+    () => outfits.filter((o) => !o.date).sort((a, b) => b.createdAt - a.createdAt),
+    [outfits],
+  )
+
   /** Prendas usadas en los últimos 10 días (para no repetir tanto). */
   const usadasHacePoco = useMemo(() => {
     const hoy = localDayKey()
     return outfits
-      .filter((o) => Math.abs(daysBetween(o.date, hoy)) <= 10)
+      .filter((o) => o.date && Math.abs(daysBetween(o.date, hoy)) <= 10)
       .flatMap((o) => o.garmentIds)
   }, [outfits])
+
+  /** Cuántas veces te has puesto cada prenda (contando solo días ya pasados u hoy). */
+  const uso = useMemo(() => {
+    const hoy = localDayKey()
+    const cuenta = new Map<string, { veces: number; ultima?: string }>()
+    for (const o of outfits) {
+      if (!o.date || o.date > hoy) continue
+      for (const id of o.garmentIds) {
+        const a = cuenta.get(id) ?? { veces: 0 }
+        a.veces++
+        if (!a.ultima || o.date > a.ultima) a.ultima = o.date
+        cuenta.set(id, a)
+      }
+    }
+    const conDatos = vivas.map((g) => ({
+      prenda: g,
+      veces: cuenta.get(g.id)?.veces ?? 0,
+      ultima: cuenta.get(g.id)?.ultima,
+    }))
+    return {
+      masUsadas: [...conDatos].sort((a, b) => b.veces - a.veces).filter((x) => x.veces > 0).slice(0, 6),
+      sinUsar: conDatos.filter((x) => x.veces === 0),
+      totalPuestas: outfits.filter((o) => o.date && o.date <= hoy).length,
+    }
+  }, [outfits, vivas])
 
   /** Le pone un outfit sugerido a un día. */
   function ponerEnDia(fecha: string, ids: string[]) {
@@ -145,6 +176,18 @@ export default function Closet() {
           onClick={() => setPestana('ropa')}
         >
           👚 Mi ropa {vivas.length > 0 ? `(${vivas.length})` : ''}
+        </button>
+        <button
+          className={`chip ${pestana === 'favoritos' ? 'chip--active' : ''}`}
+          onClick={() => setPestana('favoritos')}
+        >
+          💖 Outfits {favoritos.length > 0 ? `(${favoritos.length})` : ''}
+        </button>
+        <button
+          className={`chip ${pestana === 'uso' ? 'chip--active' : ''}`}
+          onClick={() => setPestana('uso')}
+        >
+          📊 Qué uso
         </button>
       </div>
 
@@ -257,6 +300,108 @@ export default function Closet() {
           </>
         ))}
 
+      {/* ================= OUTFITS GUARDADOS ================= */}
+      {pestana === 'favoritos' &&
+        (favoritos.length === 0 ? (
+          <div className="cl-empty">
+            <Cat size={120} mood="happy" alive={false} speech="¡guárdalos! 💖" />
+            <h3>Aún no tienes outfits guardados</h3>
+            <p className="screen-sub">
+              Cuando armes uno que te encante, tócale el corazón 💖 y le pones nombre. Después lo
+              usas en cualquier día con un toque.
+            </p>
+          </div>
+        ) : (
+          <div className="cl-favs">
+            {favoritos.map((o) => {
+              const piezas = o.garmentIds.map(prendaDe).filter(Boolean) as Garment[]
+              return (
+                <div key={o.id} className="cl-fav">
+                  <div className="cl-fav__top">
+                    <b>💖 {o.name || 'Outfit guardado'}</b>
+                    <button
+                      className="cl-fav__del"
+                      onClick={() => deleteOutfit(o.id)}
+                      aria-label="Borrar outfit guardado"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <div className="cl-sug__fotos">
+                    {piezas.map((g) => (
+                      <span key={g.id} className="cl-sug__pieza">
+                        <Miniatura prenda={g} />
+                        <span className="cl-sug__nombre">{g.name}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ))}
+
+      {/* ================= QUÉ USO ================= */}
+      {pestana === 'uso' &&
+        (uso.totalPuestas === 0 ? (
+          <div className="cl-empty">
+            <Cat size={120} mood="happy" alive={false} speech="¡pronto! 📊" />
+            <h3>Todavía no hay datos</h3>
+            <p className="screen-sub">
+              Cuando lleves unos días con tus outfits armados, aquí te muestro qué usas más y qué
+              tienes botado en el clóset 👀
+            </p>
+          </div>
+        ) : (
+          <>
+            <p className="cl-falta">
+              📊 Llevas <b>{uso.totalPuestas}</b> {uso.totalPuestas === 1 ? 'día' : 'días'} con
+              outfit armado. ¡Así se ve tu clóset!
+            </p>
+
+            {uso.masUsadas.length > 0 && (
+              <section className="cl-grupo">
+                <span className="t-label">🔥 Las que más te pones</span>
+                <div className="cl-usolista">
+                  {uso.masUsadas.map((x) => (
+                    <div key={x.prenda.id} className="cl-usoitem">
+                      <Miniatura prenda={x.prenda} />
+                      <span className="grow">
+                        <b>{x.prenda.name}</b>
+                        <span className="cl-usoitem__sub">
+                          {x.veces} {x.veces === 1 ? 'vez' : 'veces'}
+                        </span>
+                      </span>
+                      <span className="cl-usoitem__n">{x.veces}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {uso.sinUsar.length > 0 && (
+              <section className="cl-grupo">
+                <span className="t-label">👀 Estas no te las has puesto</span>
+                <p className="screen-sub" style={{ paddingLeft: 2, marginTop: -2 }}>
+                  ¿Las estrenamos esta semana? 💗
+                </p>
+                <div className="cl-grid">
+                  {uso.sinUsar.slice(0, 12).map((x) => (
+                    <button
+                      key={x.prenda.id}
+                      className="cl-prenda"
+                      onClick={() => setEditandoPrenda(x.prenda)}
+                    >
+                      <Miniatura prenda={x.prenda} grande />
+                      <span className="cl-prenda__nombre">{x.prenda.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+          </>
+        ))}
+
       {/* ----- Hojas ----- */}
       <EditorPrenda
         open={creandoPrenda}
@@ -286,7 +431,9 @@ export default function Closet() {
         fecha={diaElegido ?? ''}
         prendas={garments}
         outfit={diaElegido ? outfitDe(diaElegido) : undefined}
+        favoritos={favoritos}
         usadasHacePoco={usadasHacePoco}
+        onGuardarFavorito={(nombre, ids) => addOutfit({ name: nombre, garmentIds: ids })}
         onClose={() => setDiaElegido(null)}
         onGuardar={(ids) => {
           if (diaElegido) ponerEnDia(diaElegido, ids)
@@ -524,25 +671,32 @@ function ElegirOutfit({
   fecha,
   prendas,
   outfit,
+  favoritos,
   usadasHacePoco,
   onClose,
   onGuardar,
   onQuitar,
+  onGuardarFavorito,
 }: {
   open: boolean
   fecha: string
   prendas: Garment[]
   outfit?: Outfit
+  favoritos: Outfit[]
   usadasHacePoco: string[]
   onClose: () => void
   onGuardar: (ids: string[]) => void
   onQuitar: () => void
+  onGuardarFavorito: (nombre: string, ids: string[]) => void
 }) {
   const [estilo, setEstilo] = useState<GarmentStyle | undefined>(undefined)
   const [clima, setClima] = useState<GarmentWeather | undefined>(undefined)
   const [sugerencias, setSugerencias] = useState<OutfitSugerido[]>([])
   const [aMano, setAMano] = useState<string[]>(outfit?.garmentIds ?? [])
-  const [modo, setModo] = useState<'sugerir' | 'mano'>('sugerir')
+  const [modo, setModo] = useState<'sugerir' | 'mano' | 'guardados'>('sugerir')
+  /** outfit que está a punto de guardarse como favorito (esperando el nombre) */
+  const [guardandoFav, setGuardandoFav] = useState<string[] | null>(null)
+  const [nombreFav, setNombreFav] = useState('')
 
   const firma = `${open}|${fecha}`
   const [ultimaFirma, setUltimaFirma] = useState(firma)
@@ -552,6 +706,8 @@ function ElegirOutfit({
     setClima(undefined)
     setAMano(outfit?.garmentIds ?? [])
     setModo('sugerir')
+    setGuardandoFav(null)
+    setNombreFav('')
     setSugerencias(open ? sugerirOutfits(prendas, { usadasHacePoco, cuantas: 4 }) : [])
   }
 
@@ -568,6 +724,17 @@ function ElegirOutfit({
 
   function alternarPrenda(id: string) {
     setAMano((l) => (l.includes(id) ? l.filter((x) => x !== id) : [...l, id]))
+  }
+
+  /** Abre el campito para ponerle nombre al outfit favorito. */
+  function empezarAGuardar(ids: string[]) {
+    const nombres = ids
+      .map((id) => prendas.find((g) => g.id === id)?.name)
+      .filter(Boolean)
+      .slice(0, 2)
+      .join(' + ')
+    setNombreFav(nombres)
+    setGuardandoFav(ids)
   }
 
   // ojo: al principio `fecha` viene vacía (la hoja está cerrada)
@@ -593,7 +760,43 @@ function ElegirOutfit({
           >
             👆 Elegir yo
           </button>
+          {favoritos.length > 0 && (
+            <button
+              className={`chip ${modo === 'guardados' ? 'chip--active' : ''}`}
+              onClick={() => setModo('guardados')}
+            >
+              💖 Guardados
+            </button>
+          )}
         </div>
+
+        {/* ponerle nombre al outfit favorito */}
+        {guardandoFav && (
+          <div className="cl-guardarfav">
+            <input
+              className="input"
+              value={nombreFav}
+              onChange={(e) => setNombreFav(e.target.value)}
+              placeholder="Ponle un nombre… (ej: mi look de rumba)"
+              maxLength={40}
+              autoFocus
+            />
+            <div className="cl-guardarfav__botones">
+              <button className="btn btn--sm" onClick={() => setGuardandoFav(null)}>
+                Cancelar
+              </button>
+              <button
+                className="btn btn--primary btn--sm grow"
+                onClick={() => {
+                  onGuardarFavorito(nombreFav.trim() || 'Outfit guardado', guardandoFav)
+                  setGuardandoFav(null)
+                }}
+              >
+                💖 Guardar
+              </button>
+            </div>
+          </div>
+        )}
 
         {modo === 'sugerir' ? (
           <>
@@ -644,12 +847,22 @@ function ElegirOutfit({
                         </span>
                       ))}
                     </div>
-                    <button
-                      className="btn btn--primary btn--sm"
-                      onClick={() => onGuardar(s.garments.map((g) => g.id))}
-                    >
-                      Este me gusta 💗
-                    </button>
+                    <div className="cl-sug__botones">
+                      <button
+                        className="cl-sug__fav"
+                        onClick={() => empezarAGuardar(s.garments.map((g) => g.id))}
+                        aria-label="Guardar este outfit"
+                        title="Guardarlo con nombre"
+                      >
+                        💖
+                      </button>
+                      <button
+                        className="btn btn--primary btn--sm grow"
+                        onClick={() => onGuardar(s.garments.map((g) => g.id))}
+                      >
+                        Este me gusta 💗
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -659,6 +872,32 @@ function ElegirOutfit({
               🎲 Mostrarme otros
             </button>
           </>
+        ) : modo === 'guardados' ? (
+          <div className="cl-favs">
+            {favoritos.map((o) => {
+              const piezas = o.garmentIds
+                .map((id) => prendas.find((g) => g.id === id))
+                .filter(Boolean) as Garment[]
+              return (
+                <div key={o.id} className="cl-fav">
+                  <div className="cl-fav__top">
+                    <b>💖 {o.name || 'Outfit guardado'}</b>
+                  </div>
+                  <div className="cl-sug__fotos">
+                    {piezas.map((g) => (
+                      <span key={g.id} className="cl-sug__pieza">
+                        <Miniatura prenda={g} />
+                        <span className="cl-sug__nombre">{g.name}</span>
+                      </span>
+                    ))}
+                  </div>
+                  <button className="btn btn--primary btn--sm" onClick={() => onGuardar(o.garmentIds)}>
+                    Ponérmelo este día
+                  </button>
+                </div>
+              )
+            })}
+          </div>
         ) : (
           <>
             <p className="screen-sub" style={{ paddingLeft: 2 }}>
@@ -689,11 +928,19 @@ function ElegirOutfit({
             })}
 
             <button
+              className="btn btn--block"
+              disabled={aMano.length === 0}
+              onClick={() => empezarAGuardar(aMano)}
+            >
+              💖 Guardarlo en mis favoritos
+            </button>
+
+            <button
               className="btn btn--primary btn--block"
               disabled={aMano.length === 0}
               onClick={() => onGuardar(aMano)}
             >
-              Guardar este outfit
+              Ponérmelo este día
             </button>
           </>
         )}

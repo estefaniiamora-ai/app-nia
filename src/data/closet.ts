@@ -19,9 +19,17 @@ export const TIPOS: { key: GarmentKind; label: string; emoji: string }[] = [
 
 export const ESTILOS: { key: GarmentStyle; label: string; emoji: string }[] = [
   { key: 'casual', label: 'Casual', emoji: '🙂' },
+  { key: 'comodo', label: 'Cómodo', emoji: '🛋️' },
   { key: 'elegante', label: 'Elegante', emoji: '✨' },
+  { key: 'oficina', label: 'Oficina', emoji: '💼' },
   { key: 'deportivo', label: 'Deportivo', emoji: '🏃‍♀️' },
   { key: 'salir', label: 'Para salir', emoji: '🌙' },
+  { key: 'rave', label: 'Rave', emoji: '🔊' },
+  { key: 'playa', label: 'Playa', emoji: '🏖️' },
+  { key: 'tumblr', label: 'Tumblr', emoji: '🎧' },
+  { key: 'aesthetic', label: 'Aesthetic', emoji: '🤍' },
+  { key: 'coquette', label: 'Coquette', emoji: '🎀' },
+  { key: 'y2k', label: 'Y2K', emoji: '💿' },
 ]
 
 export const CLIMAS: { key: GarmentWeather; label: string; emoji: string }[] = [
