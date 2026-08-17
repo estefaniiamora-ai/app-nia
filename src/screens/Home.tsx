@@ -39,7 +39,7 @@ const AWAIT_PHRASES = [
 ]
 
 export default function Home() {
-  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, workouts, foodLogs, lessons, englishTasks, claimDaily, claimReward, markBled, updateProfile } = useApp()
+  const { profile, accounts, movements, gamification, goalsMet, reminders, notes, cycle, workouts, foodLogs, lessons, englishTasks, outfits, claimDaily, claimReward, markBled, updateProfile } = useApp()
   const { openAdd, addOpen } = useSheets()
   const navigate = useNavigate()
   const [mood, setMood] = useState<CatMood>('idle')
@@ -112,6 +112,12 @@ export default function Home() {
       faltan.push({ emoji: '📚', label: 'tu inglés', to: '/ingles' })
     return faltan
   }, [profile.notif, workouts, foodLogs, movements, lessons, englishTasks])
+
+  // ¿Ya tiene armado el outfit de hoy?
+  const outfitDeHoy = useMemo(
+    () => outfits.some((o) => o.date === localDayKey()),
+    [outfits],
+  )
 
   // El gatito descansa según la fase (mimoso en la regla, radiante en ovulación…)
   useEffect(() => {
@@ -303,6 +309,18 @@ export default function Home() {
             {kcalHoy > 0
               ? `${kcalHoy.toLocaleString('es-CO')} kcal hoy 🍓`
               : 'Anota lo que comes y sus nutrientes 🍓'}
+          </span>
+        </span>
+        <span className="tokentile__cta">›</span>
+      </button>
+
+      {/* Acceso a Mi Clóset */}
+      <button className="tokentile closettile" onClick={() => navigate('/closet')}>
+        <span className="tokentile__ic">👗</span>
+        <span className="grow">
+          <b>Mi Clóset</b>
+          <span className="tokentile__sub">
+            {outfitDeHoy ? '¡ya tienes tu outfit de hoy! ✨' : 'Mira qué ponerte hoy 👠'}
           </span>
         </span>
         <span className="tokentile__cta">›</span>

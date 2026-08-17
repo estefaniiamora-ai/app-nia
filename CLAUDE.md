@@ -7,7 +7,7 @@
 ## Qué es
 
 PWA (React 18 + TypeScript + Vite 5) para llevar finanzas personales, con seguimiento del ciclo
-menstrual, registro de gym, control de nutrientes, clases de inglés y un conejito virtual con racha, skins y tienda.
+menstrual, registro de gym, control de nutrientes, clases de inglés, clóset con outfits y un conejito virtual con racha, skins y tienda.
 Interfaz en español, tema rosa pastel. Nació móvil; `src/styles/desktop.css` la adapta a computador
 (menú lateral, contenido ancho, hojas centradas) solo con media queries.
 
@@ -41,8 +41,9 @@ src/
   components/   UI reutilizable; Cat/ es el gatico y sus skins
   data/         capa de datos: provider.ts (interfaz) + firebaseProvider.ts + localProvider.ts,
                 types.ts (modelos), shop.ts, seed.ts, selectors.ts, reminders.ts, tokens.ts,
-                foods.ts (tabla de alimentos por 100 g) y parseComida.ts (entiende frases
-                tipo "2 huevos y una arepa" sin internet)
+                foods.ts (tabla de alimentos por 100 g), parseComida.ts (entiende frases
+                tipo "2 huevos y una arepa" sin internet) y closet.ts (colores y armado
+                de outfits)
   store/        store.tsx — contexto global de la app
   firebase/     config.ts y AuthProvider.tsx
   lib/          utilidades (cycle, date, money, emoji, id) y notificaciones.ts
@@ -51,7 +52,7 @@ src/
 ```
 
 Rutas en `src/App.tsx`: `/`, `/movimientos`, `/cuentas`, `/ajustes`, `/configuracion`, `/tienda`,
-`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`, `/ingles`, `/recordatorios`.
+`/estadisticas`, `/notas`, `/ciclo`, `/gym`, `/comida`, `/ingles`, `/recordatorios`, `/closet`.
 
 ## Convenciones que hay que respetar
 
@@ -65,6 +66,9 @@ Rutas en `src/App.tsx`: `/`, `/movimientos`, `/cuentas`, `/ajustes`, `/configura
 - **Toda la UI y los comentarios van en español.**
 - Los cambios de datos pasan por `DataProvider` (`src/data/provider.ts`); no llames a Firestore
   directo desde una pantalla.
+- **Las prendas del clóset traen foto** (dataURL comprimida a ~420×560, unos 50 KB). NO van en el
+  snapshot inicial: se piden con `listGarments()` solo al abrir `/closet`, para no gastar datos al
+  arrancar la app. Si algún día se agregan más cosas con imágenes, seguir ese mismo patrón.
 - Estilos: CSS plano por componente, con las variables de tema de `src/styles/ui.css`. No hay
   framework de CSS.
 

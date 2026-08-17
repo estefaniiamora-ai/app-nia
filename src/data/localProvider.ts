@@ -7,9 +7,11 @@ import type {
   EnglishLesson,
   EnglishTask,
   FoodLog,
+  Garment,
   Gamification,
   ID,
   Movement,
+  Outfit,
   Note,
   PaymentReminder,
   Profile,
@@ -50,6 +52,7 @@ function read(): DataSnapshot {
       foodLogs: parsed.foodLogs ?? [],
       lessons: parsed.lessons ?? [],
       englishTasks: parsed.englishTasks ?? [],
+      outfits: parsed.outfits ?? [],
     }
   } catch {
     return emptySnapshot()
@@ -209,6 +212,50 @@ export class LocalProvider implements DataProvider {
   async removeEnglishTask(id: ID): Promise<void> {
     this.snap.englishTasks = this.snap.englishTasks.filter((t) => t.id !== id)
     this.persist()
+  }
+
+  async upsertOutfit(outfit: Outfit): Promise<void> {
+    const i = this.snap.outfits.findIndex((o) => o.id === outfit.id)
+    if (i >= 0) this.snap.outfits[i] = outfit
+    else this.snap.outfits.push(outfit)
+    this.persist()
+  }
+
+  async removeOutfit(id: ID): Promise<void> {
+    this.snap.outfits = this.snap.outfits.filter((o) => o.id !== id)
+    this.persist()
+  }
+
+  /* ----- prendas (aparte, porque traen foto) ----- */
+  private leerPrendas(): Garment[] {
+    try {
+      return JSON.parse(localStorage.getItem('nia.garments.v1') ?? '[]') as Garment[]
+    } catch {
+      return []
+    }
+  }
+  private guardarPrendas(lista: Garment[]) {
+    try {
+      localStorage.setItem('nia.garments.v1', JSON.stringify(lista))
+    } catch (e) {
+      console.warn('No se pudieron guardar las prendas', e)
+    }
+  }
+
+  async listGarments(): Promise<Garment[]> {
+    return this.leerPrendas()
+  }
+
+  async upsertGarment(garment: Garment): Promise<void> {
+    const lista = this.leerPrendas()
+    const i = lista.findIndex((g) => g.id === garment.id)
+    if (i >= 0) lista[i] = garment
+    else lista.push(garment)
+    this.guardarPrendas(lista)
+  }
+
+  async removeGarment(id: ID): Promise<void> {
+    this.guardarPrendas(this.leerPrendas().filter((g) => g.id !== id))
   }
 
   async saveCycle(cycle: Cycle): Promise<void> {

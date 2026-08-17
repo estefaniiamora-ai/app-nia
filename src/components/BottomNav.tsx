@@ -13,6 +13,7 @@ const ITEMS_PC = [
   { to: '/gym', icon: '💪', label: 'Mi Gym' },
   { to: '/comida', icon: '🥗', label: 'Mi Comida' },
   { to: '/ingles', icon: '📚', label: 'Mi Inglés' },
+  { to: '/closet', icon: '👗', label: 'Mi Clóset' },
 ]
 
 export default function BottomNav() {

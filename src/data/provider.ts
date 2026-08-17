@@ -6,9 +6,11 @@ import type {
   EnglishLesson,
   EnglishTask,
   FoodLog,
+  Garment,
   Gamification,
   ID,
   Movement,
+  Outfit,
   Note,
   PaymentReminder,
   Profile,
@@ -63,6 +65,14 @@ export interface DataProvider {
 
   upsertEnglishTask(task: EnglishTask): Promise<void>
   removeEnglishTask(id: ID): Promise<void>
+
+  upsertOutfit(outfit: Outfit): Promise<void>
+  removeOutfit(id: ID): Promise<void>
+
+  /** Las prendas traen foto: se piden aparte, solo al abrir el clóset. */
+  listGarments(): Promise<Garment[]>
+  upsertGarment(garment: Garment): Promise<void>
+  removeGarment(id: ID): Promise<void>
 
   /** Guarda el ciclo completo (objeto compacto dentro del doc del usuario). */
   saveCycle(cycle: Cycle): Promise<void>

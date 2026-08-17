@@ -21,10 +21,12 @@ import type {
   EnglishLesson,
   EnglishTask,
   FoodLog,
+  Garment,
   Gamification,
   ID,
   Movement,
   MovementType,
+  Outfit,
   Note,
   PaymentReminder,
   Profile,
@@ -78,6 +80,10 @@ interface AppContextValue {
   foodLogs: FoodLog[]
   lessons: EnglishLesson[]
   englishTasks: EnglishTask[]
+  outfits: Outfit[]
+  /** prendas del clóset: se cargan aparte (traen foto) */
+  garments: Garment[]
+  garmentsLoaded: boolean
 
   // perfil / ajustes
   updateProfile: (patch: Partial<Profile>) => void
@@ -132,6 +138,15 @@ interface AppContextValue {
   addEnglishTask: (data: Omit<EnglishTask, 'id' | 'createdAt'>) => EnglishTask
   updateEnglishTask: (task: EnglishTask) => void
   deleteEnglishTask: (id: ID) => void
+
+  // clóset
+  loadGarments: () => void
+  addGarment: (data: Omit<Garment, 'id' | 'createdAt'>) => Garment
+  updateGarment: (garment: Garment) => void
+  deleteGarment: (id: ID) => void
+  addOutfit: (data: Omit<Outfit, 'id' | 'createdAt'>) => Outfit
+  updateOutfit: (outfit: Outfit) => void
+  deleteOutfit: (id: ID) => void
 
   // ciclo menstrual
   markBled: (date: string, bled: boolean) => void
@@ -663,6 +678,99 @@ export function AppProvider({
     [provider],
   )
 
+  /* -------- clóset -------- */
+  const [garments, setGarments] = useState<Garment[]>([])
+  const [garmentsLoaded, setGarmentsLoaded] = useState(false)
+  const cargandoPrendas = useRef(false)
+
+  const loadGarments = useCallback(() => {
+    if (garmentsLoaded || cargandoPrendas.current) return
+    cargandoPrendas.current = true
+    provider
+      .listGarments()
+      .then((lista) => {
+        setGarments(lista)
+        setGarmentsLoaded(true)
+      })
+      .catch(() => setGarmentsLoaded(true))
+      .finally(() => {
+        cargandoPrendas.current = false
+      })
+  }, [provider, garmentsLoaded])
+
+  const addGarment = useCallback(
+    (data: Omit<Garment, 'id' | 'createdAt'>) => {
+      const garment: Garment = { ...data, id: uid('gar'), createdAt: Date.now() }
+      provider.upsertGarment(garment)
+      setGarments((g) => [...g, garment])
+      return garment
+    },
+    [provider],
+  )
+
+  const updateGarment = useCallback(
+    (garment: Garment) => {
+      provider.upsertGarment(garment)
+      setGarments((g) => g.map((x) => (x.id === garment.id ? garment : x)))
+    },
+    [provider],
+  )
+
+  const deleteGarment = useCallback(
+    (id: ID) => {
+      provider.removeGarment(id)
+      setGarments((g) => g.filter((x) => x.id !== id))
+      // y se quita de los outfits que la usaban
+      setSnap((s) => {
+        const tocados = s.outfits.filter((o) => o.garmentIds.includes(id))
+        tocados.forEach((o) => {
+          const limpio = { ...o, garmentIds: o.garmentIds.filter((x) => x !== id) }
+          if (limpio.garmentIds.length === 0) provider.removeOutfit(o.id)
+          else provider.upsertOutfit(limpio)
+        })
+        return {
+          ...s,
+          outfits: s.outfits
+            .map((o) => ({ ...o, garmentIds: o.garmentIds.filter((x) => x !== id) }))
+            .filter((o) => o.garmentIds.length > 0),
+        }
+      })
+    },
+    [provider],
+  )
+
+  const addOutfit = useCallback(
+    (data: Omit<Outfit, 'id' | 'createdAt'>) => {
+      const outfit: Outfit = { ...data, id: uid('fit'), createdAt: Date.now() }
+      setSnap((s) => {
+        provider.upsertOutfit(outfit)
+        return { ...s, outfits: [...s.outfits, outfit] }
+      })
+      return outfit
+    },
+    [provider],
+  )
+
+  const updateOutfit = useCallback(
+    (outfit: Outfit) => {
+      setSnap((s) => {
+        provider.upsertOutfit(outfit)
+        return { ...s, outfits: s.outfits.map((o) => (o.id === outfit.id ? outfit : o)) }
+      })
+    },
+    [provider],
+  )
+
+  const deleteOutfit = useCallback(
+    (id: ID) => {
+      setSnap((s) => {
+        provider.removeOutfit(id)
+        return { ...s, outfits: s.outfits.filter((o) => o.id !== id) }
+      })
+    },
+    [provider],
+  )
+
   /* -------- ciclo menstrual -------- */
   const markBled = useCallback(
     (date: string, bled: boolean) => {
@@ -843,6 +951,9 @@ export function AppProvider({
       foodLogs: snap.foodLogs,
       lessons: snap.lessons,
       englishTasks: snap.englishTasks,
+      outfits: snap.outfits,
+      garments,
+      garmentsLoaded,
       updateProfile,
       addTokenEntry,
       updateTokenEntry,
@@ -867,6 +978,13 @@ export function AppProvider({
       addEnglishTask,
       updateEnglishTask,
       deleteEnglishTask,
+      loadGarments,
+      addGarment,
+      updateGarment,
+      deleteGarment,
+      addOutfit,
+      updateOutfit,
+      deleteOutfit,
       markBled,
       logCycleDay,
       updateCycle,
@@ -891,6 +1009,8 @@ export function AppProvider({
     [
       loading,
       snap,
+      garments,
+      garmentsLoaded,
       updateProfile,
       addTokenEntry,
       updateTokenEntry,
@@ -915,6 +1035,13 @@ export function AppProvider({
       addEnglishTask,
       updateEnglishTask,
       deleteEnglishTask,
+      loadGarments,
+      addGarment,
+      updateGarment,
+      deleteGarment,
+      addOutfit,
+      updateOutfit,
+      deleteOutfit,
       markBled,
       logCycleDay,
       updateCycle,

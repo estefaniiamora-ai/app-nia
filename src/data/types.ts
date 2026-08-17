@@ -222,6 +222,8 @@ export interface DataSnapshot {
   foodLogs: FoodLog[]
   lessons: EnglishLesson[]
   englishTasks: EnglishTask[]
+  /** outfits de la semana (livianos: solo referencias a prendas) */
+  outfits: Outfit[]
 }
 
 /* ===========================================================
@@ -317,6 +319,42 @@ export interface EnglishTask {
   due?: string
   done: boolean
   doneAt?: number
+  createdAt: number
+}
+
+/* ===========================================================
+   MI CLÓSET — prendas y outfits
+   Las fotos se guardan comprimidas (dataURL) dentro de la prenda.
+   Por eso las prendas viven en su propia colección y se cargan
+   SOLO cuando ella abre el clóset (para no gastar datos al abrir).
+   =========================================================== */
+
+export type GarmentKind = 'top' | 'bottom' | 'vestido' | 'zapatos' | 'abrigo' | 'accesorio'
+export type GarmentStyle = 'casual' | 'elegante' | 'deportivo' | 'salir'
+export type GarmentWeather = 'calor' | 'templado' | 'frio'
+
+export interface Garment {
+  id: ID
+  name: string
+  kind: GarmentKind
+  /** id del color de la paleta (ver data/closet.ts) */
+  color: string
+  /** para qué ocasiones sirve (puede ser varias) */
+  styles: GarmentStyle[]
+  weather?: GarmentWeather
+  /** foto comprimida en dataURL (opcional: puede quedarse solo con el nombre) */
+  photo?: string
+  favorite?: boolean
+  archived?: boolean
+  createdAt: number
+}
+
+/** Un outfit puesto en un día concreto de la semana. */
+export interface Outfit {
+  id: ID
+  date: string              // 'YYYY-MM-DD'
+  garmentIds: ID[]
+  note?: string
   createdAt: number
 }
 

@@ -7,6 +7,7 @@ export default function Settings() {
 
   const rows: { icon: string; title: string; sub: string; to: string; pill?: boolean }[] = [
     { icon: '🐰', title: 'Mi Conejito', sub: 'Vístelo, ponle nombre y más 🎀', to: '/tienda', pill: true },
+    { icon: '👗', title: 'Mi Clóset', sub: 'Tu ropa y los outfits de tu semana 🗓️', to: '/closet' },
     { icon: '💪', title: 'Mi Gym', sub: 'Tus entrenos y tu progreso 🏋️‍♀️', to: '/gym' },
     { icon: '🥗', title: 'Mi Comida', sub: 'Calorías y nutrientes de tu día 🍓', to: '/comida' },
     { icon: '📚', title: 'Mi Inglés', sub: 'Clases, tareas y palabras nuevas 🔤', to: '/ingles' },

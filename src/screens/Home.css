@@ -182,6 +182,11 @@
 .engtile b { color: #8a3b5e; }
 .engtile .tokentile__cta { color: #c4628d; }
 
+/* variante Mi Clóset (rosa → durazno claro) */
+.closettile { background: linear-gradient(100deg, #ffe4ef, #fff0e4); border-color: #f8d3e2; }
+.closettile b { color: #8a3b5e; }
+.closettile .tokentile__cta { color: #c4628d; }
+
 /* Check-in diario del ciclo (reemplaza "entra y suma"): íntimo y suave */
 .checkincard {
   width: 100%;

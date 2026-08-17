@@ -16,9 +16,11 @@ import type {
   EnglishLesson,
   EnglishTask,
   FoodLog,
+  Garment,
   Gamification,
   ID,
   Movement,
+  Outfit,
   Note,
   PaymentReminder,
   Profile,
@@ -74,7 +76,7 @@ export class FirebaseProvider implements DataProvider {
     }
 
     const data = userSnap.data()
-    const [accSnap, catSnap, movSnap, tokSnap, remSnap, notSnap, wkSnap, fdSnap, lesSnap, etSnap] = await Promise.all([
+    const [accSnap, catSnap, movSnap, tokSnap, remSnap, notSnap, wkSnap, fdSnap, lesSnap, etSnap, outSnap] = await Promise.all([
       getDocs(this.coll('accounts')),
       getDocs(this.coll('categories')),
       getDocs(this.coll('movements')),
@@ -85,6 +87,7 @@ export class FirebaseProvider implements DataProvider {
       getDocs(this.coll('foodLogs')),
       getDocs(this.coll('lessons')),
       getDocs(this.coll('englishTasks')),
+      getDocs(this.coll('outfits')),
     ])
 
     return {
@@ -102,6 +105,7 @@ export class FirebaseProvider implements DataProvider {
       foodLogs: fdSnap.docs.map((d) => d.data() as FoodLog),
       lessons: lesSnap.docs.map((d) => d.data() as EnglishLesson),
       englishTasks: etSnap.docs.map((d) => d.data() as EnglishTask),
+      outfits: outSnap.docs.map((d) => d.data() as Outfit),
     }
   }
 
@@ -188,6 +192,25 @@ export class FirebaseProvider implements DataProvider {
     await deleteDoc(this.itemRef('englishTasks', id))
   }
 
+  async upsertOutfit(outfit: Outfit): Promise<void> {
+    await setDoc(this.itemRef('outfits', outfit.id), sanitize(outfit))
+  }
+  async removeOutfit(id: ID): Promise<void> {
+    await deleteDoc(this.itemRef('outfits', id))
+  }
+
+  /* Las prendas traen foto: se leen aparte, solo cuando abre el clóset. */
+  async listGarments(): Promise<Garment[]> {
+    const snap = await getDocs(this.coll('garments'))
+    return snap.docs.map((d) => d.data() as Garment)
+  }
+  async upsertGarment(garment: Garment): Promise<void> {
+    await setDoc(this.itemRef('garments', garment.id), sanitize(garment))
+  }
+  async removeGarment(id: ID): Promise<void> {
+    await deleteDoc(this.itemRef('garments', id))
+  }
+
   async saveCycle(cycle: Cycle): Promise<void> {
     // JSON round-trip: quita cualquier `undefined` anidado (Firestore lo rechaza).
     const clean = JSON.parse(JSON.stringify(cycle))
@@ -196,7 +219,7 @@ export class FirebaseProvider implements DataProvider {
 
   async reset(): Promise<void> {
     const seed = emptySnapshot()
-    const [accSnap, catSnap, movSnap, tokSnap, remSnap, notSnap, wkSnap, fdSnap, lesSnap, etSnap] = await Promise.all([
+    const [accSnap, catSnap, movSnap, tokSnap, remSnap, notSnap, wkSnap, fdSnap, lesSnap, etSnap, outSnap, garSnap] = await Promise.all([
       getDocs(this.coll('accounts')),
       getDocs(this.coll('categories')),
       getDocs(this.coll('movements')),
@@ -207,6 +230,8 @@ export class FirebaseProvider implements DataProvider {
       getDocs(this.coll('foodLogs')),
       getDocs(this.coll('lessons')),
       getDocs(this.coll('englishTasks')),
+      getDocs(this.coll('outfits')),
+      getDocs(this.coll('garments')),
     ])
     await Promise.all([
       ...accSnap.docs.map((d) => deleteDoc(d.ref)),
@@ -219,6 +244,8 @@ export class FirebaseProvider implements DataProvider {
       ...fdSnap.docs.map((d) => deleteDoc(d.ref)),
       ...lesSnap.docs.map((d) => deleteDoc(d.ref)),
       ...etSnap.docs.map((d) => deleteDoc(d.ref)),
+      ...outSnap.docs.map((d) => deleteDoc(d.ref)),
+      ...garSnap.docs.map((d) => deleteDoc(d.ref)),
     ])
     await setDoc(this.userRef(), {
       profile: seed.profile,

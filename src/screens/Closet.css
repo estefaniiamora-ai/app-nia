@@ -1,0 +1,189 @@
+/* ----- Mi Clóset ----- */
+
+.cl-tabs { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.cl-tabs .chip { flex: 0 0 auto; }
+
+.cl-semana {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.cl-semana b { font-size: 16px; font-weight: 800; min-width: 130px; text-align: center; }
+
+.cl-falta {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-soft);
+  padding: 10px 13px;
+  border-radius: var(--r-sm);
+  background: var(--gold-soft);
+}
+
+.cl-empty {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px;
+}
+.cl-empty h3 { font-size: 17px; margin-top: 6px; }
+
+/* ----- Los 7 días ----- */
+.cl-dias { display: flex; flex-direction: column; gap: 8px; }
+.cl-dia {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  min-height: 74px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.12s ease;
+}
+.cl-dia:active { transform: scale(0.985); }
+.cl-dia--hoy { border-color: var(--primary-strong); background: var(--primary-tint); }
+.cl-dia__nombre {
+  flex: 0 0 96px;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cl-dia__hoy {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--on-primary);
+  background: var(--primary);
+  border-radius: 999px;
+  padding: 1px 8px;
+  width: fit-content;
+}
+.cl-dia__vacio { font-size: 13px; color: var(--text-faint); font-weight: 700; }
+.cl-dia__fotos { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ----- Miniaturas ----- */
+.cl-mini {
+  display: block;
+  width: 44px;
+  height: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  flex: 0 0 auto;
+}
+.cl-mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cl-mini--color { display: grid; place-items: center; }
+.cl-mini__emoji { font-size: 18px; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25)); }
+.cl-mini--grande { width: 100%; height: 108px; border-radius: 12px; }
+
+/* ----- Mi ropa ----- */
+.cl-grupo { display: flex; flex-direction: column; gap: 8px; }
+.cl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cl-prenda {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.12s ease;
+}
+.cl-prenda:active { transform: scale(0.97); }
+.cl-prenda--on { border-color: var(--primary-ink); box-shadow: 0 0 0 2px var(--primary-tint); }
+.cl-prenda__nombre {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cl-prenda__fav { position: absolute; top: 8px; right: 8px; font-size: 14px; }
+
+/* ----- Editor de prenda ----- */
+.cl-foto {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: 300px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--surface-soft);
+  border: 1.5px dashed var(--border-soft);
+  display: grid;
+  place-items: center;
+}
+.cl-foto img { width: 100%; height: 100%; object-fit: cover; }
+.cl-foto__vacia {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-align: center;
+  line-height: 1.7;
+}
+.cl-foto__vacia small { font-size: 11.5px; font-weight: 600; color: var(--text-faint); }
+.cl-quitarfoto {
+  align-self: center;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--text-faint);
+}
+
+.cl-chips { display: flex; gap: 7px; flex-wrap: wrap; }
+
+.cl-colores { display: flex; gap: 8px; flex-wrap: wrap; }
+.cl-color {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.14s var(--ease-pop);
+}
+.cl-color--on { transform: scale(1.16); box-shadow: 0 0 0 3px var(--primary-ink); }
+
+.cl-fav--on { color: var(--primary-ink); }
+.cl-del { color: var(--expense); }
+
+/* ----- Sugerencias ----- */
+.cl-sugs { display: flex; flex-direction: column; gap: 10px; }
+.cl-sug {
+  padding: 11px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  align-items: center;
+}
+.cl-sug__fotos { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.cl-sug__pieza { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 58px; }
+.cl-sug__nombre {
+  font-size: 10.5px;
+  color: var(--text-soft);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 58px;
+}
+.cl-sug .btn { align-self: stretch; }
+
+@media (min-width: 700px) {
+  .cl-grid { grid-template-columns: repeat(5, 1fr); }
+}

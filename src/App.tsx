@@ -16,6 +16,7 @@ import Gym from './screens/Gym'
 import Nutricion from './screens/Nutricion'
 import Ingles from './screens/Ingles'
 import Recordatorios from './screens/Recordatorios'
+import Closet from './screens/Closet'
 import Configuracion from './screens/Configuracion'
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
@@ -121,6 +122,7 @@ function AppRoutes({ onboarded }: { onboarded: boolean }) {
             <Route path="/comida" element={<Nutricion />} />
             <Route path="/ingles" element={<Ingles />} />
             <Route path="/recordatorios" element={<Recordatorios />} />
+            <Route path="/closet" element={<Closet />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -102,5 +102,6 @@ export function emptySnapshot(): DataSnapshot {
     foodLogs: [],
     lessons: [],
     englishTasks: [],
+    outfits: [],
   }
 }
