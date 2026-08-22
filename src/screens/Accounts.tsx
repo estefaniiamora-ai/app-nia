@@ -5,7 +5,7 @@ import Sheet from '../components/ui/Sheet'
 import { allBalances, debtSummary } from '../data/selectors'
 import { PALETTE } from '../data/seed'
 import { lastEmoji } from '../lib/emoji'
-import { parseAmountToCents } from '../lib/money'
+import { parseAmountToCents, CURRENCIES, currencyLabel, currencyName, currencyTag } from '../lib/money'
 import {
   accountCurrency,
   accountKind,
@@ -103,7 +103,9 @@ export default function Accounts() {
                 <span className="row__main">
                   <span className="row__title">
                     {a.name}
-                    {accountCurrency(a) === 'USD' && <span className="curtag">USD 🇺🇸</span>}
+                    {accountCurrency(a) !== 'COP' && (
+                      <span className="curtag">{currencyTag(accountCurrency(a))}</span>
+                    )}
                   </span>
                   <span className="row__sub">Toca para editar</span>
                 </span>
@@ -655,33 +657,29 @@ function AccountEditor({
           (!account ? (
             <div className="field">
               <label>Moneda</label>
-              <div className="rowflex" style={{ gap: 8 }}>
-                <button
-                  type="button"
-                  className={`chip ${currency === 'COP' ? 'chip--active' : ''}`}
-                  onClick={() => setCurrency('COP')}
-                >
-                  🇨🇴 Pesos (COP)
-                </button>
-                <button
-                  type="button"
-                  className={`chip ${currency === 'USD' ? 'chip--active' : ''}`}
-                  onClick={() => setCurrency('USD')}
-                >
-                  🇺🇸 Dólares (USD)
-                </button>
+              <div className="chips-scroll no-scrollbar">
+                {CURRENCIES.map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    className={`chip ${currency === c ? 'chip--active' : ''}`}
+                    onClick={() => setCurrency(c)}
+                    style={{ whiteSpace: 'nowrap' }}
+                  >
+                    {currencyLabel(c)}
+                  </button>
+                ))}
               </div>
               <p className="screen-sub" style={{ paddingLeft: 2 }}>
-                Esta cuenta manejará solo <b>{currency === 'USD' ? 'dólares' : 'pesos'}</b>. No se puede
-                cambiar después.
+                Esta cuenta manejará solo <b>{currencyName(currency)}</b>. No se puede cambiar
+                después.
               </p>
             </div>
           ) : (
             <div className="field">
               <label>Moneda</label>
               <p className="screen-sub" style={{ paddingLeft: 2 }}>
-                {accountCurrency(account) === 'USD' ? '🇺🇸 Dólares (USD)' : '🇨🇴 Pesos (COP)'} — no se
-                puede cambiar.
+                {currencyLabel(accountCurrency(account))} — no se puede cambiar.
               </p>
             </div>
           ))}

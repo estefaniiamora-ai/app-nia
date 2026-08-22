@@ -12,6 +12,7 @@ import { useSheets } from '../components/SheetsContext'
 import { effectiveLook } from '../data/shop'
 import { totalsByCurrency, pendingTransfers, sortedDesc } from '../data/selectors'
 import { accountCurrency, isPersonAccount } from '../data/types'
+import { CURRENCIES, currencyName } from '../lib/money'
 import { pendingCount, duePopupReminders } from '../data/reminders'
 import { localDayKey, daysBetween } from '../lib/date'
 import { cycleStatus, checkInOptions, checkInTitle, phaseCat, type CheckInOption } from '../lib/cycle'
@@ -53,8 +54,12 @@ export default function Home() {
   const [haalandSkip, setHaalandSkip] = useState(false)
 
   const totals = useMemo(() => totalsByCurrency(accounts, movements), [accounts, movements])
-  const hasUSD = useMemo(
-    () => accounts.some((a) => !a.archived && accountCurrency(a) === 'USD'),
+  // Monedas distintas al peso que ella tenga activas (dólares, soles…): se muestran aparte
+  const otrasMonedas = useMemo(
+    () =>
+      CURRENCIES.filter(
+        (c) => c !== 'COP' && accounts.some((a) => !a.archived && accountCurrency(a) === c),
+      ),
     [accounts],
   )
   const pendings = useMemo(() => pendingTransfers(movements), [movements])
@@ -217,14 +222,16 @@ export default function Home() {
         <div className="balancecard__amount">
           <Money value={totals.COP} currency="COP" hidden={profile.hideBalance} />
         </div>
-        {hasUSD && (
-          <div className="balancecard__amount2">
-            <Money value={totals.USD} currency="USD" hidden={profile.hideBalance} />
+        {otrasMonedas.map((c) => (
+          <div key={c} className="balancecard__amount2">
+            <Money value={totals[c]} currency={c} hidden={profile.hideBalance} />
           </div>
-        )}
+        ))}
         <p className="balancecard__sub">
           {realCount} cuenta{realCount === 1 ? '' : 's'} activa{realCount === 1 ? '' : 's'}
-          {hasUSD ? ' · pesos y dólares por separado' : ''}
+          {otrasMonedas.length > 0
+            ? ` · pesos y ${otrasMonedas.map((c) => currencyName(c)).join(' y ')} por separado`
+            : ''}
         </p>
       </section>
 

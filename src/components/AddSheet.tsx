@@ -4,7 +4,7 @@ import Sheet from './ui/Sheet'
 import Cat from './Cat/Cat'
 import PeekCat from './PeekCat'
 import { useApp } from '../store/store'
-import { parseAmountToCents, currencySymbol } from '../lib/money'
+import { parseAmountToCents, currencySymbol, currencyName } from '../lib/money'
 import { PALETTE } from '../data/seed'
 import { accountCurrency, type Category, type Movement, type MovementType } from '../data/types'
 import Money from './Money'
@@ -236,7 +236,7 @@ export default function AddSheet({ open, edit, onClose }: AddSheetProps) {
               {type === 'transfer' && (
                 <p className="addform__hint" style={{ marginTop: -4 }}>
                   {isCross ? (
-                    <>Sale de tu cuenta en {srcCur === 'USD' ? 'dólares' : 'pesos'} 💸</>
+                    <>Sale de tu cuenta en {currencyName(srcCur)} 💸</>
                   ) : (
                     <>Se mueve entre tus cuentas 🔁</>
                   )}
@@ -271,7 +271,7 @@ export default function AddSheet({ open, edit, onClose }: AddSheetProps) {
               {/* Cross-currency: cuánto LLEGA a la cuenta destino */}
               {isCross && (
                 <div className="field">
-                  <label>¿Cuánto llegará en {dstCur === 'USD' ? 'dólares' : 'pesos'}? *</label>
+                  <label>¿Cuánto llegará en {currencyName(dstCur)}? *</label>
                   <div className="rowflex" style={{ alignItems: 'center', gap: 8 }}>
                     <span className="amount__cur" style={{ fontSize: 20 }}>
                       {currencySymbol(dstCur)}

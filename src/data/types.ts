@@ -10,7 +10,7 @@ export type ThemePref = 'light' | 'dark' | 'system'
 export type CatPresence = 'full' | 'medium' | 'low'
 
 /** Moneda de una cuenta. Si falta = pesos colombianos (cuentas viejas). */
-export type Currency = 'COP' | 'USD'
+export type Currency = 'COP' | 'USD' | 'PEN'
 
 /** Tipo de cuenta:
  *  - 'normal': cuenta real (Nequi, efectivo…) → cuenta en el Saldo total.

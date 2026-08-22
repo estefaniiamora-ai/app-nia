@@ -4,12 +4,34 @@
    Los decimales se muestran más pequeños en la UI (clase .dec).
    =========================================================== */
 
-export type CurrencyCode = 'COP' | 'USD'
+export type CurrencyCode = 'COP' | 'USD' | 'PEN'
 
 /** Símbolo que se muestra antes del número según la moneda. */
 export function currencySymbol(currency: CurrencyCode = 'COP'): string {
-  return currency === 'USD' ? 'US$' : '$'
+  return currency === 'USD' ? 'US$' : currency === 'PEN' ? 'S/' : '$'
 }
+
+/** Nombre en plural para textos: "pesos", "dólares", "soles". */
+export function currencyName(currency: CurrencyCode = 'COP'): string {
+  return currency === 'USD' ? 'dólares' : currency === 'PEN' ? 'soles' : 'pesos'
+}
+
+/** Etiqueta completa con bandera, p.ej. "🇵🇪 Soles (PEN)". */
+export function currencyLabel(currency: CurrencyCode = 'COP'): string {
+  return currency === 'USD'
+    ? '🇺🇸 Dólares (USD)'
+    : currency === 'PEN'
+      ? '🇵🇪 Soles (PEN)'
+      : '🇨🇴 Pesos (COP)'
+}
+
+/** Etiqueta corta para poner junto al nombre de la cuenta, p.ej. "PEN 🇵🇪". */
+export function currencyTag(currency: CurrencyCode = 'COP'): string {
+  return currency === 'USD' ? 'USD 🇺🇸' : currency === 'PEN' ? 'PEN 🇵🇪' : 'COP 🇨🇴'
+}
+
+/** Monedas que se pueden elegir al crear una cuenta. */
+export const CURRENCIES: CurrencyCode[] = ['COP', 'USD', 'PEN']
 
 export function toCents(value: number): number {
   return Math.round(value * 100)

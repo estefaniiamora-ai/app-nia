@@ -39,7 +39,7 @@ export type CurrencyTotals = Record<Currency, number>
 
 export function totalsByCurrency(accounts: Account[], movements: Movement[]): CurrencyTotals {
   const balances = allBalances(movements)
-  const totals: CurrencyTotals = { COP: 0, USD: 0 }
+  const totals: CurrencyTotals = { COP: 0, USD: 0, PEN: 0 }
   for (const a of accounts) {
     if (a.archived || a.deleted || isPersonAccount(a)) continue // las personas van aparte
     totals[accountCurrency(a)] += balances.get(a.id) ?? 0
